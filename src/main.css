@@ -4,6 +4,3 @@
   --gray: #b7b7b7;
   --brown: #705c53;
 }
-main {
-  background-color: var(--white);
-}

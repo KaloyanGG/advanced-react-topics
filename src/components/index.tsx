@@ -1,1 +1,1 @@
-export { default as RecipeList } from "./recipesList/RecipeList";
+export { default as RecipeCard } from "./recipeCard/RecipeCard";

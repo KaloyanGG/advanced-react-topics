@@ -1,0 +1,52 @@
+.recipe-card {
+  /* outline: 1px solid red; */
+  background-color: var(--peach);
+
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.8rem;
+
+  img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  h2,
+  p,
+  .read-like {
+    padding: 0 2.5rem;
+    text-align: justify;
+  }
+
+  h2 {
+  }
+
+  p {
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .read-like {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    button {
+      background-color: rgb(201, 82, 22);
+      border: none;
+      padding: 0.625rem 1rem;
+      border-radius: 2rem;
+      color: var(--white);
+    }
+    .likes {
+      display: flex;
+      color: rgb(201, 82, 22);
+      font-weight: bold;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RecipeCard } from "../../components";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
-
+import "./Landing.css";
 const recipesList: RecipeType[] = [
   {
     id: 1,
@@ -15,9 +15,9 @@ const recipesList: RecipeType[] = [
       "Black pepper",
     ],
     instructions:
-      "Boil spaghetti. Cook pancetta. Mix eggs and cheese. Combine all with spaghetti and pancetta. Season with pepper.",
+      "Boil spaghetti in salted water until al dente. In a separate pan, cook pancetta until crispy. In a bowl, whisk together eggs and grated Parmesan cheese. Drain the spaghetti, reserving some pasta water. Quickly mix the hot spaghetti with the egg and cheese mixture, adding a little pasta water to create a creamy sauce. Stir in the pancetta and season with freshly ground black pepper. Serve immediately with extra Parmesan cheese on top.",
     image:
-      "https://th.bing.com/th/id/OIP.TbEUSKK-p1OcmiEeEgOM7AHaGl?w=211&h=187&c=7&r=0&o=5&pid=1.7",
+      "https://th.bing.com/th/id/OIP.iGnkcU1QMKkdCJloykf6JAHaE8?w=282&h=188&c=7&r=0&o=5&dpr=2&pid=1.7",
   },
   {
     id: 2,
@@ -31,8 +31,7 @@ const recipesList: RecipeType[] = [
       "Garlic",
       "Ginger",
     ],
-    instructions:
-      "Cook onions, garlic, and ginger. Add chicken and curry powder. Pour in coconut milk and simmer until chicken is cooked.",
+    instructions: "Perfect.",
     image:
       "https://th.bing.com/th/id/OIP.E6h1K_AfzDjWo8SA_T802wHaJQ?w=203&h=254&c=7&r=0&o=5&pid=1.7",
   },
@@ -47,9 +46,9 @@ const recipesList: RecipeType[] = [
       "Caesar dressing",
     ],
     instructions:
-      "Chop lettuce. Add croutons and cheese. Toss with Caesar dressing.",
+      "Wash and chop the romaine lettuce into bite-sized pieces. In a large bowl, toss the lettuce with Caesar dressing until evenly coated. Add croutons and grated Parmesan cheese. Toss again to combine. Serve immediately, garnished with additional Parmesan cheese and freshly ground black pepper if desired.",
     image:
-      "https://th.bing.com/th/id/OIP.MMJq36Gu_IlHC2E5ksmY4AHaLH?w=203&h=304&c=7&r=0&o=5&pid=1.7",
+      "https://www.thespruceeats.com/thmb/DRaBINVopeoHOpjJn66Yh7pMBSc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-caesar-salad-recipe-996054-Hero_01-33c94cc8b8e841ee8f2a815816a0af95.jpg",
   },
   {
     id: 4,
@@ -64,7 +63,7 @@ const recipesList: RecipeType[] = [
       "Flour",
     ],
     instructions:
-      "Cook beef and onions. Add mushrooms and cook until tender. Stir in flour and sour cream. Simmer until thickened.",
+      "Slice the beef into thin strips. In a large skillet, melt butter over medium-high heat. Add the beef strips and cook until browned. Remove the beef from the skillet and set aside. In the same skillet, add sliced onions and mushrooms. Cook until the onions are translucent and the mushrooms are tender. Sprinkle flour over the vegetables and stir to combine. Gradually add beef broth, stirring constantly until the sauce thickens. Return the beef to the skillet and stir in sour cream. Cook until heated through. Serve over egg noodles or rice.",
     image:
       "https://th.bing.com/th/id/OIP.7rIzNaYnV0mDmPEo-WSx0QHaKx?w=203&h=295&c=7&r=0&o=5&pid=1.7",
   },
@@ -81,7 +80,7 @@ const recipesList: RecipeType[] = [
       "Ginger",
     ],
     instructions:
-      "Stir fry vegetables with garlic and ginger. Add soy sauce and cook until vegetables are tender.",
+      "Cut the vegetables into bite-sized pieces. Heat oil in a large wok or skillet over high heat. Add minced garlic and grated ginger, and cook for 30 seconds until fragrant. Add the vegetables and stir-fry for 5-7 minutes until they are tender-crisp. Pour in soy sauce and stir to coat the vegetables evenly. Cook for another minute. Serve hot over rice or noodles.",
     image:
       "https://th.bing.com/th/id/OIP.VmnyfVuV9NLwp5OFlN1ZiAAAAA?w=203&h=372&c=7&r=0&o=5&pid=1.7",
   },
@@ -92,10 +91,12 @@ const Landing = () => {
   return (
     <>
       <h1>Recipes List</h1>
-      <h3>recipes count: ${recipes.length}</h3>
-      {recipes.map((recipe) => {
-        return <RecipeCard key={recipe.id} recipe={recipe} />;
-      })}
+      <h3>Found: {recipes.length}</h3>
+      <div className='recipes-container'>
+        {recipes.map((recipe) => {
+          return <RecipeCard key={recipe.id} recipe={recipe} />;
+        })}
+      </div>
     </>
   );
 };

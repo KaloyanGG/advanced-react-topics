@@ -1,5 +1,4 @@
 .recipe-card {
-  /* outline: 1px solid red; */
   box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1);
   background-color: var(--peach);
   display: grid;
@@ -18,23 +17,13 @@
 
   h2,
   p,
-  .read-like {
+  div.read-like {
     padding: 0 2.5rem;
-    text-align: justify;
-    button {
-      cursor: pointer;
-      &:hover {
-        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1);
-        transform: scale(1.01);
-      }
-    }
-  }
-
-  h2 {
   }
 
   p {
     line-height: 1.5;
+    text-align: justify;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
@@ -42,31 +31,47 @@
     text-overflow: ellipsis;
   }
 
-  .read-like {
+  div.read-like {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-    button {
+
+    button.read-recipe-button {
       background-color: var(--button);
       border: none;
       padding: 0.625rem 1rem;
       border-radius: 2rem;
       color: var(--white);
-    }
-    .likes {
-      display: flex;
-      color: var(--button);
-      font-weight: bold;
-      svg {
-        fill: var(--peach);
-        stroke: var(--button);
-        width: 18px;
-        height: 18px;
-      }
       &:hover {
+        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1);
+        transform: scale(1.01);
+      }
+    }
+
+    div.likes {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      button.like {
+        color: var(--button);
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+
         svg {
-          fill: var(--button);
+          fill: var(--peach);
+          stroke: var(--button);
+          width: 25px;
+          height: 25px;
+          margin-right: 2px;
+        }
+
+        &:hover {
+          svg {
+            fill: var(--button);
+          }
         }
       }
     }

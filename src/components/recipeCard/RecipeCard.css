@@ -1,10 +1,14 @@
 .recipe-card {
   /* outline: 1px solid red; */
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1);
   background-color: var(--peach);
-
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 0.8rem;
+
+  &:hover {
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+  }
 
   img {
     height: 200px;
@@ -17,6 +21,13 @@
   .read-like {
     padding: 0 2.5rem;
     text-align: justify;
+    button {
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.1);
+        transform: scale(1.01);
+      }
+    }
   }
 
   h2 {
@@ -37,7 +48,7 @@
     align-items: center;
     margin-bottom: 1rem;
     button {
-      background-color: rgb(201, 82, 22);
+      background-color: var(--button);
       border: none;
       padding: 0.625rem 1rem;
       border-radius: 2rem;
@@ -45,8 +56,19 @@
     }
     .likes {
       display: flex;
-      color: rgb(201, 82, 22);
+      color: var(--button);
       font-weight: bold;
+      svg {
+        fill: var(--peach);
+        stroke: var(--button);
+        width: 18px;
+        height: 18px;
+      }
+      &:hover {
+        svg {
+          fill: var(--button);
+        }
+      }
     }
   }
 }

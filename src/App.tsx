@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomeLayout, AddRecipe, Landing } from "./pages";
+import DefaultError from "./pages/defaultError/DefaultError";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <div>route not found lol</div>,
+    errorElement: <DefaultError />,
     children: [
       {
         index: true,

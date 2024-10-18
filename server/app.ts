@@ -82,12 +82,13 @@ const recipesList = [
   },
 ];
 
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
+import { id } from "./helpers";
 
 const app = express();
 
-app.use(cors());
+app.use(cors(), express.json());
 
 app.get("/", (req, res, next) => {
   res.send(200);
@@ -95,6 +96,11 @@ app.get("/", (req, res, next) => {
 
 app.get("/recipes", (_, res) => {
   res.send(recipesList);
+});
+app.post("/recipes", (req: Request, res: Response) => {
+  const recipe = req.body;
+  recipesList.push({ id: id(recipesList), likes: 0, ...recipe });
+  res.sendStatus(202);
 });
 const port = 3000;
 app.listen(port, () => {

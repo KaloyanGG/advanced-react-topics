@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
-import { baseURL } from "../../config";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ const AddRecipe = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await axios.post(baseURL + "/recipes", event.currentTarget, {
+      await axiosInstance.post("/recipes", event.currentTarget, {
         headers: {
           "Content-Type": "application/json",
         },

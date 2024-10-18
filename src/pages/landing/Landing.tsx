@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { RecipeCard } from "../../components";
 import "./Landing.css";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
-import axios from "axios";
-import { baseURL } from "../../config";
+import { axiosInstance } from "../../config";
 
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [error, setError] = useState<any>(null);
   useEffect(() => {
-    axios
-      .get(baseURL + "/recipes")
+    axiosInstance
+      .get("/recipes")
       .then((r) => {
         setRecipes(r.data as any);
       })

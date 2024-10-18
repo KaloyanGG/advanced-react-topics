@@ -21,28 +21,15 @@ const AddRecipe = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const formData = new FormData(event.currentTarget);
-      const formObject: any = {};
-      formData.forEach((value: FormDataEntryValue, key: string) => {
-        const arrayKey = key.endsWith("[]") ? key.slice(0, -2) : key;
-        const currentValueInFormObject = formObject[arrayKey];
-        if (key.endsWith("[]")) {
-          if (!currentValueInFormObject) {
-            formObject[arrayKey] = [value];
-          } else {
-            formObject[arrayKey].push(value);
-          }
-        } else {
-          formObject[arrayKey] = value;
-        }
+      await axios.post(baseURL + "/recipes", event.currentTarget, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      await axios.post(baseURL + "/recipes", formObject);
       navigate("/");
     } catch (error) {
+      //todo decide what to do with error handling
       console.log(error);
-      navigate("/error");
-      //Todo this is not giving error context to the errorpage
-      // throw error;
     }
   };
   return (

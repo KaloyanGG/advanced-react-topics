@@ -81,6 +81,21 @@ const recipesList = [
       "https://th.bing.com/th/id/OIP.VmnyfVuV9NLwp5OFlN1ZiAAAAA?w=203&h=372&c=7&r=0&o=5&pid=1.7",
   },
 ];
+const ingredients = [
+  "spaghetti",
+  "eggs",
+  "pancetta",
+  "parmesan cheese",
+  "black pepper",
+  "chicken",
+  "curry powder",
+  "coconut milk",
+  "onions",
+  "garlic",
+  "ginger",
+  "romaine lettuce",
+  "croutons",
+];
 
 import express, { Request, Response } from "express";
 import cors from "cors";
@@ -97,6 +112,10 @@ app.get("/", (req, res, next) => {
 app.get("/recipes", (_, res) => {
   res.send(recipesList);
 });
+app.get("/ingredients", (_, res) => {
+  res.send(ingredients);
+});
+
 app.post("/recipes", (req: Request, res: Response) => {
   const recipe = req.body;
   recipesList.push({ id: id(recipesList), likes: 0, ...recipe });

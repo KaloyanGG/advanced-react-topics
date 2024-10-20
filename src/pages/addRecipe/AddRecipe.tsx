@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
 import { axiosInstance } from "../../config";
 import { useEffect, useReducer, useState } from "react";
-import { recipeReducer } from "../../reducers/recipeReducer";
+import { initialState, recipeReducer } from "../../reducers/recipeReducer";
+import toast from "react-hot-toast";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
@@ -10,9 +11,17 @@ const AddRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get<string[]>("/ingredients").then(({ data }) => {
-      setIngredients(data);
-    });
+    axiosInstance
+      .get<string[]>("/ingredients")
+      .then(({ data }) => {
+        setIngredients(data);
+      })
+      .catch((error) => {
+        dispatch({
+          type: "set_ingredients_error",
+          errorMessage: error.message,
+        });
+      });
   }, []);
 
   const onBlur = (
@@ -39,6 +48,7 @@ const AddRecipe = () => {
         label.classList.remove("focused");
       }
     });
+    toast.success("Form reset");
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,8 +81,7 @@ const AddRecipe = () => {
       const errorMessage =
         error.response?.data?.message || error.message || "An error occurred.";
       dispatch({ type: "set_error", errorMessage: errorMessage });
-      //todo fix solo ingredient on line height
-      //todo decide if anything more with the error
+      // TODO fix solo ingredient on line height
     }
   };
 
@@ -131,14 +140,18 @@ const AddRecipe = () => {
             <label htmlFor='instructions'>Instructions</label>
           </div>
           <div className='ingredients-container'>
-            {ingredients.map((i, idx) => {
-              return (
-                <>
-                  <label htmlFor={i}>{i}</label>
-                  <input type='checkbox' name='ingredients[]' value={i} />
-                </>
-              );
-            })}
+            {!state.ingredientsError ? (
+              ingredients.map((i, idx) => {
+                return (
+                  <>
+                    <label htmlFor={i}>{i}</label>
+                    <input type='checkbox' name='ingredients[]' value={i} />
+                  </>
+                );
+              })
+            ) : (
+              <p className='error'>Failed fetching the ingredients</p>
+            )}
           </div>
           <div className='buttons-container'>
             <button className='submit' type='submit'>

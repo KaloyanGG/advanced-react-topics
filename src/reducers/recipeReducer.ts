@@ -3,6 +3,7 @@ interface State {
   image: string;
   instructions: string;
   ingredients: [];
+  ingredientsError: string;
   error: string;
 }
 
@@ -25,12 +26,17 @@ interface ChangedInstructionsAction {
   type: "changed_instructions";
   instructions: string;
 }
+interface IngredientsErrorAction {
+  type: "set_ingredients_error";
+  errorMessage: string;
+}
 
-const initialState: State = {
+export const initialState: State = {
   name: "",
   image: "",
   instructions: "",
   ingredients: [],
+  ingredientsError: "",
   error: "",
 };
 
@@ -39,7 +45,8 @@ type Action =
   | ResetAction
   | SetErrorAction
   | ChangedImageAction
-  | ChangedInstructionsAction;
+  | ChangedInstructionsAction
+  | IngredientsErrorAction;
 
 export const recipeReducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -59,5 +66,7 @@ export const recipeReducer = (state: State, action: Action): State => {
       return initialState;
     case "set_error":
       return { ...state, error: action.errorMessage };
+    case "set_ingredients_error":
+      return { ...state, ingredientsError: action.errorMessage };
   }
 };

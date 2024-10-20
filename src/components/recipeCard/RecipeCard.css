@@ -53,12 +53,12 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-
       button.like {
         color: var(--button);
         font-weight: bold;
         display: flex;
         align-items: center;
+        background-color: var(--peach);
 
         svg {
           fill: var(--peach);

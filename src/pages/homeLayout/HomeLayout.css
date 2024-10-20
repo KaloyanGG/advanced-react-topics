@@ -1,3 +1,11 @@
+:root {
+  --peach: #eddfe0;
+  --white: #f5f5f7;
+  --gray: #b7b7b7;
+  --brown: #705c53;
+  --button: rgb(201, 82, 22);
+}
+
 nav {
   display: flex;
   justify-content: space-around;

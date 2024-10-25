@@ -81,7 +81,6 @@ const AddRecipe = () => {
       const errorMessage =
         error.response?.data?.message || error.message || "An error occurred.";
       dispatch({ type: "set_error", errorMessage: errorMessage });
-      // TODO fix solo ingredient on line height
     }
   };
 

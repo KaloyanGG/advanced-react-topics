@@ -75,8 +75,7 @@ const recipesList = [
       "Garlic",
       "Ginger",
     ],
-    instructions:
-      "Cut the vegetables into bite-sized pieces. Heat oil in a large wok or skillet over high heat. Add minced garlic and grated ginger, and cook for 30 seconds until fragrant. Add the vegetables and stir-fry for 5-7 minutes until they are tender-crisp. Pour in soy sauce and stir to coat the vegetables evenly. Cook for another minute. Serve hot over rice or noodles.",
+    instructions: "One line instruction",
     image:
       "https://th.bing.com/th/id/OIP.VmnyfVuV9NLwp5OFlN1ZiAAAAA?w=203&h=372&c=7&r=0&o=5&pid=1.7",
   },

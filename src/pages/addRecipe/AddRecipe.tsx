@@ -4,10 +4,12 @@ import { axiosInstance } from "../../config";
 import { useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import toast from "react-hot-toast";
+import { validateImageURL } from "../../utils/imageValidator";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
   const [ingredients, setIngredients] = useState<string[]>([]);
+  const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,9 +29,18 @@ const AddRecipe = () => {
   const onBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
-    const currentInput = e.target as HTMLInputElement | HTMLTextAreaElement;
+    const currentInput = e.currentTarget;
     const label = currentInput.nextSibling as HTMLLabelElement;
     if (!currentInput.value) label.classList.remove("focused");
+    if (currentInput.name === "image") {
+      setSubmitEnabled(false);
+
+      validateImageURL(currentInput.value).then((isValid) => {
+        isValid
+          ? setSubmitEnabled(true)
+          : dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
+      });
+    }
   };
 
   const onFocus = (
@@ -96,6 +107,7 @@ const AddRecipe = () => {
           )}
           <div className='form-row'>
             <input
+              autoFocus
               required
               type='text'
               name='name'
@@ -153,7 +165,7 @@ const AddRecipe = () => {
             )}
           </div>
           <div className='buttons-container'>
-            <button className='submit' type='submit'>
+            <button className='submit' disabled={!submitEnabled} type='submit'>
               Submit
             </button>
             <button type='reset' className='reset'>

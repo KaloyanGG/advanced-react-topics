@@ -4,6 +4,7 @@
   --gray: #b7b7b7;
   --brown: #705c53;
   --button: rgb(201, 82, 22);
+  --button-disabled: rgba(201, 82, 22, 0.5);
 }
 
 nav {

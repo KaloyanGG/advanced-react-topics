@@ -22,13 +22,15 @@
   }
 
   p {
-    line-height: 1.5;
+    --line-height: 1.5;
+    line-height: var(--line-height);
     text-align: justify;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: calc(var(--line-height) * 5 * 1rem);
   }
 
   div.read-like {

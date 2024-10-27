@@ -10,6 +10,7 @@ const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
+  const [imageURLValue, setImageURLValue] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,11 +35,15 @@ const AddRecipe = () => {
     if (!currentInput.value) label.classList.remove("focused");
     if (currentInput.name === "image" && currentInput.value !== "") {
       setSubmitEnabled(false);
-
-      validateImageURL(currentInput.value).then((isValid) => {
-        isValid
-          ? setSubmitEnabled(true)
-          : dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
+      const urlValue = currentInput.value;
+      validateImageURL(urlValue).then((isValid) => {
+        setImageURLValue(urlValue);
+        if (isValid) {
+          setSubmitEnabled(true);
+        } else {
+          dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
+          setImageURLValue("");
+        }
       });
     }
   };
@@ -101,11 +106,7 @@ const AddRecipe = () => {
       <div className='add-recipe-container'>
         <h1>Add recipe</h1>
         <form onSubmit={onSubmit} onReset={resetForm}>
-          {state.error && (
-            <div className='form-row'>
-              <p className='error'>{state.error}</p>
-            </div>
-          )}
+          {state.error && <p className='error'>{state.error}</p>}
           <div className='form-row'>
             <input
               autoFocus
@@ -127,6 +128,7 @@ const AddRecipe = () => {
               type='text'
               name='image'
               id='image'
+              className='image-input'
               onFocus={onFocus}
               onBlur={onBlur}
               onChange={(e) => {
@@ -134,8 +136,9 @@ const AddRecipe = () => {
               }}
             />
             <label htmlFor='image'>Image URL</label>
+            <img src={imageURLValue} />
           </div>
-          <div className='form-row'>
+          <div className='form-row instructions'>
             <textarea
               required
               onFocus={onFocus}

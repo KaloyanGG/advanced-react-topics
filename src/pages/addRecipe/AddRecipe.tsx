@@ -32,7 +32,7 @@ const AddRecipe = () => {
     const currentInput = e.currentTarget;
     const label = currentInput.nextSibling as HTMLLabelElement;
     if (!currentInput.value) label.classList.remove("focused");
-    if (currentInput.name === "image") {
+    if (currentInput.name === "image" && currentInput.value !== "") {
       setSubmitEnabled(false);
 
       validateImageURL(currentInput.value).then((isValid) => {
@@ -59,6 +59,7 @@ const AddRecipe = () => {
         label.classList.remove("focused");
       }
     });
+    dispatch({ type: "set_error", errorMessage: "" });
     toast.success("Form reset");
   };
 

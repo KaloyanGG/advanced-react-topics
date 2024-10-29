@@ -11,6 +11,7 @@ const AddRecipe = () => {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
   const [imageURLValue, setImageURLValue] = useState<string>("");
+  const [imageLoadingState, setImageLoadingState] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +36,9 @@ const AddRecipe = () => {
     if (!currentInput.value) label.classList.remove("focused");
     if (currentInput.name === "image" && currentInput.value !== "") {
       setSubmitEnabled(false);
+      setImageLoadingState(true);
       const urlValue = currentInput.value;
+
       validateImageURL(urlValue).then((isValid) => {
         setImageURLValue(urlValue);
         if (isValid) {
@@ -44,6 +47,7 @@ const AddRecipe = () => {
           dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
           setImageURLValue("");
         }
+        setImageLoadingState(false);
       });
     }
   };
@@ -136,7 +140,13 @@ const AddRecipe = () => {
               }}
             />
             <label htmlFor='image'>Image URL</label>
-            <img src={imageURLValue} />
+            <div className='image-loader-container'>
+              {imageLoadingState ? (
+                <span className='loader'></span>
+              ) : (
+                <img src={imageURLValue} />
+              )}
+            </div>
           </div>
           <div className='form-row instructions'>
             <textarea

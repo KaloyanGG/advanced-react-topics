@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
 import { axiosInstance } from "../../config";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import toast from "react-hot-toast";
 import { validateImageURL } from "../../utils/imageValidator";
+import { debounce } from "../../utils/debounce";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
@@ -36,20 +37,35 @@ const AddRecipe = () => {
     if (!currentInput.value) label.classList.remove("focused");
     if (currentInput.name === "image" && currentInput.value !== "") {
       setSubmitEnabled(false);
-      setImageLoadingState(true);
-      const urlValue = currentInput.value;
-
-      validateImageURL(urlValue).then((isValid) => {
-        setImageURLValue(urlValue);
-        if (isValid) {
-          setSubmitEnabled(true);
-        } else {
-          dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
-          setImageURLValue("");
-        }
-        setImageLoadingState(false);
-      });
     }
+  };
+
+  const validateAndMakeChanges = (urlValue: string) => {
+    dispatch({ type: "changed_image", image: urlValue });
+
+    validateImageURL(urlValue).then((isValid) => {
+      setImageURLValue(urlValue);
+      if (isValid) {
+        setSubmitEnabled(true);
+      } else {
+        dispatch({
+          type: "set_error",
+          errorMessage: "Invalid image URL",
+        });
+        setImageURLValue("");
+      }
+      setImageLoadingState(false);
+    });
+  };
+
+  const debouncedValidateAndMakeChanges = useCallback(
+    debounce((urlValue) => validateAndMakeChanges(urlValue), 500),
+    []
+  );
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImageLoadingState(true);
+    debouncedValidateAndMakeChanges(e.currentTarget.value);
   };
 
   const onFocus = (
@@ -135,9 +151,7 @@ const AddRecipe = () => {
               className='image-input'
               onFocus={onFocus}
               onBlur={onBlur}
-              onChange={(e) => {
-                dispatch({ type: "changed_image", image: e.target.value });
-              }}
+              onChange={onChange}
             />
             <label htmlFor='image'>Image URL</label>
             <div className='image-loader-container'>

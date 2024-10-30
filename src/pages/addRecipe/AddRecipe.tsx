@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
 import { axiosInstance } from "../../config";
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import toast from "react-hot-toast";
 import { validateImageURL } from "../../utils/imageValidator";
+import { debounce } from "../../utils/debounce";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
+  const [imageURLValue, setImageURLValue] = useState<string>("");
+  const [imageLoadingState, setImageLoadingState] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,13 +37,35 @@ const AddRecipe = () => {
     if (!currentInput.value) label.classList.remove("focused");
     if (currentInput.name === "image" && currentInput.value !== "") {
       setSubmitEnabled(false);
-
-      validateImageURL(currentInput.value).then((isValid) => {
-        isValid
-          ? setSubmitEnabled(true)
-          : dispatch({ type: "set_error", errorMessage: "Invalid image URL" });
-      });
     }
+  };
+
+  const validateAndMakeChanges = (urlValue: string) => {
+    dispatch({ type: "changed_image", image: urlValue });
+
+    validateImageURL(urlValue).then((isValid) => {
+      setImageURLValue(urlValue);
+      if (isValid) {
+        setSubmitEnabled(true);
+      } else {
+        dispatch({
+          type: "set_error",
+          errorMessage: "Invalid image URL",
+        });
+        setImageURLValue("");
+      }
+      setImageLoadingState(false);
+    });
+  };
+
+  const debouncedValidateAndMakeChanges = useCallback(
+    debounce((urlValue) => validateAndMakeChanges(urlValue), 500),
+    []
+  );
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImageLoadingState(true);
+    debouncedValidateAndMakeChanges(e.currentTarget.value);
   };
 
   const onFocus = (
@@ -101,11 +126,7 @@ const AddRecipe = () => {
       <div className='add-recipe-container'>
         <h1>Add recipe</h1>
         <form onSubmit={onSubmit} onReset={resetForm}>
-          {state.error && (
-            <div className='form-row'>
-              <p className='error'>{state.error}</p>
-            </div>
-          )}
+          {state.error && <p className='error'>{state.error}</p>}
           <div className='form-row'>
             <input
               autoFocus
@@ -127,15 +148,21 @@ const AddRecipe = () => {
               type='text'
               name='image'
               id='image'
+              className='image-input'
               onFocus={onFocus}
               onBlur={onBlur}
-              onChange={(e) => {
-                dispatch({ type: "changed_image", image: e.target.value });
-              }}
+              onChange={onChange}
             />
             <label htmlFor='image'>Image URL</label>
+            <div className='image-loader-container'>
+              {imageLoadingState ? (
+                <span className='loader'></span>
+              ) : (
+                <img src={imageURLValue} />
+              )}
+            </div>
           </div>
-          <div className='form-row'>
+          <div className='form-row instructions'>
             <textarea
               required
               onFocus={onFocus}

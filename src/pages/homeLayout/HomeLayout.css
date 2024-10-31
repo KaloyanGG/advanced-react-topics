@@ -27,6 +27,7 @@ body {
   background-color: var(--white);
 }
 main {
-  max-width: 1200px;
+  max-width: 1200px; /* === 75rem */
+  width: 90vw;
   margin: 0 auto;
 }

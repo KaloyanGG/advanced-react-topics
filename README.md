@@ -6,6 +6,7 @@
 - React Router, useNavigate
 - useCallback
 - useReducer
+- loader
 
 ## Non-react good practices:
 

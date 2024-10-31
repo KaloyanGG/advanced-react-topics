@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 export type RecipeType = {
   id: number;
@@ -8,13 +9,19 @@ export type RecipeType = {
   likes: number;
 };
 const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
+  const navigate = useNavigate();
   return (
     <div className='recipe-card'>
       <img src={recipe.image} alt={recipe.name} />
       <h2>{recipe.name}</h2>
       <p>{recipe.instructions}</p>
       <div className='read-like'>
-        <button className='read-recipe-button'>Read recipe</button>
+        <button
+          className='read-recipe-button'
+          onClick={() => navigate(`/recipes/${recipe.id}`)}
+        >
+          Read recipe
+        </button>
         <div className='likes'>
           <button className='like'>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>

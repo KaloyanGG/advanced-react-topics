@@ -120,6 +120,17 @@ app.post("/recipes", (req: Request, res: Response) => {
   recipesList.push({ id: id(recipesList), likes: 0, ...recipe });
   res.sendStatus(202);
 });
+
+app.get("/recipes/:id", (req, res) => {
+  const id = req.params.id;
+  const recipeById = recipesList.find((r) => r.id === parseInt(id));
+  if (recipeById) {
+    res.status(200).send(recipeById);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

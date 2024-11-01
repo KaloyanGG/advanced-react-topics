@@ -5,7 +5,7 @@ form {
   p.error {
     color: red;
     position: absolute;
-    top: 0;
+    top: -2rem;
   }
 
   .form-row {

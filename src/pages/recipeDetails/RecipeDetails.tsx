@@ -7,12 +7,21 @@ const RecipeDetails = () => {
   console.log(recipe);
   return (
     <div className='recipe-details'>
-      {recipe.name}
-      {recipe.id}
-      {recipe.image}
-      {recipe.ingredients}
-      {recipe.instructions}
-      {recipe.likes}
+      <div className='img'>
+        <img src={recipe.image} alt={recipe.name} />
+      </div>
+      <div className='info-container'>
+        <h1>Recipe: {recipe.name}</h1>
+        <h3>Ingredients:</h3>
+        <ul className='ingredients'>
+          {recipe.ingredients.map((i) => {
+            return <li>{i}</li>;
+          })}
+        </ul>
+        <h3>Instructions:</h3>
+        <p>{recipe.instructions}</p>
+        <button className='like'>Likes: {recipe.likes}</button>
+      </div>
     </div>
   );
 };

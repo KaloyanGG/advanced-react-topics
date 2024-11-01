@@ -122,87 +122,82 @@ const AddRecipe = () => {
   };
 
   return (
-    <>
-      <div className='add-recipe-container'>
-        <h1>Add recipe</h1>
-        <form onSubmit={onSubmit} onReset={resetForm}>
-          {state.error && <p className='error'>{state.error}</p>}
-          <div className='form-row'>
-            <input
-              autoFocus
-              required
-              type='text'
-              name='name'
-              id='name'
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onChange={(e) => {
-                dispatch({ type: "changed_name", name: e.target.value });
-              }}
-            />
-            <label htmlFor='name'>Name</label>
-          </div>
-          <div className='form-row'>
-            <input
-              required
-              type='text'
-              name='image'
-              id='image'
-              className='image-input'
-              onFocus={onFocus}
-              onBlur={onBlur}
-              onChange={onChange}
-            />
-            <label htmlFor='image'>Image URL</label>
-            <div className='image-loader-container'>
-              {imageLoadingState ? (
-                <span className='loader'></span>
-              ) : (
-                <img src={imageURLValue} />
-              )}
-            </div>
-          </div>
-          <div className='form-row instructions'>
-            <textarea
-              required
-              onFocus={onFocus}
-              onBlur={onBlur}
-              name='instructions'
-              id='instructions'
-              onChange={(e) => {
-                dispatch({
-                  type: "changed_instructions",
-                  instructions: e.target.value,
-                });
-              }}
-            />
-            <label htmlFor='instructions'>Instructions</label>
-          </div>
-          <div className='ingredients-container'>
-            {!state.ingredientsError ? (
-              ingredients.map((i, idx) => {
-                return (
-                  <>
-                    <label htmlFor={i}>{i}</label>
-                    <input type='checkbox' name='ingredients[]' value={i} />
-                  </>
-                );
-              })
-            ) : (
-              <p className='error'>Failed fetching the ingredients</p>
-            )}
-          </div>
-          <div className='buttons-container'>
-            <button className='submit' disabled={!submitEnabled} type='submit'>
-              Submit
-            </button>
-            <button type='reset' className='reset'>
-              X
-            </button>
-          </div>
-        </form>
+    <form onSubmit={onSubmit} onReset={resetForm}>
+      {state.error && <p className='error'>{state.error}</p>}
+      <div className='form-row'>
+        <input
+          autoFocus
+          required
+          type='text'
+          name='name'
+          id='name'
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={(e) => {
+            dispatch({ type: "changed_name", name: e.target.value });
+          }}
+        />
+        <label htmlFor='name'>Name</label>
       </div>
-    </>
+      <div className='form-row'>
+        <input
+          required
+          type='text'
+          name='image'
+          id='image'
+          className='image-input'
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+        />
+        <label htmlFor='image'>Image URL</label>
+        <div className='image-loader-container'>
+          {imageLoadingState ? (
+            <span className='loader'></span>
+          ) : (
+            <img src={imageURLValue} />
+          )}
+        </div>
+      </div>
+      <div className='form-row instructions'>
+        <textarea
+          required
+          onFocus={onFocus}
+          onBlur={onBlur}
+          name='instructions'
+          id='instructions'
+          onChange={(e) => {
+            dispatch({
+              type: "changed_instructions",
+              instructions: e.target.value,
+            });
+          }}
+        />
+        <label htmlFor='instructions'>Instructions</label>
+      </div>
+      <div className='ingredients-container'>
+        {!state.ingredientsError ? (
+          ingredients.map((i, idx) => {
+            return (
+              <>
+                <label htmlFor={i}>{i}</label>
+                <input type='checkbox' name='ingredients[]' value={i} />
+              </>
+            );
+          })
+        ) : (
+          <p className='error'>Failed fetching the ingredients</p>
+        )}
+      </div>
+      <div className='buttons-container'>
+        <button className='submit' disabled={!submitEnabled} type='submit'>
+          Submit
+        </button>
+        <button type='reset' className='reset'>
+          X
+        </button>
+      </div>
+    </form>
   );
 };
 export default AddRecipe;

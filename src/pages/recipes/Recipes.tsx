@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RecipeCard } from "../../components";
-import "./Landing.css";
+import "./Recipes.css";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config";
 
@@ -18,21 +18,21 @@ const Landing = () => {
       });
   }, []);
   return (
-    <>
+    <div className='recipes-container'>
       <h1>Recipes List</h1>
       {error ? (
         <p>Error loading the recipes from the server</p>
       ) : (
         <>
           <h3>Found: {recipes.length}</h3>
-          <div className='recipes-container'>
+          <div className='recipes-list'>
             {recipes.map((recipe) => {
               return <RecipeCard key={recipe.id} recipe={recipe} />;
             })}
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 

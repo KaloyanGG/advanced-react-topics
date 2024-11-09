@@ -1,33 +1,40 @@
 import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
 import { axiosInstance } from "../../config";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import toast from "react-hot-toast";
 import { validateImageURL } from "../../utils/imageValidator";
 import { debounce } from "../../utils/debounce";
+import { useQuery } from "@tanstack/react-query";
+import { fetchIngredients } from "../../services/ingredientsService";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
-  const [ingredients, setIngredients] = useState<string[]>([]);
+  const {
+    data: ingredients = [],
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["ingredients"],
+    queryFn: fetchIngredients,
+    staleTime: Infinity,
+    gcTime: 24 * 60 * 60 * 1000,
+  });
+
   const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
   const [imageURLValue, setImageURLValue] = useState<string>("");
   const [imageLoadingState, setImageLoadingState] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance
-      .get<string[]>("/ingredients")
-      .then(({ data }) => {
-        setIngredients(data);
-      })
-      .catch((error) => {
-        dispatch({
-          type: "set_ingredients_error",
-          errorMessage: error.message,
-        });
+    if (isError && error instanceof Error) {
+      dispatch({
+        type: "set_ingredients_error",
+        errorMessage: error.message,
       });
-  }, []);
+    }
+  }, [isError, error]);
 
   const onBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
@@ -179,10 +186,10 @@ const AddRecipe = () => {
         {!state.ingredientsError ? (
           ingredients.map((i, idx) => {
             return (
-              <>
+              <Fragment key={idx}>
                 <label htmlFor={i}>{i}</label>
                 <input type='checkbox' name='ingredients[]' value={i} />
-              </>
+              </Fragment>
             );
           })
         ) : (

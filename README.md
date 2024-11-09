@@ -3,10 +3,10 @@
 ## React topics used:
 
 - useEffect/useState
-- React Router, useNavigate
+- React Router, useNavigate, loader
 - useCallback
 - useReducer
-- loader
+- useQuery
 
 ## Non-react good practices:
 

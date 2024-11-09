@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import "./HomeLayout.css";
 import { Toaster } from "react-hot-toast";
 import VwIndicator from "../../components/VWIndicator/VWIndicator";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const HomeLayout = () => {
   return (
@@ -15,7 +16,9 @@ const HomeLayout = () => {
         <NavLink to={"/idk"}>idk</NavLink>
       </nav>
       <main>
-        <Outlet />
+        <QueryClientProvider client={new QueryClient()}>
+          <Outlet />
+        </QueryClientProvider>
       </main>
     </>
   );

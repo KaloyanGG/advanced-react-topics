@@ -7,6 +7,7 @@ import { axiosInstance } from "../../config";
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [error, setError] = useState<any>(null);
+
   useEffect(() => {
     axiosInstance
       .get("/recipes")

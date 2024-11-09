@@ -1,7 +1,6 @@
 prio: Fix error removal when changing another input
 
 1. Memoise ingredients
-2. Fetch image and put it near image url
 3. Error showing additionally
 4. useRef in addRecipe
 

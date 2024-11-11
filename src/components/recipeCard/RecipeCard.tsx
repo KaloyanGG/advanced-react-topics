@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
+import { Ingredient } from "../../services/ingredientsService";
 export type RecipeType = {
-  id: number;
+  _id: number;
   name: string;
   ingredients: string[];
   instructions: string;
@@ -18,7 +19,7 @@ const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
       <div className='read-like'>
         <button
           className='read-recipe-button'
-          onClick={() => navigate(`/recipes/${recipe.id}`)}
+          onClick={() => navigate(`/recipes/${recipe._id}`)}
         >
           Read recipe
         </button>

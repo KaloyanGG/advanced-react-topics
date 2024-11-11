@@ -10,9 +10,9 @@ const Landing = () => {
 
   useEffect(() => {
     axiosInstance
-      .get("/recipes")
+      .get<RecipeType[]>("/recipes")
       .then((r) => {
-        setRecipes(r.data as any);
+        setRecipes(r.data);
       })
       .catch((error) => {
         setError(error);
@@ -28,7 +28,7 @@ const Landing = () => {
           <h3>Found: {recipes.length}</h3>
           <div className='recipes-list'>
             {recipes.map((recipe) => {
-              return <RecipeCard key={recipe.id} recipe={recipe} />;
+              return <RecipeCard key={recipe._id} recipe={recipe} />;
             })}
           </div>
         </>

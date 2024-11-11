@@ -4,6 +4,7 @@ import "./HomeLayout.css";
 import { Toaster } from "react-hot-toast";
 import VwIndicator from "../../components/VWIndicator/VWIndicator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const HomeLayout = () => {
   return (
@@ -17,6 +18,10 @@ const HomeLayout = () => {
       </nav>
       <main>
         <QueryClientProvider client={new QueryClient()}>
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition='bottom-left'
+          />
           <Outlet />
         </QueryClientProvider>
       </main>

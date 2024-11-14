@@ -1,8 +1,12 @@
 prio: Fix error removal when changing another input
 
-1. Memoise ingredients
+1. Cache ingredients with useQuery - done
+2. Fetch image and put it near image url - done
+
 3. Error showing additionally
 4. useRef in addRecipe
+5. Build a loader myself
+6. Build a notificator myself
 
 
 

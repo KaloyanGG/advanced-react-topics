@@ -22,7 +22,7 @@ const AddRecipe = () => {
     gcTime: 24 * 60 * 60 * 1000,
   });
 
-  const [submitEnabled, setSubmitEnabled] = useState<boolean>(true);
+  const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
   const [imageURLValue, setImageURLValue] = useState<string>("");
   const [imageLoadingState, setImageLoadingState] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -160,7 +160,7 @@ const AddRecipe = () => {
         <label htmlFor='image'>Image URL</label>
         <div className='image-loader-container'>
           {imageLoadingState ? (
-            <span className='loader'></span>
+            <div className='loader'></div>
           ) : (
             <img src={imageURLValue} />
           )}

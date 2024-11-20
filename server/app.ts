@@ -28,9 +28,13 @@ app.get("/ingredients", async (_, res) => {
   res.send(ingredients);
 });
 
-app.post("/recipes", (req: Request, res: Response) => {
+app.post("/recipes", async (req: Request, res: Response) => {
   const recipe = req.body;
-  // recipesList.push({ id: id(recipesList), likes: 0, ...recipe });
+  if (!recipe) {
+    res.sendStatus(400);
+    return;
+  }
+  await RecipeModel.insertMany(recipe);
   res.sendStatus(202);
 });
 

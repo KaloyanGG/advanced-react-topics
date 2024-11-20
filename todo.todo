@@ -2,11 +2,12 @@ prio: Fix error removal when changing another input
 
 1. Cache ingredients with useQuery - done
 2. Fetch image and put it near image url - done
+3. My own loader - done
 
-3. Error showing additionally
-4. useRef in addRecipe
-5. Build a loader myself
-6. Build a notificator myself
+4. Error showing additionally
+5. useRef in addRecipe
+6. Build a loader myself
+7. Build a notificator myself
 
 
 

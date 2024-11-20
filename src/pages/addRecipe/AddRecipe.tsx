@@ -188,7 +188,7 @@ const AddRecipe = () => {
             return (
               <Fragment key={idx}>
                 <label htmlFor={i.name}>{i.name}</label>
-                <input type='checkbox' name='ingredients[]' value={i.name} />
+                <input type='checkbox' name='ingredients[]' value={i._id} />
               </Fragment>
             );
           })

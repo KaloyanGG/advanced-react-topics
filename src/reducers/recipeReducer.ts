@@ -68,5 +68,7 @@ export const recipeReducer = (state: State, action: Action): State => {
       return { ...state, error: action.errorMessage };
     case "set_ingredients_error":
       return { ...state, ingredientsError: action.errorMessage };
+    default:
+      return state;
   }
 };

@@ -7,8 +7,10 @@ prio: Fix error removal when changing another input
 4. Error showing additionally
 5. useRef in addRecipe
 6. Build a loader myself
-7. Build a notificator myself
+7. Build a notificator myself - portals
 
+Additional:
+1. Fix disabled button when adding recipe
 
 
 X. Tailwind CSS

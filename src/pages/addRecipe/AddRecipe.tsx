@@ -21,18 +21,11 @@ const AddRecipe = () => {
     staleTime: Infinity,
     gcTime: 24 * 60 * 60 * 1000,
   });
-
-  const [submitEnabled, setSubmitEnabled] = useState<boolean>(false);
-  const [imageURLValue, setImageURLValue] = useState<string>("");
-  const [imageLoadingState, setImageLoadingState] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isError && error instanceof Error) {
-      dispatch({
-        type: "set_ingredients_error",
-        errorMessage: error.message,
-      });
+      dispatch({ type: "set_error", payload: { ingredients: error.message } });
     }
   }, [isError, error]);
 
@@ -41,27 +34,65 @@ const AddRecipe = () => {
   ) => {
     const currentInput = e.currentTarget;
     const label = currentInput.nextSibling as HTMLLabelElement;
-    if (!currentInput.value) label.classList.remove("focused");
-    if (currentInput.name === "image" && currentInput.value !== "") {
-      setSubmitEnabled(false);
+    if (!currentInput.value) {
+      label.classList.remove("focused");
+      dispatch({
+        type: "set_error",
+        payload: {
+          [currentInput.name]: `${currentInput.name
+            .charAt(0)
+            .toUpperCase()}${currentInput.name.slice(1)} is required.`,
+        },
+      });
     }
+  };
+
+  const onImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "enable_submit", disable: true });
+    dispatch({ type: "set_image_loading", loading: true });
+    debouncedValidateAndMakeChanges(e.currentTarget.value);
+  };
+
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: "changed_name", name: e.target.value });
+    dispatch({ type: "enable_submit" });
+  };
+
+  const onInstructionsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch({
+      type: "changed_instructions",
+      instructions: e.target.value,
+    });
+    dispatch({ type: "set_error", payload: { instructions: null } });
+    dispatch({ type: "enable_submit" });
+  };
+
+  const onIngredientsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "changed_ingredients",
+      ingredient: {
+        id: e.target.value,
+        checked: e.target.checked,
+      },
+    });
+    dispatch({ type: "enable_submit" });
   };
 
   const validateAndMakeChanges = (urlValue: string) => {
     dispatch({ type: "changed_image", image: urlValue });
-
     validateImageURL(urlValue).then((isValid) => {
-      setImageURLValue(urlValue);
+      dispatch({ type: "changed_image", image: urlValue });
       if (isValid) {
-        setSubmitEnabled(true);
+        dispatch({ type: "set_error", payload: { image: null } });
       } else {
         dispatch({
           type: "set_error",
-          errorMessage: "Invalid image URL",
+          payload: { image: "Invalid image URL" },
         });
-        setImageURLValue("");
+        dispatch({ type: "changed_image", image: "" });
       }
-      setImageLoadingState(false);
+      dispatch({ type: "enable_submit" });
+      dispatch({ type: "set_image_loading", loading: false });
     });
   };
 
@@ -70,11 +101,6 @@ const AddRecipe = () => {
     []
   );
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImageLoadingState(true);
-    debouncedValidateAndMakeChanges(e.currentTarget.value);
-  };
-
   const onFocus = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
@@ -82,16 +108,26 @@ const AddRecipe = () => {
     label.classList.add("focused");
   };
 
-  const resetForm = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormReset = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
-    const inputs = form.querySelectorAll("input, textarea");
+    const inputs = form.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >("input, textarea");
     inputs.forEach((input) => {
+      if (input.type === "checkbox") {
+        (input as HTMLInputElement).checked = false;
+      } else {
+        input.value = "";
+      }
       const label = input.nextSibling as HTMLLabelElement;
       if (label) {
         label.classList.remove("focused");
       }
     });
-    dispatch({ type: "set_error", errorMessage: "" });
+    dispatch({ type: "changed_image", image: "" });
+    dispatch({ type: "form_reset" });
     toast.success("Form reset");
   };
 
@@ -110,7 +146,7 @@ const AddRecipe = () => {
       if (ingredients.length === 0) {
         dispatch({
           type: "set_error",
-          errorMessage: "Please choose at least 1 ingredient",
+          payload: { ingredients: "Please choose at least 1 ingredients" },
         });
         return;
       }
@@ -120,17 +156,21 @@ const AddRecipe = () => {
           "Content-Type": "application/json",
         },
       });
+      toast.success("Recipe added");
       navigate("/");
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || error.message || "An error occurred.";
-      dispatch({ type: "set_error", errorMessage: errorMessage });
+      dispatch({ type: "set_error", payload: { generalError: errorMessage } });
     }
   };
-
   return (
-    <form onSubmit={onSubmit} onReset={resetForm}>
-      {state.error && <p className='error'>{state.error}</p>}
+    <form onSubmit={onSubmit} onReset={handleFormReset}>
+      {Object.values(state.error).find((v) => v !== null) && (
+        <p className='error'>
+          {Object.values(state.error).find((v) => v !== null)}
+        </p>
+      )}
       <div className='form-row'>
         <input
           autoFocus
@@ -140,9 +180,7 @@ const AddRecipe = () => {
           id='name'
           onFocus={onFocus}
           onBlur={onBlur}
-          onChange={(e) => {
-            dispatch({ type: "changed_name", name: e.target.value });
-          }}
+          onChange={onNameChange}
         />
         <label htmlFor='name'>Name</label>
       </div>
@@ -155,14 +193,14 @@ const AddRecipe = () => {
           className='image-input'
           onFocus={onFocus}
           onBlur={onBlur}
-          onChange={onChange}
+          onChange={onImageURLChange}
         />
         <label htmlFor='image'>Image URL</label>
         <div className='image-loader-container'>
-          {imageLoadingState ? (
+          {state.isImageLoading ? (
             <div className='loader'></div>
           ) : (
-            <img src={imageURLValue} />
+            <img src={state.image} />
           )}
         </div>
       </div>
@@ -173,12 +211,7 @@ const AddRecipe = () => {
           onBlur={onBlur}
           name='instructions'
           id='instructions'
-          onChange={(e) => {
-            dispatch({
-              type: "changed_instructions",
-              instructions: e.target.value,
-            });
-          }}
+          onChange={onInstructionsChange}
         />
         <label htmlFor='instructions'>Instructions</label>
       </div>
@@ -188,7 +221,12 @@ const AddRecipe = () => {
             return (
               <Fragment key={idx}>
                 <label htmlFor={i.name}>{i.name}</label>
-                <input type='checkbox' name='ingredients[]' value={i._id} />
+                <input
+                  onChange={onIngredientsChange}
+                  type='checkbox'
+                  name='ingredients[]'
+                  value={i._id}
+                />
               </Fragment>
             );
           })
@@ -197,7 +235,11 @@ const AddRecipe = () => {
         )}
       </div>
       <div className='buttons-container'>
-        <button className='submit' disabled={!submitEnabled} type='submit'>
+        <button
+          className='submit'
+          disabled={!state.submitEnabled}
+          type='submit'
+        >
           Submit
         </button>
         <button type='reset' className='reset'>

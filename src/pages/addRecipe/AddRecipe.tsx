@@ -164,13 +164,13 @@ const AddRecipe = () => {
       dispatch({ type: "set_error", payload: { generalError: errorMessage } });
     }
   };
+  const getErrorMessage = (errors: typeof state.error) => {
+    const error = Object.values(errors).find((err) => err !== null);
+    return error || "";
+  };
   return (
     <form onSubmit={onSubmit} onReset={handleFormReset}>
-      {Object.values(state.error).find((v) => v !== null) && (
-        <p className='error'>
-          {Object.values(state.error).find((v) => v !== null)}
-        </p>
-      )}
+      <p className='error'>{getErrorMessage(state.error)}</p>
       <div className='form-row'>
         <input
           autoFocus

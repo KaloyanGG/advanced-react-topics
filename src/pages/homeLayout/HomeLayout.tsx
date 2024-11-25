@@ -6,6 +6,7 @@ import VwIndicator from "../../components/VWIndicator/VWIndicator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const queryClient = new QueryClient();
 const HomeLayout = () => {
   return (
     <>
@@ -17,7 +18,7 @@ const HomeLayout = () => {
         <NavLink to={"/idk"}>idk</NavLink>
       </nav>
       <main>
-        <QueryClientProvider client={new QueryClient()}>
+        <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools
             initialIsOpen={false}
             buttonPosition='bottom-left'

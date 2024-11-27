@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./AddRecipe.css";
-import { axiosInstance } from "../../config";
+import { axiosInstance } from "../../config/config";
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import toast from "react-hot-toast";

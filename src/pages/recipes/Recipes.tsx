@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RecipeCard } from "../../components";
 import "./Recipes.css";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
-import { axiosInstance } from "../../config";
+import { axiosInstance } from "../../config/config";
 
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);

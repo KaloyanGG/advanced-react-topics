@@ -4,13 +4,8 @@ prio: Fix error removal when changing another input
 2. Fetch image and put it near image url - done
 3. My own loader - done
 
-4. Error showing additionally
+4. Error showing additionally - done
 5. useRef in addRecipe
-6. Build a loader myself
-7. Build a notificator myself - portals
-
-Additional:
-1. Fix disabled button when adding recipe
-
+6. Build a notificator myself - portals
 
 X. Tailwind CSS

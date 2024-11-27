@@ -7,13 +7,7 @@ import {
   Ingredient,
 } from "../../services/ingredientsService";
 import { useEffect, useState } from "react";
-
-function arrayAIncludesFullyArrayB(
-  arrayA: string[],
-  arrayB: string[]
-): boolean {
-  return arrayB.every((element) => arrayA.includes(element));
-}
+import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
 
 const RecipeDetails = () => {
   const recipe = useLoaderData() as RecipeType;

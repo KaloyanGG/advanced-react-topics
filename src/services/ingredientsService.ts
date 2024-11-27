@@ -1,4 +1,4 @@
-import { axiosInstance } from "../config";
+import { axiosInstance } from "../config/config";
 export type Ingredient = {
   name: string;
   _id: string;

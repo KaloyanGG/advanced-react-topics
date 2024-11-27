@@ -6,7 +6,7 @@ import {
   fetchIngredients,
   Ingredient,
 } from "../../services/ingredientsService";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
 import RecipeDetailsCard from "../../components/recipeDetailsCard/RecipeDetailsCard";
 type RecipeDetailsResponseType = {
@@ -18,6 +18,9 @@ const RecipeDetails = () => {
   const { previous, current, next } =
     useLoaderData() as RecipeDetailsResponseType;
   const queryClient = useQueryClient();
+
+  const middleCardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { data: allIngredients } = useQuery({
     queryFn: fetchIngredients,
@@ -43,14 +46,25 @@ const RecipeDetails = () => {
         });
       });
     }
+
+    // todo make it be scrolled to the middle already
+    if (middleCardRef.current) {
+      middleCardRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
   }, [allIngredients, queryClient]);
+
   return (
-    <div className='recipe-details-container'>
+    <div className='recipe-details-container' ref={containerRef}>
       {[previous, current, next].map(
         ({ _id, image, name, instructions, likes }) => (
           <RecipeDetailsCard
             key={_id}
             focused={current._id === _id}
+            ref={current._id === _id ? middleCardRef : null}
             name={name}
             image={image}
             ingredients={filteredIngredients[name] || []}

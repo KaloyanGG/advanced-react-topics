@@ -34,20 +34,21 @@ const RecipeDetails = () => {
 
   useEffect(() => {
     if (allIngredients && allIngredientsIds) {
+      let filteredIngredientsMap: { [key: string]: any } = {};
       [previous, current, next].forEach((recipe) => {
         if (!arrayAIncludesFullyArrayB(allIngredientsIds, recipe.ingredients)) {
           queryClient.invalidateQueries({ queryKey: ["ingredients"] });
         }
-        setFilteredIngredients({
-          ...filteredIngredients,
-          [`${recipe.name}`]: allIngredients.filter((a) =>
+        filteredIngredientsMap = {
+          ...filteredIngredientsMap,
+          [recipe.name]: allIngredients.filter((a) =>
             recipe.ingredients.includes(a._id)
           ),
-        });
+        };
       });
+      setFilteredIngredients(filteredIngredientsMap);
     }
 
-    // todo make it be scrolled to the middle already
     if (middleCardRef.current) {
       middleCardRef.current.scrollIntoView({
         behavior: "smooth",
@@ -56,7 +57,6 @@ const RecipeDetails = () => {
       });
     }
   }, [allIngredients, queryClient]);
-
   return (
     <div className='recipe-details-container' ref={containerRef}>
       {[previous, current, next].map(

@@ -8,55 +8,57 @@ import {
 } from "../../services/ingredientsService";
 import { useEffect, useState } from "react";
 import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
-
+import RecipeDetailsCard from "../../components/recipeDetailsCard/RecipeDetailsCard";
+type RecipeDetailsResponseType = {
+  previous: RecipeType;
+  current: RecipeType;
+  next: RecipeType;
+};
 const RecipeDetails = () => {
-  const recipe = useLoaderData() as RecipeType;
-  const {
-    image,
-    name,
-    instructions,
-    ingredients: recipeIngredientIds,
-    likes,
-  } = recipe;
+  const { previous, current, next } =
+    useLoaderData() as RecipeDetailsResponseType;
+  const queryClient = useQueryClient();
+
   const { data: allIngredients } = useQuery({
     queryFn: fetchIngredients,
     queryKey: ["ingredients"],
     refetchOnMount: false,
   });
-  const [shownIngredients, setShownIngredients] = useState<Ingredient[]>([]);
-  const queryClient = useQueryClient();
+  const allIngredientsIds = allIngredients?.map((i) => i._id);
+  const [filteredIngredients, setFilteredIngredients] = useState<{
+    [key: string]: Ingredient[];
+  }>({});
+
   useEffect(() => {
-    if (allIngredients) {
-      if (
-        !arrayAIncludesFullyArrayB(
-          allIngredients!.map((i) => i._id),
-          recipeIngredientIds
-        )
-      ) {
-        queryClient.invalidateQueries({ queryKey: ["ingredients"] });
-      }
-      setShownIngredients(
-        allIngredients.filter((a) => recipeIngredientIds.includes(a._id))
-      );
+    if (allIngredients && allIngredientsIds) {
+      [previous, current, next].forEach((recipe) => {
+        if (!arrayAIncludesFullyArrayB(allIngredientsIds, recipe.ingredients)) {
+          queryClient.invalidateQueries({ queryKey: ["ingredients"] });
+        }
+        setFilteredIngredients({
+          ...filteredIngredients,
+          [`${recipe.name}`]: allIngredients.filter((a) =>
+            recipe.ingredients.includes(a._id)
+          ),
+        });
+      });
     }
-  }, [allIngredients]);
+  }, [allIngredients, queryClient]);
   return (
-    <div className='recipe-details'>
-      <div className='img'>
-        <img src={image} alt={name} />
-      </div>
-      <div className='info-container'>
-        <h1>Recipe: {name}</h1>
-        <h3>Ingredients:</h3>
-        <ul className='ingredients'>
-          {shownIngredients.map((i) => {
-            return <li key={i._id}>{i.name}</li>;
-          })}
-        </ul>
-        <h3>Instructions:</h3>
-        <p>{instructions}</p>
-        <button className='like'>Likes: {likes}</button>
-      </div>
+    <div className='recipe-details-container'>
+      {[previous, current, next].map(
+        ({ _id, image, name, instructions, likes }) => (
+          <RecipeDetailsCard
+            key={_id}
+            focused={current._id === _id}
+            name={name}
+            image={image}
+            ingredients={filteredIngredients[name] || []}
+            likes={likes}
+            instructions={instructions}
+          />
+        )
+      )}
     </div>
   );
 };

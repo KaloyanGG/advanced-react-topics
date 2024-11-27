@@ -44,6 +44,34 @@ app.get("/recipes/:id", async (req, res) => {
   res.send(recipe);
 });
 
+app.get("/recipes/details/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const currentRecipe = await RecipeModel.findById(id);
+    if (!currentRecipe) {
+      res.status(404).json({ message: "Recipe not found" });
+      return;
+    }
+
+    const previousRecipe = await RecipeModel.findOne({ _id: { $lt: id } })
+      .sort({ _id: -1 })
+      .limit(1);
+
+    const nextRecipe = await RecipeModel.findOne({ _id: { $gt: id } })
+      .sort({ _id: 1 })
+      .limit(1);
+
+    res.json({
+      current: currentRecipe,
+      previous: previousRecipe,
+      next: nextRecipe,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred", error });
+  }
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

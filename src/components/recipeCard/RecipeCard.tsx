@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
-import { Ingredient } from "../../services/ingredientsService";
 export type RecipeType = {
   _id: number;
   name: string;

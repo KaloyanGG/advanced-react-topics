@@ -2,7 +2,8 @@ import { LoaderFunctionArgs } from "react-router-dom";
 import { axiosInstance } from "../config/config";
 
 async function recipeLoader({ params }: LoaderFunctionArgs<any>) {
-  return (await axiosInstance.get(`/recipes/${params.id}`)).data;
+  // return (await axiosInstance.get(`/recipes/${params.id}`)).data;
+  return (await axiosInstance.get(`/recipes/details/${params.id}`)).data;
 }
 
 export default recipeLoader;

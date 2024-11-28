@@ -4,11 +4,19 @@ import { RecipeType } from "../recipeCard/RecipeCard";
 type RecipeDetailsCardProps = Omit<RecipeType, "ingredients" | "_id"> & {
   ingredients: Ingredient[];
   focused: boolean;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 const RecipeDetailsCard = forwardRef<HTMLDivElement, RecipeDetailsCardProps>(
-  ({ focused, image, name, ingredients, instructions, likes }, ref) => {
+  (
+    { onClick, focused, image, name, ingredients, instructions, likes },
+    ref
+  ) => {
     return (
-      <div ref={ref} className={`recipe-details${!focused ? " outside" : ""}`}>
+      <div
+        onClick={onClick}
+        ref={ref}
+        className={`recipe-details${!focused ? " outside" : ""}`}
+      >
         <div className='img'>
           <img src={image} alt={name} />
         </div>

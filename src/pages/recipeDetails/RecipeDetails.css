@@ -77,6 +77,4 @@ div.recipe-details-container {
       display: none;
     }
   }
-  div.recipe-details:not(outside) {
-  }
 }

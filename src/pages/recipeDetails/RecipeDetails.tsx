@@ -9,18 +9,10 @@ import {
 import { useEffect, useRef, useState } from "react";
 import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
 import RecipeDetailsCard from "../../components/recipeDetailsCard/RecipeDetailsCard";
-type RecipeDetailsResponseType = {
-  previous: RecipeType;
-  current: RecipeType;
-  next: RecipeType;
-};
+import recipeLoader from "../../loaders/recipeLoader";
 const RecipeDetails = () => {
-  const { previous, current, next } =
-    useLoaderData() as RecipeDetailsResponseType;
+  let { recipes } = useLoaderData() as { recipes: RecipeType[] };
   const queryClient = useQueryClient();
-
-  const middleCardRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const { data: allIngredients } = useQuery({
     queryFn: fetchIngredients,
@@ -32,10 +24,13 @@ const RecipeDetails = () => {
     [key: string]: Ingredient[];
   }>({});
 
+  const itemsRef = useRef(new Map<number, HTMLDivElement>());
+  const itemsLength = recipes.length;
+
   useEffect(() => {
     if (allIngredients && allIngredientsIds) {
       let filteredIngredientsMap: { [key: string]: any } = {};
-      [previous, current, next].forEach((recipe) => {
+      recipes.forEach((recipe) => {
         if (!arrayAIncludesFullyArrayB(allIngredientsIds, recipe.ingredients)) {
           queryClient.invalidateQueries({ queryKey: ["ingredients"] });
         }
@@ -49,30 +44,77 @@ const RecipeDetails = () => {
       setFilteredIngredients(filteredIngredientsMap);
     }
 
-    if (middleCardRef.current) {
-      middleCardRef.current.scrollIntoView({
-        behavior: "smooth",
+    if (itemsRef.current && itemsRef.current.size > 0) {
+      itemsRef.current.get(itemsLength / 2 - 0.5)?.scrollIntoView({
+        behavior: "instant",
         block: "center",
         inline: "center",
       });
     }
   }, [allIngredients, queryClient]);
+
+  const [r, setR] = useState(recipes);
+  const onClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    where: string
+  ) => {
+    let nodeToScrollTo: HTMLDivElement | undefined = undefined;
+    switch (where) {
+      case "prev":
+        nodeToScrollTo = itemsRef.current.get(Math.floor(itemsLength / 2 - 1))!;
+        break;
+      case "next":
+        nodeToScrollTo = itemsRef.current.get(Math.ceil(itemsLength / 2))!;
+        break;
+      default:
+        alert("something's wrong");
+        break;
+    }
+    nodeToScrollTo?.classList.remove("outside");
+    itemsRef.current.get(itemsLength / 2 - 0.5)?.classList.add("outside");
+
+    nodeToScrollTo!.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+    // console.log(nodeToScrollTo?.id);
+    // todo
+    recipeLoader({ params: { id: nodeToScrollTo?.id } } as any).then((data) => {
+      console.log(data);
+    });
+  };
+  // console.log(itemsRef.current);
+
   return (
-    <div className='recipe-details-container' ref={containerRef}>
-      {[previous, current, next].map(
-        ({ _id, image, name, instructions, likes }) => (
-          <RecipeDetailsCard
-            key={_id}
-            focused={current._id === _id}
-            ref={current._id === _id ? middleCardRef : null}
-            name={name}
-            image={image}
-            ingredients={filteredIngredients[name] || []}
-            likes={likes}
-            instructions={instructions}
-          />
-        )
-      )}
+    <div className='recipe-details-container'>
+      {r.map(({ _id, image, name, instructions, likes }, idx) => (
+        <RecipeDetailsCard
+          _id={_id}
+          key={_id}
+          focused={idx + 0.5 === recipes.length / 2}
+          ref={(node) => {
+            if (node) {
+              itemsRef.current.set(idx, node);
+            } else {
+              itemsRef.current.delete(idx);
+            }
+          }}
+          name={name}
+          image={image}
+          ingredients={filteredIngredients[name] || []}
+          likes={likes}
+          instructions={instructions}
+          // works for odd numbers, for even - N/A
+          onClick={
+            idx + 0.5 < itemsLength / 2
+              ? (e) => onClick(e, "prev")
+              : idx + 0.5 > itemsLength / 2
+              ? (e) => onClick(e, "next")
+              : undefined
+          }
+        />
+      ))}
     </div>
   );
 };

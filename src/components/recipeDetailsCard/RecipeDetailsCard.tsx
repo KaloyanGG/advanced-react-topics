@@ -1,14 +1,14 @@
 import { forwardRef } from "react";
 import { Ingredient } from "../../services/ingredientsService";
 import { RecipeType } from "../recipeCard/RecipeCard";
-type RecipeDetailsCardProps = Omit<RecipeType, "ingredients" | "_id"> & {
+type RecipeDetailsCardProps = Omit<RecipeType, "ingredients"> & {
   ingredients: Ingredient[];
   focused: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 const RecipeDetailsCard = forwardRef<HTMLDivElement, RecipeDetailsCardProps>(
   (
-    { onClick, focused, image, name, ingredients, instructions, likes },
+    { onClick, focused, image, name, ingredients, instructions, likes, _id },
     ref
   ) => {
     return (
@@ -16,6 +16,7 @@ const RecipeDetailsCard = forwardRef<HTMLDivElement, RecipeDetailsCardProps>(
         onClick={onClick}
         ref={ref}
         className={`recipe-details${!focused ? " outside" : ""}`}
+        id={_id}
       >
         <div className='img'>
           <img src={image} alt={name} />

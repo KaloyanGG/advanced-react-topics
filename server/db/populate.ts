@@ -82,6 +82,50 @@ const recipesList = [
     image:
       "https://th.bing.com/th/id/OIP.VmnyfVuV9NLwp5OFlN1ZiAAAAA?w=203&h=372&c=7&r=0&o=5&pid=1.7",
   },
+  {
+    id: 6,
+    name: "Margherita Pizza",
+    likes: 800,
+    ingredients: [
+      "pizza dough",
+      "tomato sauce",
+      "mozzarella cheese",
+      "basil leaves",
+      "olive oil",
+    ],
+    instructions:
+      "Preheat the oven to 220°C (425°F). Roll out the pizza dough onto a baking tray. Spread a thin layer of tomato sauce over the dough. Top with slices of mozzarella cheese and a few basil leaves. Drizzle with olive oil. Bake in the preheated oven for 10-15 minutes or until the crust is golden and the cheese is bubbly. Slice and serve hot.",
+    image:
+      "https://th.bing.com/th?id=OLC.b5QX9S+NfNA%2fFA480x360&w=186&h=140&c=8&rs=1&qlt=90&o=6&dpr=2&pid=3.1&rm=2",
+  },
+  {
+    id: 7,
+    name: "Pancakes",
+    likes: 1234,
+    ingredients: ["flour", "milk", "eggs", "baking powder", "sugar", "butter"],
+    instructions:
+      "In a bowl, whisk together flour, baking powder, and sugar. In a separate bowl, beat the eggs and mix in the milk. Gradually combine the wet ingredients with the dry, mixing until smooth. Heat a non-stick pan over medium heat and melt a small amount of butter. Pour a ladleful of batter into the pan and cook until bubbles form on the surface. Flip and cook until golden brown. Serve warm with syrup, fruit, or your favorite toppings.",
+    image:
+      "https://th.bing.com/th?id=OSK.mmcolR6qXhBpGIAy-FQpGwuk5r1ltXhliJGYm3RI2fwlLp-E&w=130&h=100&c=8&o=6&dpr=2&pid=SANGAM",
+  },
+  {
+    id: 8,
+    name: "Grilled Salmon",
+    likes: 567,
+    ingredients: [
+      "salmon fillets",
+      "olive oil",
+      "lemon",
+      "garlic",
+      "parsley",
+      "salt",
+      "black pepper",
+    ],
+    instructions:
+      "Preheat the grill to medium heat. In a small bowl, mix olive oil, lemon juice, minced garlic, chopped parsley, salt, and pepper. Brush the salmon fillets with the mixture. Place the fillets on the grill and cook for 4-5 minutes per side or until the salmon is flaky and cooked through. Serve with a side of vegetables or a fresh salad.",
+    image:
+      "https://th.bing.com/th?id=OSK.a7b624df6fac273984e6478d6c35dc83&w=226&h=339&rs=2&qlt=80&o=6&cdv=1&dpr=2&pid=16.1",
+  },
 ];
 
 const ingredients = [

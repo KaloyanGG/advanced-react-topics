@@ -8,7 +8,7 @@ import RecipeModel from "./models/recipe.model";
 
 (async () => {
   await connectDB();
-  await populateDB();
+  populateDB();
 })();
 
 const app = express();
@@ -54,18 +54,22 @@ app.get("/recipes/details/:id", async (req, res) => {
       return;
     }
 
-    const previousRecipe = await RecipeModel.findOne({ _id: { $lt: id } })
+    const previousRecipes = await RecipeModel.find({ _id: { $lt: id } })
       .sort({ _id: -1 })
-      .limit(1);
+      .limit(2);
 
-    const nextRecipe = await RecipeModel.findOne({ _id: { $gt: id } })
+    const nextRecipes = await RecipeModel.find({ _id: { $gt: id } })
       .sort({ _id: 1 })
-      .limit(1);
+      .limit(2);
+
+    const recipes = [
+      ...previousRecipes.reverse(),
+      currentRecipe,
+      ...nextRecipes,
+    ];
 
     res.json({
-      current: currentRecipe,
-      previous: previousRecipe,
-      next: nextRecipe,
+      recipes,
     });
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error });

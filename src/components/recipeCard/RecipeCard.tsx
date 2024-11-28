@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 export type RecipeType = {
-  _id: number;
+  _id: string;
   name: string;
   ingredients: string[];
   instructions: string;

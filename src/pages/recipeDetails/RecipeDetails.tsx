@@ -11,7 +11,7 @@ import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
 import RecipeDetailsCard from "../../components/recipeDetailsCard/RecipeDetailsCard";
 import recipeLoader from "../../loaders/recipeLoader";
 const RecipeDetails = () => {
-  let { recipes } = useLoaderData() as { recipes: RecipeType[] };
+  let { recipes: loaderRecipes } = useLoaderData() as { recipes: RecipeType[] };
   const queryClient = useQueryClient();
 
   const { data: allIngredients } = useQuery({
@@ -25,6 +25,8 @@ const RecipeDetails = () => {
   }>({});
 
   const itemsRef = useRef(new Map<number, HTMLDivElement>());
+  const alreadyScrolled = useRef(false);
+  const [recipes, setRecipes] = useState(loaderRecipes);
   const itemsLength = recipes.length;
 
   useEffect(() => {
@@ -44,16 +46,20 @@ const RecipeDetails = () => {
       setFilteredIngredients(filteredIngredientsMap);
     }
 
-    if (itemsRef.current && itemsRef.current.size > 0) {
+    if (
+      itemsRef.current &&
+      itemsRef.current.size > 0 &&
+      !alreadyScrolled.current
+    ) {
       itemsRef.current.get(itemsLength / 2 - 0.5)?.scrollIntoView({
         behavior: "instant",
         block: "center",
         inline: "center",
       });
+      alreadyScrolled.current = false;
     }
-  }, [allIngredients, queryClient]);
+  }, [allIngredients, queryClient, recipes]);
 
-  const [r, setR] = useState(recipes);
   const onClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     where: string
@@ -78,17 +84,16 @@ const RecipeDetails = () => {
       block: "center",
       inline: "center",
     });
-    // console.log(nodeToScrollTo?.id);
-    // todo
     recipeLoader({ params: { id: nodeToScrollTo?.id } } as any).then((data) => {
-      console.log(data);
+      const recipes = data.recipes;
+      setRecipes(recipes);
+      alreadyScrolled.current = false;
     });
   };
-  // console.log(itemsRef.current);
 
   return (
     <div className='recipe-details-container'>
-      {r.map(({ _id, image, name, instructions, likes }, idx) => (
+      {recipes.map(({ _id, image, name, instructions, likes }, idx) => (
         <RecipeDetailsCard
           _id={_id}
           key={_id}

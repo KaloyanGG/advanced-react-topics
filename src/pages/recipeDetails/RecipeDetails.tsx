@@ -90,7 +90,7 @@ const RecipeDetails = () => {
       alreadyScrolled.current = false;
     });
   };
-
+  console.log("suii");
   return (
     <div className='recipe-details-container'>
       {recipes.map(({ _id, image, name, instructions, likes }, idx) => (

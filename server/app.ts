@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { id } from "./helpers";
 import { populateDB } from "./db/populate";
 import connectDB from "./db/connection";
 import IngredientModel from "./models/ingredient.model";
@@ -54,23 +53,39 @@ app.get("/recipes/details/:id", async (req, res) => {
       return;
     }
 
-    const previousRecipes = await RecipeModel.find({ _id: { $lt: id } })
-      .sort({ _id: -1 })
-      .limit(2);
+    // Get all recipes sorted by _id
+    const allRecipes = await RecipeModel.find().sort({ _id: 1 });
 
-    const nextRecipes = await RecipeModel.find({ _id: { $gt: id } })
-      .sort({ _id: 1 })
-      .limit(2);
+    // Find the index of the current recipe
+    const currentIndex = allRecipes.findIndex(
+      (recipe) => recipe._id.toString() === id
+    );
 
+    if (currentIndex === -1) {
+      res.status(404).json({ message: "Recipe not found" });
+      return;
+    }
+
+    const totalRecipes = allRecipes.length;
+
+    // Helper function to get the recipe at a specific index, wrapping around if necessary
+    const getRecipeAt = (index: any) =>
+      allRecipes[(index + totalRecipes) % totalRecipes];
+
+    // Get the 5 recipes according to the specified logic
     const recipes = [
-      ...previousRecipes.reverse(),
-      currentRecipe,
-      ...nextRecipes,
+      getRecipeAt(currentIndex - 2),
+      getRecipeAt(currentIndex - 1),
+      getRecipeAt(currentIndex),
+      getRecipeAt(currentIndex + 1),
+      getRecipeAt(currentIndex + 2),
     ];
 
+    // setTimeout(() => {
     res.json({
       recipes,
     });
+    // }, 2000);
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error });
   }

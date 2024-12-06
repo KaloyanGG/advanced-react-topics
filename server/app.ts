@@ -81,11 +81,11 @@ app.get("/recipes/details/:id", async (req, res) => {
       getRecipeAt(currentIndex + 2),
     ];
 
-    // setTimeout(() => {
-    res.json({
-      recipes,
-    });
-    // }, 2000);
+    setTimeout(() => {
+      res.json({
+        recipes,
+      });
+    }, 1000);
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error });
   }

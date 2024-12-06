@@ -28,7 +28,7 @@ body {
   background-color: var(--white);
 }
 main {
-  max-width: 1200px; /* === 75rem */
+  max-width: 150rem; /* 150rem */
   width: 90vw;
   min-height: 95vh;
   margin: 0 auto;

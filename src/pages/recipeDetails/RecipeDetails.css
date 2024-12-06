@@ -1,11 +1,12 @@
 div.recipe-details-container {
   width: 100%;
-  max-height: 60vh;
+  height: 60vh;
+  max-height: 700px;
   display: flex;
   gap: 1rem;
   overflow: auto;
   position: relative;
-  /* scroll-behavior: smooth; */
+
   div.recipe-details {
     flex-shrink: 0;
     width: 70%;
@@ -13,10 +14,12 @@ div.recipe-details-container {
     border: 1px solid var(--gray);
     border-radius: 2rem;
     overflow: hidden;
+
     div.img {
       width: 45%;
       flex: 1;
       position: relative;
+
       img {
         position: absolute;
         top: 0;
@@ -26,22 +29,19 @@ div.recipe-details-container {
         height: 100%;
       }
     }
-
     div.info-container {
       width: 55%;
       padding: 2rem calc(0.5rem + 1.5vw);
-      max-height: 100%;
-      overflow: hidden;
+      overflow: auto;
       transition: padding 0.5s ease, height 0.5s ease, width 0.5s ease;
+      position: relative;
 
       h1 {
         margin-bottom: 1rem;
       }
-
-      h3 {
+      h2 {
         margin-bottom: 0.75rem;
       }
-
       ul.ingredients {
         columns: 2;
         margin-bottom: 1rem;
@@ -50,37 +50,53 @@ div.recipe-details-container {
           list-style-position: inside;
         }
       }
-
       p {
         text-align: justify;
         margin-bottom: 1rem;
       }
-
+      ul.ingredients,
+      p {
+        font-size: 1.25rem;
+      }
       button {
-        display: block;
-        background-color: var(--button);
-        border: none;
+        background-color: var(--peach);
         padding: 0.625rem 1rem;
         border-radius: 2rem;
-        color: var(--white);
-        margin: 0 auto;
+        color: var(--button);
+        position: sticky;
+        bottom: 0;
+        left: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        svg {
+          fill: var(--peach);
+          stroke: var(--button);
+          width: 25px;
+          height: 25px;
+          margin-right: 2px;
+        }
+        &:hover {
+          svg {
+            fill: var(--button);
+          }
+        }
       }
     }
   }
   div.recipe-details.outside {
     opacity: 0.5;
+    width: 30%;
+
     &:hover {
       opacity: 0.8;
     }
-    width: 30%;
     div.img {
       width: 100%;
     }
     div.info-container {
       width: 0;
-      height: 0;
       padding: 0;
-      max-height: 0;
     }
   }
 }

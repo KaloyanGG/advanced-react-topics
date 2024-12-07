@@ -7,6 +7,7 @@
 - useCallback
 - useReducer
 - useQuery
+- useRef
 
 ## Non-react good practices:
 

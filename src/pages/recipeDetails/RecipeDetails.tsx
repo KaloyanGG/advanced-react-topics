@@ -27,6 +27,7 @@ const RecipeDetails = () => {
   const itemsRef = useRef(new Map<number, HTMLDivElement>());
   const alreadyScrolled = useRef(false);
   const [recipes, setRecipes] = useState(loaderRecipes);
+  const [isAnimating, setIsAnimating] = useState(false);
   const itemsLength = recipes.length;
 
   useEffect(() => {
@@ -64,6 +65,8 @@ const RecipeDetails = () => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     where: string
   ) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     let nodeToScrollTo: HTMLDivElement | undefined = undefined;
     switch (where) {
       case "prev":
@@ -74,23 +77,25 @@ const RecipeDetails = () => {
         break;
       default:
         alert("something's wrong");
-        break;
+        return;
     }
-    nodeToScrollTo?.classList.remove("outside");
+    nodeToScrollTo.classList.remove("outside");
     itemsRef.current.get(itemsLength / 2 - 0.5)?.classList.add("outside");
 
+    e.currentTarget.parentElement!.onscrollend = async () => {
+      const recipes = (
+        await recipeLoader({ params: { id: nodeToScrollTo?.id } } as any)
+      ).recipes;
+      alreadyScrolled.current = false;
+      setRecipes(recipes);
+      setIsAnimating(false);
+    };
     nodeToScrollTo!.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "center",
     });
-    recipeLoader({ params: { id: nodeToScrollTo?.id } } as any).then((data) => {
-      const recipes = data.recipes;
-      setRecipes(recipes);
-      alreadyScrolled.current = false;
-    });
   };
-  console.log("suii");
   return (
     <div className='recipe-details-container'>
       {recipes.map(({ _id, image, name, instructions, likes }, idx) => (

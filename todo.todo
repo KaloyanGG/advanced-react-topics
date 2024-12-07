@@ -3,9 +3,11 @@ prio: Fix error removal when changing another input
 1. Cache ingredients with useQuery - done
 2. Fetch image and put it near image url - done
 3. My own loader - done
-
 4. Error showing additionally - done
 5. useRef in addRecipe - done
+
+--------------------------------------------
+
 6. Build a notificator myself - portals
 7. useTransition for slow loading
 

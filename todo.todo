@@ -1,4 +1,4 @@
-prio: Fix error removal when changing another input
+Todo list:
 
 1. Cache ingredients with useQuery - done
 2. Fetch image and put it near image url - done
@@ -12,3 +12,4 @@ prio: Fix error removal when changing another input
 7. useTransition for slow loading
 
 X. Tailwind CSS
+Z. Responsive design

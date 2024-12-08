@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import "./RecipeDetails.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -11,8 +11,11 @@ import arrayAIncludesFullyArrayB from "../../utils/arraysInclusion";
 import RecipeDetailsCard from "../../components/recipeDetailsCard/RecipeDetailsCard";
 import recipeLoader from "../../loaders/recipeLoader";
 const RecipeDetails = () => {
-  let { recipes: loaderRecipes } = useLoaderData() as { recipes: RecipeType[] };
+  const { recipes: loaderRecipes } = useLoaderData() as {
+    recipes: RecipeType[];
+  };
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: allIngredients } = useQuery({
     queryFn: fetchIngredients,
@@ -23,11 +26,13 @@ const RecipeDetails = () => {
   const [filteredIngredients, setFilteredIngredients] = useState<{
     [key: string]: Ingredient[];
   }>({});
+  const [recipes, setRecipes] = useState(loaderRecipes);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const itemsRef = useRef(new Map<number, HTMLDivElement>());
   const alreadyScrolled = useRef(false);
-  const [recipes, setRecipes] = useState(loaderRecipes);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const itemsLength = recipes.length;
 
   useEffect(() => {
@@ -79,10 +84,11 @@ const RecipeDetails = () => {
         alert("something's wrong");
         return;
     }
+    navigate(`/recipes/${nodeToScrollTo.id}`);
     nodeToScrollTo.classList.remove("outside");
     itemsRef.current.get(itemsLength / 2 - 0.5)?.classList.add("outside");
-
-    e.currentTarget.parentElement!.onscrollend = async () => {
+    containerRef.current!.onscrollend = async (ev: Event) => {
+      containerRef.current!.onscrollend = null;
       const recipes = (
         await recipeLoader({ params: { id: nodeToScrollTo?.id } } as any)
       ).recipes;
@@ -97,7 +103,7 @@ const RecipeDetails = () => {
     });
   };
   return (
-    <div className='recipe-details-container'>
+    <div className='recipe-details-container' ref={containerRef}>
       {recipes.map(({ _id, image, name, instructions, likes }, idx) => (
         <RecipeDetailsCard
           _id={_id}

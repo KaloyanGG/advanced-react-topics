@@ -5,11 +5,16 @@ Todo list:
 3. My own loader - done
 4. Error showing additionally - done
 5. useRef in addRecipe - done
-
+- cache recipe details
 --------------------------------------------
 
 6. Build a notificator myself - portals
 7. useTransition for slow loading
+8. pagination
 
 X. Tailwind CSS
 Z. Responsive design
+
+// todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview
+// suspense https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36301200#overview
+// redux

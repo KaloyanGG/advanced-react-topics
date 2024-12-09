@@ -15,7 +15,6 @@ const RecipeDetails = () => {
     recipes: RecipeType[];
   };
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { data: allIngredients } = useQuery({
     queryFn: fetchIngredients,
@@ -84,7 +83,7 @@ const RecipeDetails = () => {
         alert("something's wrong");
         return;
     }
-    navigate(`/recipes/${nodeToScrollTo.id}`);
+    window.history.pushState({}, "", `/recipes/${nodeToScrollTo.id}`);
     nodeToScrollTo.classList.remove("outside");
     itemsRef.current.get(itemsLength / 2 - 0.5)?.classList.add("outside");
     containerRef.current!.onscrollend = async (ev: Event) => {

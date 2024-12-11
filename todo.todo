@@ -8,9 +8,11 @@ Todo list:
 - cache recipe details
 --------------------------------------------
 
+6. React 19 -> change useref
 6. Build a notificator myself - portals
 7. useTransition for slow loading
 8. pagination
+9. useOptimistic for ??
 
 X. Tailwind CSS
 Z. Responsive design

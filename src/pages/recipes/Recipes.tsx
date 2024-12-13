@@ -40,9 +40,9 @@ const Landing = () => {
           // );
           notify(
             ref.current?.value || new Date().toTimeString().split(" ")[0],
-            called === 0
+            called % 3 == 0
               ? NotificationEnum.INFO
-              : called === 1
+              : called % 3 === 1
               ? NotificationEnum.ERROR
               : NotificationEnum.SUCCESS
           );

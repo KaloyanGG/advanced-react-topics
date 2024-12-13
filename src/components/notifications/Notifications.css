@@ -5,31 +5,76 @@ div.notifications-container {
 
   font-family: "Poppins", sans-serif;
   div.notification {
-    /* padding: 1rem; */
-    padding: 1rem 0.5rem;
+    --info: rgb(62, 151, 252);
+    --error: rgb(249, 88, 89);
+    --success: rgb(64, 204, 78);
+
+    display: flex;
+    flex-direction: column;
     width: 25vw;
     max-width: 300px;
-    font-weight: bold;
     border-radius: 1rem;
     margin-bottom: 0.5rem;
     color: whitesmoke;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: 15% auto 15%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 
-    & > :nth-child(2) {
-      justify-self: start;
+    div.content {
+      padding: 1rem 0.5rem;
+      font-weight: bold;
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      grid-template-columns: 15% auto 15%;
+      width: 100%;
+      & > :nth-child(2) {
+        justify-self: start;
+      }
+    }
+    div.progress-container {
+      height: 0.5rem;
+      border-radius: 1rem;
+      border-top-left-radius: unset;
+      border-top-right-radius: unset;
+      /* overflow: hidden; */
+      progress {
+        display: block;
+        height: 100%;
+        width: 100%;
+        appearance: none;
+        &::-webkit-progress-bar {
+          background-color: transparent;
+        }
+
+        &::-webkit-progress-value {
+          filter: brightness(0.8);
+        }
+        &.info {
+          &::-webkit-progress-value {
+            background-color: var(--info);
+          }
+        }
+        &.error {
+          &::-webkit-progress-value {
+            background-color: var(--error);
+          }
+        }
+        &.success {
+          &::-webkit-progress-value {
+            background-color: var(--success);
+          }
+        }
+      }
     }
 
     &.info {
-      background-color: rgb(62, 151, 252);
+      background-color: var(--info);
     }
     &.error {
-      background-color: rgb(249, 88, 89);
+      background-color: var(--error);
     }
     &.success {
-      background-color: rgb(64, 204, 78);
+      background-color: var(--success);
     }
   }
 }

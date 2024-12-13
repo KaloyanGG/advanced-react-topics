@@ -35,10 +35,20 @@ const Notifications = ({ duration }: NotificationsProps) => {
       // }, duration);
     };
   }, []);
+
+  const deleteNotification = (id: string) => {
+    setNotifications(notifications.filter((n) => n.id !== id));
+  };
   return createPortal(
     <div className='notifications-container'>
       {notifications.map((n) => {
-        return <Notification notification={n} key={n.id} />;
+        return (
+          <Notification
+            deleteNotification={deleteNotification}
+            notification={n}
+            key={n.id}
+          />
+        );
       })}
     </div>,
     document.body

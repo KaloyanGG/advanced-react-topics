@@ -1,3 +1,4 @@
+import ProgressBar from "../progressBar/ProgressBar";
 import { NotificationEnum, NotificationType } from "./Notifications";
 
 type NotificationProps = {
@@ -62,7 +63,10 @@ const Notification = ({
         </svg>
       </div>
       <div className='progress-container'>
-        <progress className={className} value={0.75} />
+        <ProgressBar
+          className={className}
+          deleteNotification={() => deleteNotification(id)}
+        />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ Todo list:
 4. Error showing additionally - done
 5. useRef in addRecipe - done
 - cache recipe details
+
+fix  too long url error
 --------------------------------------------
 
 7. React 19 -> change useref

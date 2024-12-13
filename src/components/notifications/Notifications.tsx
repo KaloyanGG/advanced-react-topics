@@ -27,17 +27,13 @@ const Notifications = ({ duration }: NotificationsProps) => {
         ...prev,
         { message, id: idGen(), type },
       ]);
-      // setTimeout(() => {
-      //   setNotifications((prev: NotificationType[]) => {
-      //     prev.shift();
-      //     return [...prev];
-      //   });
-      // }, duration);
     };
   }, []);
 
   const deleteNotification = (id: string) => {
-    setNotifications(notifications.filter((n) => n.id !== id));
+    setNotifications((prev) => {
+      return prev.filter((n) => n.id !== id);
+    });
   };
   return createPortal(
     <div className='notifications-container'>

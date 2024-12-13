@@ -8,7 +8,7 @@ createRoot(document.getElementById("root")!).render(
   // <StrictMode>
   <>
     <App />
-    <Notifications time={3000} />
+    <Notifications duration={3000} />
   </>
   // </StrictMode>
 );

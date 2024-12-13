@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("/src/assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+}
 :root {
   --peach: #eddfe0;
   --white: #f5f5f7;

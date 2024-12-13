@@ -1,0 +1,35 @@
+div.notifications-container {
+  position: fixed;
+  top: 5vh;
+  right: 2vw;
+
+  font-family: "Poppins", sans-serif;
+  div.notification {
+    /* padding: 1rem; */
+    padding: 1rem 0.5rem;
+    width: 25vw;
+    max-width: 300px;
+    font-weight: bold;
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+    color: whitesmoke;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 15% auto 15%;
+
+    & > :nth-child(2) {
+      justify-self: start;
+    }
+
+    &.info {
+      background-color: rgb(62, 151, 252);
+    }
+    &.error {
+      background-color: rgb(249, 88, 89);
+    }
+    &.success {
+      background-color: rgb(64, 204, 78);
+    }
+  }
+}

@@ -1,7 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomeLayout, AddRecipe, Recipes } from "./pages";
-import DefaultError from "./pages/defaultError/DefaultError";
-import RecipeDetails from "./pages/recipeDetails/RecipeDetails";
+import {
+  HomeLayout,
+  AddRecipe,
+  Recipes,
+  DefaultError,
+  RecipeDetails,
+} from "./pages";
 import recipeLoader from "./loaders/recipeLoader";
 const router = createBrowserRouter([
   {

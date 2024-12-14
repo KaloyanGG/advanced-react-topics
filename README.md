@@ -8,6 +8,7 @@
 - useReducer
 - useQuery
 - useRef
+- React Portals
 
 ## Non-react good practices:
 
@@ -15,3 +16,4 @@
 - Debounce function
 - ESLint
 - Inline CSS
+- Implementing functionality of a library (react-hot-toast) from scratch and removing the library

@@ -3,11 +3,14 @@ import "./AddRecipe.css";
 import { axiosInstance } from "../../config/config";
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
-import toast from "react-hot-toast";
 import { validateImageURL } from "../../utils/imageValidator";
 import { debounce } from "../../utils/debounce";
 import { useQuery } from "@tanstack/react-query";
 import { fetchIngredients } from "../../services/ingredientsService";
+import {
+  NotificationEnum,
+  notify,
+} from "../../components/notifications/Notifications";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
@@ -128,7 +131,7 @@ const AddRecipe = () => {
     });
     dispatch({ type: "changed_image", image: "" });
     dispatch({ type: "form_reset" });
-    toast.success("Form reset");
+    notify("Form reset", NotificationEnum.INFO);
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -156,11 +159,12 @@ const AddRecipe = () => {
           "Content-Type": "application/json",
         },
       });
-      toast.success("Recipe added");
+      notify("Recipe added", NotificationEnum.SUCCESS);
       navigate("/");
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || error.message || "An error occurred.";
+      notify("Error adding the recipe", NotificationEnum.ERROR);
       dispatch({ type: "set_error", payload: { generalError: errorMessage } });
     }
   };

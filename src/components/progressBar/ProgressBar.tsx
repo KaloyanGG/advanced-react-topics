@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
-const duration = 5000;
 type ProgressBarProps = {
   className: string;
   deleteNotification: Function;
+  duration: number;
 };
-const ProgressBar = ({ className, deleteNotification }: ProgressBarProps) => {
+const ProgressBar = ({
+  duration,
+  className,
+  deleteNotification,
+}: ProgressBarProps) => {
   const [value, setValue] = useState<number>(100);
 
   useEffect(() => {
@@ -22,7 +26,6 @@ const ProgressBar = ({ className, deleteNotification }: ProgressBarProps) => {
         return prev - decrementPerInterval;
       });
     }, intervalTime);
-
     return () => clearInterval(interval);
   }, [duration]);
 

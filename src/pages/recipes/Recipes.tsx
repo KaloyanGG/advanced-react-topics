@@ -3,10 +3,6 @@ import { RecipeCard } from "../../components";
 import "./Recipes.css";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
-import {
-  NotificationEnum,
-  notify,
-} from "../../components/notifications/Notifications";
 let called = 0;
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
@@ -26,18 +22,8 @@ const Landing = () => {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <div className='recipes-container'>
-      <button
+      {/* <button
         onClick={() => {
-          // const rnd = Math.random() * 3;
-          // console.log(rnd);
-          // notify(
-          //   ref.current?.value || new Date().toTimeString().split(" ")[0],
-          //   rnd > 2
-          //     ? NotificationEnum.INFO
-          //     : rnd > 1
-          //     ? NotificationEnum.ERROR
-          //     : NotificationEnum.SUCCESS
-          // );
           notify(
             ref.current?.value || new Date().toTimeString().split(" ")[0],
             called % 3 == 0
@@ -51,7 +37,7 @@ const Landing = () => {
       >
         click me
       </button>
-      <input type='text' ref={ref} style={{ border: "1px solid black" }} />
+      <input type='text' ref={ref} style={{ border: "1px solid black" }} /> */}
       <h1>Recipes List</h1>
       {error ? (
         <p>Error loading the recipes from the server</p>

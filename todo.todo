@@ -7,7 +7,9 @@ Todo list:
 5. useRef in addRecipe - done
 - cache recipe details
 
-fix  too long url error
+- fix too long url error when adding a recipe
+- make notifications stay when hover
+- make notifications cool disappear?
 --------------------------------------------
 
 7. React 19 -> change useref

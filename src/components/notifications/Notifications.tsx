@@ -11,6 +11,7 @@ export type NotificationType = {
   message: string;
   type: NotificationEnum;
   id: string;
+  duration: number;
 };
 export enum NotificationEnum {
   INFO = "INFO",
@@ -25,7 +26,7 @@ const Notifications = ({ duration }: NotificationsProps) => {
     addNotification = (message: string, type: NotificationEnum) => {
       setNotifications((prev: NotificationType[]) => [
         ...prev,
-        { message, id: idGen(), type },
+        { message, id: idGen(), type, duration },
       ]);
     };
   }, []);
@@ -42,6 +43,7 @@ const Notifications = ({ duration }: NotificationsProps) => {
           <Notification
             deleteNotification={deleteNotification}
             notification={n}
+            duration={duration}
             key={n.id}
           />
         );

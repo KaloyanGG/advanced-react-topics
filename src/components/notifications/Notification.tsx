@@ -5,10 +5,12 @@ type NotificationProps = {
   key: string;
   notification: NotificationType;
   deleteNotification: Function;
+  duration: number;
 };
 const Notification = ({
   notification,
   deleteNotification,
+  duration,
 }: NotificationProps) => {
   const { type, message, id } = notification;
   const getClass = () => {
@@ -66,6 +68,7 @@ const Notification = ({
         <ProgressBar
           className={className}
           deleteNotification={() => deleteNotification(id)}
+          duration={duration}
         />
       </div>
     </div>

@@ -13,6 +13,7 @@
 ## Non-react good practices:
 
 - Custom Axios instance
+- Good folder structure
 - Debounce function
 - ESLint
 - Inline CSS

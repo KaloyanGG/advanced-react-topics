@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ProgressBar from "../progressBar/ProgressBar";
 import { NotificationEnum, NotificationType } from "./Notifications";
 
@@ -13,6 +14,8 @@ const Notification = ({
   duration,
 }: NotificationProps) => {
   const { type, message, id } = notification;
+  const [paused, setPaused] = useState<boolean>(false);
+
   const getClass = () => {
     switch (type) {
       case NotificationEnum.INFO:
@@ -28,7 +31,11 @@ const Notification = ({
   };
   const className = getClass();
   return (
-    <div className={`notification ${className}`}>
+    <div
+      className={`notification ${className}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div className='content'>
         {type === NotificationEnum.SUCCESS ? (
           <svg
@@ -66,6 +73,7 @@ const Notification = ({
       </div>
       <div className='progress-container'>
         <ProgressBar
+          paused={paused}
           className={className}
           deleteNotification={() => deleteNotification(id)}
           duration={duration}

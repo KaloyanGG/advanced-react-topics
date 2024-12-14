@@ -225,6 +225,7 @@ const AddRecipe = () => {
                 <label htmlFor={i.name}>{i.name}</label>
                 <input
                   onChange={onIngredientsChange}
+                  id={i.name}
                   type='checkbox'
                   name='ingredients[]'
                   value={i._id}

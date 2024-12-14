@@ -5,20 +5,20 @@ Todo list:
 3. My own loader - done
 4. Error showing additionally - done
 5. useRef in addRecipe - done
+7. Build a notificator myself with portals - done
+6. Make notifications stay when hover - done
 
 --------------------------------------------
 
-- make notifications stay when hover
 - cache recipe details
 - make notifications cool disappear?
 - custom hooks
 
 7. React 19 -> change useRef
-8. Build a notificator myself - portals
-9. likes
-10. useTransition for slow loading (ex img)
-11. pagination
-12. useOptimistic for ??
+8. likes
+9. useTransition for slow loading (ex img)
+10. pagination
+11. useOptimistic for ??
 
 X. Tailwind CSS
 Z. Responsive design

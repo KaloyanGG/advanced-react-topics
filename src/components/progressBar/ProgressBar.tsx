@@ -22,7 +22,6 @@ const ProgressBar = ({
         setValue((prev) => {
           if (prev <= 0) {
             clearInterval(interval);
-            // is this ok?
             setTimeout(() => {
               deleteNotification();
             }, interval);

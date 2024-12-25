@@ -10,8 +10,8 @@ Todo list:
 
 --------------------------------------------
 
-- cache recipe details
 - make notifications cool disappear?
+- cache recipe details
 - custom hooks
 
 7. React 19 -> change useRef
@@ -19,6 +19,7 @@ Todo list:
 9. useTransition for slow loading (ex img)
 10. pagination
 11. useOptimistic for ??
+12. modal are you sure?
 
 X. Tailwind CSS
 Z. Responsive design

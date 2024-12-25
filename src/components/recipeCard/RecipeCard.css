@@ -69,7 +69,9 @@
           height: 25px;
           margin-right: 2px;
         }
-
+        svg.liked {
+          fill: var(--button);
+        }
         &:hover {
           svg {
             fill: var(--button);

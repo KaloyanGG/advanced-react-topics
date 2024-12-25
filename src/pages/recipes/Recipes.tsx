@@ -3,11 +3,11 @@ import { RecipeCard } from "../../components";
 import "./Recipes.css";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
-import {
-  NotificationEnum,
-  notify,
-} from "../../components/notifications/Notifications";
-let called = 0;
+// import {
+//   NotificationEnum,
+//   notify,
+// } from "../../components/notifications/Notifications";
+// let called = 0;
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [error, setError] = useState<any>(null);

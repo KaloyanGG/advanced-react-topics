@@ -14,6 +14,7 @@ const Navigation = () => {
           <span className='badge'>{ids.length}</span>
         </span>
       </NavLink>
+      <NavLink to={"/login"}>Log In / Sign Up</NavLink>
     </nav>
   );
 };

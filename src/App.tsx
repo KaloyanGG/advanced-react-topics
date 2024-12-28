@@ -7,6 +7,8 @@ import {
   RecipeDetails,
 } from "./pages";
 import recipeLoader from "./loaders/recipeLoader";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
         element: <RecipeDetails />,
         path: "recipes/:id",
         loader: recipeLoader,
+      },
+      {
+        element: <Login />,
+        path: "login",
+      },
+      {
+        element: <Register />,
+        path: "register",
       },
     ],
   },

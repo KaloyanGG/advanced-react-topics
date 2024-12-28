@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { RecipeCard } from "../../components";
 import "./Recipes.css";
-import { RecipeType } from "../../components/recipeCard/RecipeCard";
+import RecipeCard, { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
 // import {
 //   NotificationEnum,

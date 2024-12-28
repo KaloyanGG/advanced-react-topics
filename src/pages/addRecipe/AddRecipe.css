@@ -13,10 +13,13 @@ form {
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
-    height: 4rem;
-
+    cursor: text;
+    & * {
+      cursor: unset;
+    }
     & > label {
       position: absolute;
+      pointer-events: none;
       left: 5px;
       padding: 0 5px;
       top: 50%;
@@ -25,7 +28,6 @@ form {
       transition: all;
       transition-duration: 0.1s;
       background-color: var(--white);
-
       &.focused {
         top: 0;
       }

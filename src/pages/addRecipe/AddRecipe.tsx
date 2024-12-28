@@ -168,7 +168,7 @@ const AddRecipe = () => {
       dispatch({ type: "set_error", payload: { generalError: errorMessage } });
     }
   };
-
+  // todo: leave out the form component
   const errorMessage = Object.values(state.error).find((err) => err !== null);
   return (
     <form onSubmit={onSubmit} onReset={handleFormReset}>

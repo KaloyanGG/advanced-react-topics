@@ -1,10 +1,14 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 
 const Authenticate = ({ type }: { type: "login" | "register" }) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <FormInput type='text' label='Email' id='email' name='email' />
       <FormInput
         type='password'

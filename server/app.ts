@@ -1,10 +1,12 @@
+import bcrypt from "bcrypt";
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { populateDB } from "./db/populate";
 import connectDB from "./db/connection";
 import IngredientModel from "./models/ingredient.model";
 import RecipeModel from "./models/recipe.model";
-
+import { UserModel } from "./models/user.model";
+import jwt from "jsonwebtoken";
 (async () => {
   await connectDB();
   populateDB();
@@ -88,6 +90,64 @@ app.get("/recipes/details/:id", async (req, res) => {
     // }, 200);
   } catch (error) {
     res.status(500).json({ message: "An error occurred", error });
+  }
+});
+
+app.post("/auth/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find user
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      res.status(400).json({ message: "Invalid credentials" });
+      return;
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      res.status(400).json({ message: "Invalid credentials" });
+      return;
+    }
+
+    // Generate JWT
+    const token = jwt.sign({ id: user._id }, "your_jwt_secret", {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ token, userId: user._id });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
+app.post("/auth/register", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Check if user already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      res.status(400).json({ message: "User already exists" });
+      return;
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user
+    const newUser = new UserModel({
+      email,
+      password: hashedPassword,
+    });
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error", error });
   }
 });
 

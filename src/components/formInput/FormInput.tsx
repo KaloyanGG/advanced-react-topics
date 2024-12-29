@@ -1,8 +1,14 @@
 import "./FormInput.css";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, PropsWithChildren } from "react";
 
-interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+interface FormInputProps
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>,
+    "size"
+  > {
+  label?: string;
+  textarea?: boolean;
+  size?: string;
   onBlur?: (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => void;
@@ -15,8 +21,11 @@ const FormInput = ({
   onFocus,
   onBlur,
   label,
+  children,
+  textarea,
+  size,
   ...inputProps
-}: FormInputProps) => {
+}: PropsWithChildren<FormInputProps>) => {
   const handleFocus = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
@@ -41,9 +50,14 @@ const FormInput = ({
     }
   };
   return (
-    <div className='form-row'>
-      <input onFocus={handleFocus} onBlur={handleBlur} {...inputProps} />
+    <div className='form-row' style={{ height: size ? size : undefined }}>
+      {textarea ? (
+        <textarea onFocus={handleFocus} onBlur={handleBlur} {...inputProps} />
+      ) : (
+        <input onFocus={handleFocus} onBlur={handleBlur} {...inputProps} />
+      )}
       <label htmlFor={inputProps.id || inputProps.name}>{label}</label>
+      {children}
     </div>
   );
 };

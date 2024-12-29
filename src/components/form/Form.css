@@ -14,9 +14,8 @@ form {
     display: flex;
     justify-content: space-between;
     cursor: text;
-    & * {
-      cursor: unset;
-    }
+    height: 4rem;
+
     & > label {
       position: absolute;
       pointer-events: none;
@@ -50,9 +49,17 @@ form {
       width: 80%;
     }
 
+    p {
+      a {
+        color: blue;
+        &:visited {
+          color: red;
+        }
+      }
+    }
+
     div.image-loader-container {
       width: 15%;
-
       img {
         object-fit: cover;
         height: 100%;

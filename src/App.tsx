@@ -9,6 +9,7 @@ import {
 import recipeLoader from "./loaders/recipeLoader";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import Authenticate from "./pages/authenticate/Authenticate";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,11 +34,11 @@ const router = createBrowserRouter([
         loader: recipeLoader,
       },
       {
-        element: <Login />,
+        element: <Authenticate type='login' />,
         path: "login",
       },
       {
-        element: <Register />,
+        element: <Authenticate type='register' />,
         path: "register",
       },
     ],

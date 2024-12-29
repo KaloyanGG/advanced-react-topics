@@ -10,7 +10,9 @@
   --button: rgb(201, 82, 22);
   --button-disabled: rgba(201, 82, 22, 0.5);
 }
-
+.h-unset {
+  height: unset !important;
+}
 nav {
   display: flex;
   justify-content: space-around;

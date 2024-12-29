@@ -1,6 +1,6 @@
-import Authentication from "../../components/authentication/Authentication";
+import Authenticate from "../authenticate/Authenticate";
 
 const Login = () => {
-  return <Authentication type={"login"} />;
+  return <Authenticate type={"login"} />;
 };
 export default Login;

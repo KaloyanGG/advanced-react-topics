@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import "./AddRecipe.css";
 import { axiosInstance } from "../../config/config";
 import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
@@ -11,6 +10,8 @@ import {
   NotificationEnum,
   notify,
 } from "../../components/notifications/Notifications";
+import Form from "../../components/form/Form";
+import FormInput from "../../components/formInput/FormInput";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
@@ -168,55 +169,51 @@ const AddRecipe = () => {
       dispatch({ type: "set_error", payload: { generalError: errorMessage } });
     }
   };
-  // todo: leave out the form component
   const errorMessage = Object.values(state.error).find((err) => err !== null);
   return (
-    <form onSubmit={onSubmit} onReset={handleFormReset}>
+    <Form onSubmit={onSubmit} onReset={handleFormReset}>
       {errorMessage && <p className='error'>{errorMessage}</p>}
-      <div className='form-row'>
-        <input
-          autoFocus
-          required
-          type='text'
-          name='name'
-          id='name'
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={onNameChange}
-        />
-        <label htmlFor='name'>Name</label>
-      </div>
-      <div className='form-row'>
-        <input
-          required
-          type='text'
-          name='image'
-          id='image'
-          className='image-input'
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onChange={onImageURLChange}
-        />
-        <label htmlFor='image'>Image URL</label>
+      <FormInput
+        label='Name'
+        autoFocus
+        required
+        type='text'
+        name='name'
+        id='name'
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={onNameChange}
+      />
+      <FormInput
+        required
+        label='Image URL'
+        type='text'
+        name='image'
+        id='image'
+        className='image-input'
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={onImageURLChange}
+      >
         <div className='image-loader-container'>
           {state.isImageLoading ? (
-            <div className='loader'></div>
+            <div className='loader' />
           ) : (
             <img src={state.image} />
           )}
         </div>
-      </div>
-      <div className='form-row instructions'>
-        <textarea
-          required
-          onFocus={onFocus}
-          onBlur={onBlur}
-          name='instructions'
-          id='instructions'
-          onChange={onInstructionsChange}
-        />
-        <label htmlFor='instructions'>Instructions</label>
-      </div>
+      </FormInput>
+      <FormInput
+        required
+        label='Instructions'
+        id='instructions'
+        name='instructions'
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={onInstructionsChange}
+        textarea
+        size='unset'
+      />
       <div className='ingredients-container'>
         {!state.ingredientsError ? (
           ingredients.map((i, idx) => {
@@ -249,7 +246,7 @@ const AddRecipe = () => {
           X
         </button>
       </div>
-    </form>
+    </Form>
   );
 };
 export default AddRecipe;

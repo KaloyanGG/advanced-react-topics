@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import FormInput from "../formInput/FormInput";
+import { Link, NavLink } from "react-router-dom";
+import FormInput from "../../components/formInput/FormInput";
+import Form from "../../components/form/Form";
 
-const Authentication = ({ type }: { type: "login" | "register" }) => {
+const Authenticate = ({ type }: { type: "login" | "register" }) => {
   return (
-    <form>
+    <Form>
       <FormInput type='text' label='Email' id='email' name='email' />
       <FormInput
         type='password'
@@ -12,7 +13,7 @@ const Authentication = ({ type }: { type: "login" | "register" }) => {
         name='password'
       />
       {type === "login" ? (
-        <div className='form-row'>
+        <div className='form-row h-unset'>
           <p>
             Don't have an account? <Link to={"/register"}>Register here</Link>
           </p>
@@ -25,7 +26,7 @@ const Authentication = ({ type }: { type: "login" | "register" }) => {
             id='repeatPassword'
             name='repeatPassword'
           />
-          <div className='form-row'>
+          <div className='form-row h-unset'>
             <p>
               Already have an account? <Link to={"/login"}>Log in here</Link>
             </p>
@@ -45,7 +46,7 @@ const Authentication = ({ type }: { type: "login" | "register" }) => {
           X
         </button>
       </div>
-    </form>
+    </Form>
   );
 };
-export default Authentication;
+export default Authenticate;

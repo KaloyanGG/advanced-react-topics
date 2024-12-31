@@ -52,8 +52,10 @@ const Notifications = ({ duration }: NotificationsProps) => {
     document.body
   );
 };
-export const notify = (message: string, type: NotificationEnum) => {
-  addNotification(message, type);
+export const notify = (message: string, type?: NotificationEnum) => {
+  type
+    ? addNotification(message, type)
+    : addNotification(message, NotificationEnum.INFO);
 };
 
 export default Notifications;

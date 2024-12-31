@@ -43,6 +43,11 @@ form {
 
     input {
       font-size: 20px;
+      &:autofill {
+        & + label {
+          top: 0;
+        }
+      }
     }
 
     input.image-input {

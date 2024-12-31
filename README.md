@@ -9,6 +9,8 @@
 - useQuery
 - useRef
 - React Portals
+- Generic Component (FormInput)
+- Redux Toolkit, selectors, actions, reducers, async thunk
 
 ## Non-react good practices:
 
@@ -16,5 +18,5 @@
 - Good folder structure
 - Debounce function
 - ESLint
-- Inline CSS
+- Nested CSS
 - Implementing functionality of a library (react-hot-toast) from scratch and removing the library

@@ -5,9 +5,9 @@ Todo list:
 3. My own loader - done
 4. Error showing additionally - done
 5. useRef in addRecipe - done
-7. Build a notificator myself with portals - done
-6. Make notifications stay when hover - done
-
+6. Build a notificator myself with portals - done
+7. Make notifications stay when hover - done
+8. Redux for likes and user - wip
 --------------------------------------------
 - likes effect
 - make notifications cool disappear?

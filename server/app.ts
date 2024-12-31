@@ -116,7 +116,7 @@ app.post("/auth/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token, userId: user._id });
+    res.status(200).json({ token, email: user.email, id: user._id });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error", error });

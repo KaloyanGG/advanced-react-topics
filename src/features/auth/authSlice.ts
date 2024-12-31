@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { axiosInstance } from "../../config/config";
+import { getFromLocalStorage } from "../../utils/localStorage";
 
 export type User = {
   email: string;
@@ -11,18 +13,45 @@ type AuthState = {
 };
 
 const initialState: AuthState = {
-  currentUser: undefined,
+  currentUser: getFromLocalStorage("user") as User | undefined,
   isLoading: false,
 };
+
+export const login = createAsyncThunk(
+  "auth/login",
+  async (userData: { email: string; password: string }, thunkApi) => {
+    try {
+      const response = await axiosInstance.post<{
+        id: string;
+        email: string;
+        token: string;
+      }>("/auth/login", userData);
+      return response.data;
+    } catch (err: any) {
+      return thunkApi.rejectWithValue(
+        err?.response?.data?.message || err.message
+      );
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    hi: (state) => {
-      console.log("hi");
+    logout: (state) => {
+      state.currentUser = undefined;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(login.fulfilled, (state, { payload }) => {
+      state.currentUser = {
+        email: payload.email.split("@")[0],
+        id: payload.id,
+      };
+    });
   },
 });
 
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;

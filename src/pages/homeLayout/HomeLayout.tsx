@@ -13,8 +13,8 @@ const HomeLayout = () => {
     <>
       <VwIndicator />
       <Navigation />
-      <p style={{ textAlign: "end" }}>
-        Hi {currentUser ? currentUser.email : "guest"}!
+      <p style={{ textAlign: "end", paddingRight: "1rem" }}>
+        Hi, {currentUser ? currentUser.email : "guest"}!
       </p>
       <main>
         <QueryClientProvider client={queryClient}>

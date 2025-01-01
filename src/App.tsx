@@ -7,8 +7,6 @@ import {
   RecipeDetails,
 } from "./pages";
 import recipeLoader from "./loaders/recipeLoader";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
 import Authenticate from "./pages/authenticate/Authenticate";
 const router = createBrowserRouter([
   {

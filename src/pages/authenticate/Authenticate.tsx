@@ -2,21 +2,27 @@ import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 import { axiosInstance } from "../../config/config";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { login } from "../../features/auth/authSlice";
-import {
-  NotificationEnum,
-  notify,
-} from "../../components/notifications/Notifications";
+import { notify } from "../../components/notifications/Notifications";
 import { useEffect, useState } from "react";
 import { saveToLocalStorage } from "../../utils/localStorage";
 
 const Authenticate = ({ type }: { type: "login" | "register" }) => {
   // todo: use the react 19 updated for register
+  const { currentUser } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (currentUser) {
+      setTimeout(() => {
+        notify("You need to logout first");
+      }, 0);
+      navigate("/"); // Redirect to home if user is already logged in
+    }
+  }, [currentUser, navigate]);
   useEffect(() => {
     setError("");
   }, [type]);

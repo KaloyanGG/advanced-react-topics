@@ -1,10 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { logout } from "../../features/auth/authSlice";
+import { Fragment } from "react/jsx-runtime";
 
 const Navigation = () => {
   const dispatch = useAppDispatch();
   const { ids } = useAppSelector((state) => state.likedRecipes);
+  const { currentUser } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const handleLogout = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -23,11 +25,17 @@ const Navigation = () => {
           <span className='badge'>{ids.length}</span>
         </span>
       </NavLink>
-      <NavLink to={"/login"}>Log In</NavLink>
-      <NavLink to={"/register"}>Register</NavLink>
-      <NavLink onClick={handleLogout} to={"/logout"}>
-        Logout
-      </NavLink>
+
+      {currentUser ? (
+        <NavLink onClick={handleLogout} to={"/logout"}>
+          Logout
+        </NavLink>
+      ) : (
+        <Fragment>
+          <NavLink to={"/login"}>Log In</NavLink>
+          <NavLink to={"/register"}>Register</NavLink>
+        </Fragment>
+      )}
     </nav>
   );
 };

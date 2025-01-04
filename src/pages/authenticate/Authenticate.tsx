@@ -7,9 +7,10 @@ import { login } from "../../features/auth/authSlice";
 import { notify } from "../../components/notifications/Notifications";
 import { useEffect, useState } from "react";
 import { saveToLocalStorage } from "../../utils/localStorage";
-
-const Authenticate = ({ type }: { type: "login" | "register" }) => {
-  // todo: use the react 19 updated for register
+type AuthenticateProps = {
+  type: "login" | "register";
+};
+const Authenticate = ({ type }: AuthenticateProps) => {
   const { currentUser } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Authenticate = ({ type }: { type: "login" | "register" }) => {
       setTimeout(() => {
         notify("You need to logout first");
       }, 0);
-      navigate("/"); // Redirect to home if user is already logged in
+      navigate("/");
     }
   }, [currentUser, navigate]);
   useEffect(() => {

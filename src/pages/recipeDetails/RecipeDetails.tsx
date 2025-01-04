@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import "./RecipeDetails.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -108,12 +108,12 @@ const RecipeDetails = () => {
           _id={_id}
           key={_id}
           focused={idx + 0.5 === recipes.length / 2}
+          // docs https://react.dev/reference/react-dom/components/common#react-19-added-cleanup-functions-for-ref-callbacks
           ref={(node) => {
-            if (node) {
-              itemsRef.current.set(idx, node);
-            } else {
+            itemsRef.current.set(idx, node!);
+            return () => {
               itemsRef.current.delete(idx);
-            }
+            };
           }}
           name={name}
           image={image}

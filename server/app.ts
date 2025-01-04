@@ -7,6 +7,7 @@ import IngredientModel from "./models/ingredient.model";
 import RecipeModel from "./models/recipe.model";
 import { UserModel } from "./models/user.model";
 import jwt from "jsonwebtoken";
+import { Types } from "mongoose";
 (async () => {
   await connectDB();
   populateDB();
@@ -148,6 +149,35 @@ app.post("/auth/register", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Server error", error });
+  }
+});
+
+app.post("/validate", async (req: Request, res: Response) => {
+  try {
+    const { ids } = req.body;
+
+    if (!Array.isArray(ids)) {
+      res.status(400).json({ error: "Invalid input. 'ids' must be an array." });
+      return;
+    }
+
+    if (ids.length === 0) {
+      res.status(400).json({ error: "No valid IDs provided." });
+      return;
+    }
+
+    const existingRecipes = await RecipeModel.find(
+      { _id: { $in: ids } },
+      "_id"
+    ).lean();
+    const existingIds = existingRecipes.map((recipe) => recipe._id.toString());
+
+    res.status(200).json(existingIds);
+  } catch (error) {
+    console.error("Error validating recipe IDs:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while validating recipe IDs." });
   }
 });
 

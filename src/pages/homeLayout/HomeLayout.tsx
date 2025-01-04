@@ -5,17 +5,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navigation from "../../components/navigation/Navigation";
 import { useAppSelector } from "../../hooks";
+import CurrentUser from "../../components/currentUser/CurrentUser";
 
 const queryClient = new QueryClient();
 const HomeLayout = () => {
-  const { currentUser } = useAppSelector((state) => state.auth);
   return (
     <>
       <VwIndicator />
       <Navigation />
-      <p style={{ textAlign: "end", paddingRight: "1rem" }}>
-        Hi, {currentUser ? currentUser.email : "guest"}!
-      </p>
+      <CurrentUser />
       <main>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools

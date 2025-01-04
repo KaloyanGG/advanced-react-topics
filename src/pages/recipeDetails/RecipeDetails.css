@@ -58,7 +58,7 @@ div.recipe-details-container {
       p {
         font-size: 1.25rem;
       }
-      button {
+      button.like {
         background-color: var(--peach);
         padding: 0.625rem 1rem;
         border-radius: 2rem;
@@ -69,7 +69,14 @@ div.recipe-details-container {
         cursor: pointer;
         display: flex;
         align-items: center;
+        &.animate {
+          svg {
+            transform: scale(1.2);
+          }
+        }
+
         svg {
+          transition: transform 0.2s ease;
           fill: var(--peach);
           stroke: var(--button);
           width: 25px;

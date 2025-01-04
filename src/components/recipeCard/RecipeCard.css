@@ -62,7 +62,19 @@
         align-items: center;
         background-color: var(--peach);
 
+        &.animate {
+          svg {
+            transform: scale(1.2);
+          }
+        }
+        &:hover {
+          svg {
+            fill: var(--button);
+          }
+        }
+
         svg {
+          transition: transform 0.2s ease;
           fill: var(--peach);
           stroke: var(--button);
           width: 25px;
@@ -71,11 +83,6 @@
         }
         svg.liked {
           fill: var(--button);
-        }
-        &:hover {
-          svg {
-            fill: var(--button);
-          }
         }
       }
     }

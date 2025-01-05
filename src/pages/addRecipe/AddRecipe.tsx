@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
-import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
+import { Fragment, memo, useCallback, useEffect, useReducer } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import { validateImageURL } from "../../utils/imageValidator";
 import { debounce } from "../../utils/debounce";
@@ -234,19 +234,21 @@ const AddRecipe = () => {
           <p className='error'>Failed fetching the ingredients</p>
         )}
       </div>
-      <div className='buttons-container'>
-        <button
-          className='submit'
-          disabled={!state.submitEnabled}
-          type='submit'
-        >
-          Submit
-        </button>
-        <button type='reset' className='reset'>
-          X
-        </button>
-      </div>
+      <ButtonsContainer disabled={!state.submitEnabled} />
     </Form>
   );
 };
+
+const ButtonsContainer = memo(({ disabled }: { disabled: boolean }) => {
+  return (
+    <div className='buttons-container'>
+      <button className='submit' disabled={disabled} type='submit'>
+        Submit
+      </button>
+      <button type='reset' className='reset'>
+        X
+      </button>
+    </div>
+  );
+});
 export default AddRecipe;

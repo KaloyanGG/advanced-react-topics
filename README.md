@@ -4,7 +4,7 @@
 
 - useEffect/useState
 - React Router, useNavigate, loader
-- useCallback
+- useCallback, memo
 - useReducer
 - useQuery
 - useRef

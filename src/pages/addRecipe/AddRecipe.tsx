@@ -103,7 +103,7 @@ const AddRecipe = () => {
           type: "set_error",
           payload: { image: "Invalid image URL" },
         });
-        dispatch({ type: "changed_image", image: "" });
+        dispatch({ type: "changed_image", image: undefined });
       }
       dispatch({ type: "enable_submit" });
       dispatch({ type: "set_image_loading", loading: false });
@@ -140,7 +140,7 @@ const AddRecipe = () => {
         label.classList.remove("focused");
       }
     });
-    dispatch({ type: "changed_image", image: "" });
+    dispatch({ type: "changed_image", image: undefined });
     dispatch({ type: "form_reset" });
     notify("Form reset", NotificationEnum.INFO);
   };

@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
-import { Fragment, memo, useCallback, useEffect, useReducer } from "react";
+import {
+  ChangeEvent,
+  Fragment,
+  memo,
+  useCallback,
+  useEffect,
+  useReducer,
+} from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import { validateImageURL } from "../../utils/imageValidator";
 import { debounce } from "../../utils/debounce";
 import { useQuery } from "@tanstack/react-query";
-import { fetchIngredients } from "../../services/ingredientsService";
+import {
+  fetchIngredients,
+  Ingredient,
+} from "../../services/ingredientsService";
 import {
   NotificationEnum,
   notify,
@@ -214,14 +224,35 @@ const AddRecipe = () => {
         textarea
         size='unset'
       />
+      <IngredientsContainer
+        error={state.ingredientsError}
+        ingredients={ingredients}
+        onChange={onIngredientsChange}
+      />
+      <ButtonsContainer disabled={!state.submitEnabled} />
+    </Form>
+  );
+};
+
+const IngredientsContainer = memo(
+  ({
+    error,
+    ingredients,
+    onChange,
+  }: {
+    error: string;
+    ingredients: Ingredient[];
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  }) => {
+    return (
       <div className='ingredients-container'>
-        {!state.ingredientsError ? (
+        {!error ? (
           ingredients.map((i, idx) => {
             return (
               <Fragment key={idx}>
                 <label htmlFor={i.name}>{i.name}</label>
                 <input
-                  onChange={onIngredientsChange}
+                  onChange={onChange}
                   id={i.name}
                   type='checkbox'
                   name='ingredients[]'
@@ -234,10 +265,9 @@ const AddRecipe = () => {
           <p className='error'>Failed fetching the ingredients</p>
         )}
       </div>
-      <ButtonsContainer disabled={!state.submitEnabled} />
-    </Form>
-  );
-};
+    );
+  }
+);
 
 const ButtonsContainer = memo(({ disabled }: { disabled: boolean }) => {
   return (

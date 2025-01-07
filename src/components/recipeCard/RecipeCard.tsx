@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
+import { useState } from "react";
 export type RecipeType = {
   _id: string;
   name: string;
@@ -11,11 +12,16 @@ export type RecipeType = {
   likes: number;
 };
 const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
+  const [animation, setAnimation] = useState<boolean>(false);
   const navigate = useNavigate();
   const { ids } = useAppSelector((state) => state.likedRecipes);
   const dispatch = useAppDispatch();
 
   const onClick = () => {
+    setAnimation(true);
+    setTimeout(() => {
+      setAnimation(false);
+    }, 200);
     dispatch(toggleLike(recipe._id));
   };
 
@@ -32,7 +38,10 @@ const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
           Read recipe
         </button>
         <div className='likes'>
-          <button className='like' onClick={onClick}>
+          <button
+            className={`like ${animation ? "animate" : ""}`}
+            onClick={onClick}
+          >
             <svg
               className={`${ids.includes(recipe._id) ? "liked" : ""}`}
               xmlns='http://www.w3.org/2000/svg'

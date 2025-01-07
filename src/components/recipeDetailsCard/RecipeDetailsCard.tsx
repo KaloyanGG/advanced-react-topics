@@ -2,7 +2,7 @@ import { Ingredient } from "../../services/ingredientsService";
 import { RecipeType } from "../recipeCard/RecipeCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
-import { Ref } from "react";
+import { Ref, useState } from "react";
 type RecipeDetailsCardProps = Omit<RecipeType, "ingredients"> & {
   ingredients: Ingredient[];
   focused: boolean;
@@ -20,9 +20,14 @@ const RecipeDetailsCard = ({
   likes,
   _id,
 }: RecipeDetailsCardProps) => {
+  const [animation, setAnimation] = useState<boolean>(false);
   const { ids } = useAppSelector((state) => state.likedRecipes);
   const dispatch = useAppDispatch();
   const onLikeClick = () => {
+    setAnimation(true);
+    setTimeout(() => {
+      setAnimation(false);
+    }, 200);
     dispatch(toggleLike(_id));
   };
   return (
@@ -45,7 +50,10 @@ const RecipeDetailsCard = ({
         </ul>
         <h2>Instructions:</h2>
         <p>{instructions}</p>
-        <button className='like' onClick={onLikeClick}>
+        <button
+          className={`like ${animation ? "animate" : ""}`}
+          onClick={onLikeClick}
+        >
           <svg
             className={`${ids.includes(_id) ? "liked" : ""}`}
             xmlns='http://www.w3.org/2000/svg'

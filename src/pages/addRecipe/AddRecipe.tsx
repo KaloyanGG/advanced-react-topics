@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
-import { Fragment, useCallback, useEffect, useReducer, useState } from "react";
+import {
+  ChangeEvent,
+  Fragment,
+  memo,
+  useCallback,
+  useEffect,
+  useReducer,
+} from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import { validateImageURL } from "../../utils/imageValidator";
 import { debounce } from "../../utils/debounce";
 import { useQuery } from "@tanstack/react-query";
-import { fetchIngredients } from "../../services/ingredientsService";
+import {
+  fetchIngredients,
+  Ingredient,
+} from "../../services/ingredientsService";
 import {
   NotificationEnum,
   notify,
@@ -93,7 +103,7 @@ const AddRecipe = () => {
           type: "set_error",
           payload: { image: "Invalid image URL" },
         });
-        dispatch({ type: "changed_image", image: "" });
+        dispatch({ type: "changed_image", image: undefined });
       }
       dispatch({ type: "enable_submit" });
       dispatch({ type: "set_image_loading", loading: false });
@@ -130,7 +140,7 @@ const AddRecipe = () => {
         label.classList.remove("focused");
       }
     });
-    dispatch({ type: "changed_image", image: "" });
+    dispatch({ type: "changed_image", image: undefined });
     dispatch({ type: "form_reset" });
     notify("Form reset", NotificationEnum.INFO);
   };
@@ -199,7 +209,7 @@ const AddRecipe = () => {
           {state.isImageLoading ? (
             <div className='loader' />
           ) : (
-            <img src={state.image} />
+            <img src={state.image || undefined} />
           )}
         </div>
       </FormInput>
@@ -214,14 +224,35 @@ const AddRecipe = () => {
         textarea
         size='unset'
       />
+      <IngredientsContainer
+        error={state.ingredientsError}
+        ingredients={ingredients}
+        onChange={onIngredientsChange}
+      />
+      <ButtonsContainer disabled={!state.submitEnabled} />
+    </Form>
+  );
+};
+
+const IngredientsContainer = memo(
+  ({
+    error,
+    ingredients,
+    onChange,
+  }: {
+    error: string;
+    ingredients: Ingredient[];
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  }) => {
+    return (
       <div className='ingredients-container'>
-        {!state.ingredientsError ? (
+        {!error ? (
           ingredients.map((i, idx) => {
             return (
               <Fragment key={idx}>
                 <label htmlFor={i.name}>{i.name}</label>
                 <input
-                  onChange={onIngredientsChange}
+                  onChange={onChange}
                   id={i.name}
                   type='checkbox'
                   name='ingredients[]'
@@ -234,19 +265,20 @@ const AddRecipe = () => {
           <p className='error'>Failed fetching the ingredients</p>
         )}
       </div>
-      <div className='buttons-container'>
-        <button
-          className='submit'
-          disabled={!state.submitEnabled}
-          type='submit'
-        >
-          Submit
-        </button>
-        <button type='reset' className='reset'>
-          X
-        </button>
-      </div>
-    </Form>
+    );
+  }
+);
+
+const ButtonsContainer = memo(({ disabled }: { disabled: boolean }) => {
+  return (
+    <div className='buttons-container'>
+      <button className='submit' disabled={disabled} type='submit'>
+        Submit
+      </button>
+      <button type='reset' className='reset'>
+        X
+      </button>
+    </div>
   );
-};
+});
 export default AddRecipe;

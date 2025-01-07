@@ -4,18 +4,27 @@ import VwIndicator from "../../components/VWIndicator/VWIndicator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navigation from "../../components/navigation/Navigation";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import CurrentUser from "../../components/currentUser/CurrentUser";
+import { useEffect } from "react";
+import { validateLikedRecipes } from "../../features/likedRecipes/likedRecipesSlice";
 
 const queryClient = new QueryClient();
 const HomeLayout = () => {
-  const { currentUser } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const likedRecipes = useAppSelector((state) => state.likedRecipes.ids);
+
+  useEffect(() => {
+    if (likedRecipes.length > 0) {
+      dispatch(validateLikedRecipes(likedRecipes));
+    }
+  }, []);
+
   return (
     <>
       <VwIndicator />
       <Navigation />
-      <p style={{ textAlign: "end", paddingRight: "1rem" }}>
-        Hi, {currentUser ? currentUser.email : "guest"}!
-      </p>
+      <CurrentUser />
       <main>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools

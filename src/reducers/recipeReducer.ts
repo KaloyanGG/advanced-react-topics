@@ -1,6 +1,6 @@
 interface State {
   name: string;
-  image: string;
+  image: string | undefined;
   instructions: string;
   ingredients: string[];
   ingredientsError: string;
@@ -43,7 +43,7 @@ const a: SetErrorAction = {
 };
 interface ChangedImageAction {
   type: "changed_image";
-  image: string;
+  image: string | undefined;
 }
 interface ChangedIngredientsAction {
   type: "changed_ingredients";
@@ -100,7 +100,7 @@ type Action =
 export const recipeReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "changed_name":
-      const nameRegex = /^[A-Za-z]*$/;
+      const nameRegex = /^[A-Za-z ]*$/;
       if (nameRegex.test(action.name)) {
         return {
           ...state,

@@ -1,5 +1,10 @@
 Todo list:
 
+Current - 
+* likes effect - done
+* invalidate favorites
+* Login in order to like
+
 1. Cache ingredients with useQuery - done
 2. Fetch image and put it near image url - done
 3. My own loader - done
@@ -7,20 +12,20 @@ Todo list:
 5. useRef in addRecipe - done
 6. Build a notificator myself with portals - done
 7. Make notifications stay when hover - done
-8. Redux for likes and user - wip
+8. Likes - done
+9. Redux for likes and user - wip
+10. React 19 -> change useRef - done
+
 --------------------------------------------
 - likes effect
 - make notifications cool disappear?
 - cache recipe details
 - custom hooks
 
-
-7. React 19 -> change useRef
-8. likes
-9. useTransition for slow loading (ex img)
-10. pagination
-11. useOptimistic for ??
-12. modal are you sure?
+11. useTransition for slow loading (ex img)
+12. pagination
+13. useOptimistic for ??
+14. modal are you sure?
 
 X. Tailwind CSS
 Z. Responsive design

@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   getFromLocalStorage,
   saveToLocalStorage,
 } from "../../utils/localStorage";
+import { axiosInstance } from "../../config/config";
 
 type LikedRecipesState = {
   ids: string[];
@@ -11,6 +12,22 @@ type LikedRecipesState = {
 const initialState: LikedRecipesState = {
   ids: getFromLocalStorage("likedRecipesIds") || [],
 };
+
+export const validateLikedRecipes = createAsyncThunk(
+  "likedRecipes/validateLikedRecipes",
+  async (idsToValidate: string[], { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post<string[]>("/validate", {
+        ids: idsToValidate,
+      });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to validate recipe IDs."
+      );
+    }
+  }
+);
 
 const likedRecipesSlice = createSlice({
   name: "likedRecipes",
@@ -24,6 +41,17 @@ const likedRecipesSlice = createSlice({
       }
       saveToLocalStorage("likedRecipesIds", state.ids);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(validateLikedRecipes.fulfilled, (state, { payload }) => {
+        state.ids = state.ids.filter((id) => payload.includes(id));
+        saveToLocalStorage("likedRecipesIds", state.ids); // Sync with localStorage
+      })
+      .addCase(validateLikedRecipes.rejected, (state, { payload }) => {
+        saveToLocalStorage("likedRecipesIds", []);
+        state.ids = [];
+      });
   },
 });
 

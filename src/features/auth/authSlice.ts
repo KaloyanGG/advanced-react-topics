@@ -19,7 +19,10 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (userData: { email: string; password: string }, thunkApi) => {
+  async (
+    userData: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axiosInstance.post<{
         id: string;
@@ -28,9 +31,7 @@ export const login = createAsyncThunk(
       }>("/auth/login", userData);
       return response.data;
     } catch (err: any) {
-      return thunkApi.rejectWithValue(
-        err?.response?.data?.message || err.message
-      );
+      return rejectWithValue(err?.response?.data?.message || err.message);
     }
   }
 );

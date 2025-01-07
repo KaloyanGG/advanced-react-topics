@@ -209,7 +209,7 @@ const AddRecipe = () => {
           {state.isImageLoading ? (
             <div className='loader' />
           ) : (
-            <img src={state.image} />
+            <img src={state.image || undefined} />
           )}
         </div>
       </FormInput>

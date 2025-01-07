@@ -17,13 +17,13 @@ export const validateLikedRecipes = createAsyncThunk(
   "likedRecipes/validateLikedRecipes",
   async (idsToValidate: string[], { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/validate", {
+      const response = await axiosInstance.post<string[]>("/validate", {
         ids: idsToValidate,
       });
-      return response.data; // Assuming the response is a list of valid IDs
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(
-        error.response?.data?.error || "Failed to validate recipe IDs."
+        error.response?.data?.message || "Failed to validate recipe IDs."
       );
     }
   }
@@ -45,8 +45,7 @@ const likedRecipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(validateLikedRecipes.fulfilled, (state, { payload }) => {
-        // Update the state with only valid IDs
-        state.ids = state.ids.filter((id) => (payload as any).includes(id));
+        state.ids = state.ids.filter((id) => payload.includes(id));
         saveToLocalStorage("likedRecipesIds", state.ids); // Sync with localStorage
       })
       .addCase(validateLikedRecipes.rejected, (state, { payload }) => {

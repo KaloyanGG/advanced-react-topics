@@ -171,13 +171,12 @@ app.post("/validate", async (req: Request, res: Response) => {
       "_id"
     ).lean();
     const existingIds = existingRecipes.map((recipe) => recipe._id.toString());
-
     res.status(200).json(existingIds);
   } catch (error) {
     console.error("Error validating recipe IDs:", error);
     res
       .status(500)
-      .json({ error: "An error occurred while validating recipe IDs." });
+      .json({ message: "An error occurred while validating recipe IDs." });
   }
 });
 

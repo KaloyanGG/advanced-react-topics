@@ -8,6 +8,7 @@ import {
 } from "./pages";
 import recipeLoader from "./loaders/recipeLoader";
 import Authenticate from "./pages/authenticate/Authenticate";
+import { PublicRoute } from "./components/routeGuards/RouteGuards";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
         loader: recipeLoader,
       },
       {
-        element: <Authenticate type='login' />,
+        element: (
+          <PublicRoute>
+            <Authenticate type='login' />
+          </PublicRoute>
+        ),
         path: "login",
       },
       {

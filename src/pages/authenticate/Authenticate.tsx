@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 import { axiosInstance } from "../../config/config";
@@ -11,19 +11,9 @@ type AuthenticateProps = {
   type: "login" | "register";
 };
 const Authenticate = ({ type }: AuthenticateProps) => {
-  const { currentUser } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (currentUser) {
-      setTimeout(() => {
-        notify("You need to logout first");
-      }, 0);
-      navigate("/");
-    }
-  }, [currentUser, navigate]);
   useEffect(() => {
     setError("");
   }, [type]);
@@ -53,7 +43,6 @@ const Authenticate = ({ type }: AuthenticateProps) => {
           if (result.type === "auth/login/fulfilled") {
             saveToLocalStorage("user", result.payload);
             notify("Login successful");
-
             navigate("/");
           } else if (result.type === "auth/login/rejected") {
             setError(result.payload as any);

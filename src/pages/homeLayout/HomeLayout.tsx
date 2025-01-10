@@ -4,10 +4,10 @@ import VwIndicator from "../../components/VWIndicator/VWIndicator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navigation from "../../components/navigation/Navigation";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import CurrentUser from "../../components/currentUser/CurrentUser";
 import { useEffect } from "react";
 import { validateLikedRecipes } from "../../features/likedRecipes/likedRecipesSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const queryClient = new QueryClient();
 const HomeLayout = () => {

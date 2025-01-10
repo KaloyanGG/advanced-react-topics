@@ -2,11 +2,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 import { axiosInstance } from "../../config/config";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { login } from "../../features/auth/authSlice";
 import { notify } from "../../components/notifications/Notifications";
 import { useEffect, useState } from "react";
 import { saveToLocalStorage } from "../../utils/localStorage";
+import useAppDispatch from "../../hooks/useAppDispatch";
 type AuthenticateProps = {
   type: "login" | "register";
 };

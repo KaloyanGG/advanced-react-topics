@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./RecipeCard.css";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
 import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 export type RecipeType = {
   _id: string;
   name: string;

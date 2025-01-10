@@ -1,8 +1,8 @@
 import { Ingredient } from "../../services/ingredientsService";
 import { RecipeType } from "../recipeCard/RecipeCard";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
 import { Ref, useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 type RecipeDetailsCardProps = Omit<RecipeType, "ingredients"> & {
   ingredients: Ingredient[];
   focused: boolean;

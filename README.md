@@ -11,6 +11,7 @@
 - React Portals
 - Generic Component (FormInput)
 - Redux Toolkit, selectors, actions, reducers, async thunk
+- Custom hooks
 
 ## Non-react good practices:
 

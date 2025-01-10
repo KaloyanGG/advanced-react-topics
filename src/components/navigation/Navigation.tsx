@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { logout } from "../../features/auth/authSlice";
 import { Fragment } from "react/jsx-runtime";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const Navigation = () => {
   const dispatch = useAppDispatch();

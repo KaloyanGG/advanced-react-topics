@@ -15,12 +15,12 @@ Current -
 8. Likes - done
 9. Redux for likes and user - wip
 10. React 19 -> change useRef - done
+11. likes effect - done
+12. custom hooks - done
 
 --------------------------------------------
-- likes effect
 - make notifications cool disappear?
 - cache recipe details
-- custom hooks
 
 11. useTransition for slow loading (ex img)
 12. pagination

@@ -1,12 +1,11 @@
 import { PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../hooks";
 import { notify } from "../notifications/Notifications";
+import { useAppSelector } from "../../hooks";
 
 // Public Route: Accessible only if the user is logged out
 const PublicRoute = ({ children }: PropsWithChildren) => {
   const currentUser = localStorage.getItem("user");
-  //? Is it possible to not reset anything at all?
   if (currentUser) {
     setTimeout(() => {
       notify("You have to logout first");

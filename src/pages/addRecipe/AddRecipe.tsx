@@ -1,16 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
-import {
-  ChangeEvent,
-  Fragment,
-  memo,
-  useCallback,
-  useEffect,
-  useReducer,
-} from "react";
+import { ChangeEvent, Fragment, memo, useEffect, useReducer } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import { validateImageURL } from "../../utils/imageValidator";
-import { debounce } from "../../utils/debounce";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchIngredients,
@@ -22,6 +14,7 @@ import {
 } from "../../components/notifications/Notifications";
 import Form from "../../components/form/Form";
 import FormInput from "../../components/formInput/FormInput";
+import useDebounce from "../../hooks/useDebounce";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
@@ -36,12 +29,31 @@ const AddRecipe = () => {
     gcTime: 24 * 60 * 60 * 1000,
   });
   const navigate = useNavigate();
+  const debouncedImageURL = useDebounce(state.image, 500);
 
   useEffect(() => {
     if (isError && error instanceof Error) {
       dispatch({ type: "set_error", payload: { ingredients: error.message } });
     }
   }, [isError, error]);
+
+  useEffect(() => {
+    if (debouncedImageURL) {
+      validateImageURL(debouncedImageURL!).then((isValid) => {
+        if (isValid) {
+          dispatch({ type: "set_error", payload: { image: null } });
+        } else {
+          dispatch({
+            type: "set_error",
+            payload: { image: "Invalid image URL" },
+          });
+          dispatch({ type: "changed_image", image: undefined });
+        }
+        dispatch({ type: "enable_submit" });
+        dispatch({ type: "set_image_loading", loading: false });
+      });
+    }
+  }, [debouncedImageURL]);
 
   const onBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
@@ -62,9 +74,14 @@ const AddRecipe = () => {
   };
 
   const onImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const url = e.currentTarget.value;
+    if (!url) {
+      dispatch({ type: "set_error", payload: { image: "Image is required." } });
+      return;
+    }
     dispatch({ type: "enable_submit", disable: true });
     dispatch({ type: "set_image_loading", loading: true });
-    debouncedValidateAndMakeChanges(e.currentTarget.value);
+    dispatch({ type: "changed_image", image: url });
   };
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,29 +108,6 @@ const AddRecipe = () => {
     });
     dispatch({ type: "enable_submit" });
   };
-
-  const validateAndMakeChanges = (urlValue: string) => {
-    dispatch({ type: "changed_image", image: urlValue });
-    validateImageURL(urlValue).then((isValid) => {
-      dispatch({ type: "changed_image", image: urlValue });
-      if (isValid) {
-        dispatch({ type: "set_error", payload: { image: null } });
-      } else {
-        dispatch({
-          type: "set_error",
-          payload: { image: "Invalid image URL" },
-        });
-        dispatch({ type: "changed_image", image: undefined });
-      }
-      dispatch({ type: "enable_submit" });
-      dispatch({ type: "set_image_loading", loading: false });
-    });
-  };
-
-  const debouncedValidateAndMakeChanges = useCallback(
-    debounce((urlValue) => validateAndMakeChanges(urlValue), 500),
-    []
-  );
 
   const onFocus = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>

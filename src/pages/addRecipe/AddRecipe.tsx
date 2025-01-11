@@ -119,10 +119,6 @@ const AddRecipe = () => {
       } else {
         input.value = "";
       }
-      const label = input.nextSibling as HTMLLabelElement;
-      if (label) {
-        label.classList.remove("focused");
-      }
     });
     dispatch({ type: "changed_image", image: undefined });
     dispatch({ type: "form_reset" });
@@ -132,23 +128,6 @@ const AddRecipe = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const form = event.currentTarget;
-      const ingredients = Array.from(form.elements)
-        .filter(
-          (element) =>
-            element instanceof HTMLInputElement &&
-            element.name === "ingredients[]" &&
-            element.checked
-        )
-        .map((element) => (element as HTMLInputElement).value);
-      if (ingredients.length === 0) {
-        dispatch({
-          type: "set_error",
-          payload: { ingredients: "Please choose at least 1 ingredients" },
-        });
-        return;
-      }
-
       await axiosInstance.post("/recipes", event.currentTarget, {
         headers: {
           "Content-Type": "application/json",

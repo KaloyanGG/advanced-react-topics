@@ -27,9 +27,6 @@ form {
       transition: all;
       transition-duration: 0.1s;
       background-color: var(--white);
-      &.focused {
-        top: 0;
-      }
     }
 
     input,
@@ -39,6 +36,10 @@ form {
       border-radius: 5px;
       padding: 1rem;
       background-color: var(--white);
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        top: 0;
+      }
     }
 
     input {

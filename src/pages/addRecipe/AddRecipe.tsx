@@ -59,9 +59,7 @@ const AddRecipe = () => {
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
     const currentInput = e.currentTarget;
-    const label = currentInput.nextSibling as HTMLLabelElement;
     if (!currentInput.value) {
-      label.classList.remove("focused");
       dispatch({
         type: "set_error",
         payload: {
@@ -76,7 +74,6 @@ const AddRecipe = () => {
   const onImageURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.currentTarget.value;
     if (!url) {
-      dispatch({ type: "set_error", payload: { image: "Image is required." } });
       return;
     }
     dispatch({ type: "enable_submit", disable: true });
@@ -107,13 +104,6 @@ const AddRecipe = () => {
       },
     });
     dispatch({ type: "enable_submit" });
-  };
-
-  const onFocus = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
-  ) => {
-    const label = e.target.nextSibling as HTMLLabelElement;
-    label.classList.add("focused");
   };
 
   const handleFormReset = (event: React.FormEvent<HTMLFormElement>) => {
@@ -184,7 +174,6 @@ const AddRecipe = () => {
         type='text'
         name='name'
         id='name'
-        onFocus={onFocus}
         onBlur={onBlur}
         onChange={onNameChange}
       />
@@ -195,7 +184,6 @@ const AddRecipe = () => {
         name='image'
         id='image'
         className='image-input'
-        onFocus={onFocus}
         onBlur={onBlur}
         onChange={onImageURLChange}
       >
@@ -212,7 +200,6 @@ const AddRecipe = () => {
         label='Instructions'
         id='instructions'
         name='instructions'
-        onFocus={onFocus}
         onBlur={onBlur}
         onChange={onInstructionsChange}
         textarea

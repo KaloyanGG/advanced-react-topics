@@ -3,7 +3,7 @@
 ## React topics used:
 
 - useEffect/useState
-- React Router, useNavigate, loader
+- React Router, useNavigate, useLocation, loader
 - useCallback, memo
 - useReducer
 - useQuery

@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { notify } from "../notifications/Notifications";
-import { useAppSelector } from "../../hooks";
 import { getFromLocalStorage } from "../../utils/localStorage";
 
 // Public Route: Accessible only if the user is logged out
@@ -19,11 +18,12 @@ const PublicRoute = ({ children }: PropsWithChildren) => {
 // Private Route: Accessible only if the user is logged in
 const PrivateRoute = ({ children }: PropsWithChildren) => {
   const currentUser = getFromLocalStorage("user");
+  const location = useLocation();
   if (!currentUser) {
     setTimeout(() => {
       notify("You have to login first");
     }, 0);
-    return <Navigate to='/login' replace />;
+    return <Navigate to='/login' replace state={{ from: location.pathname }} />;
   }
   return children;
 };

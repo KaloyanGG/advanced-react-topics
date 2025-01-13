@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 import { axiosInstance } from "../../config/config";
@@ -13,6 +13,7 @@ type AuthenticateProps = {
 const Authenticate = ({ type }: AuthenticateProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
   useEffect(() => {
     setError("");
@@ -43,7 +44,9 @@ const Authenticate = ({ type }: AuthenticateProps) => {
           if (result.type === "auth/login/fulfilled") {
             saveToLocalStorage("user", result.payload);
             notify("Login successful");
-            navigate("/");
+            location.state?.from
+              ? navigate(location.state.from)
+              : navigate("/");
           } else if (result.type === "auth/login/rejected") {
             setError(result.payload as any);
           }

@@ -19,6 +19,7 @@ Current -
 12. custom hooks - done
 
 --------------------------------------------
+- make guards then navigate to the previous component (which we came from)
 - make notifications cool disappear?
 - cache recipe details
 

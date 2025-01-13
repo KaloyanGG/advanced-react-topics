@@ -2,11 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import "./Recipes.css";
 import RecipeCard, { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
-// import {
-//   NotificationEnum,
-//   notify,
-// } from "../../components/notifications/Notifications";
-// let called = 0;
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [error, setError] = useState<any>(null);
@@ -25,22 +20,6 @@ const Landing = () => {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <div className='recipes-container'>
-      {/* <button
-        onClick={() => {
-          notify(
-            ref.current?.value || new Date().toTimeString().split(" ")[0],
-            called % 3 == 0
-              ? NotificationEnum.INFO
-              : called % 3 === 1
-              ? NotificationEnum.ERROR
-              : NotificationEnum.SUCCESS
-          );
-          called++;
-        }}
-      >
-        click me
-      </button>
-      <input type='text' ref={ref} style={{ border: "1px solid black" }} /> */}
       <h1>Recipes List</h1>
       {error ? (
         <p>Error loading the recipes from the server</p>

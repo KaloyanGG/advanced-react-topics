@@ -8,7 +8,11 @@ import {
 } from "./pages";
 import recipeLoader from "./loaders/recipeLoader";
 import Authenticate from "./pages/authenticate/Authenticate";
-import { PublicRoute } from "./components/routeGuards/RouteGuards";
+import {
+  PrivateRoute,
+  PublicRoute,
+} from "./components/routeGuards/RouteGuards";
+import Favorites from "./pages/favorites/Favorites";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +47,14 @@ const router = createBrowserRouter([
       {
         element: <Authenticate type='register' />,
         path: "register",
+      },
+      {
+        element: (
+          <PrivateRoute>
+            <Favorites />
+          </PrivateRoute>
+        ),
+        path: "favorites",
       },
     ],
   },

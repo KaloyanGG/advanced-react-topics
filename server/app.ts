@@ -21,8 +21,15 @@ app.get("/", (req, res, next) => {
   res.send(200);
 });
 
-app.get("/recipes", async (_, res) => {
-  const recipes = await RecipeModel.find({});
+app.get("/recipes", async (req, res) => {
+  const ids = req.query.ids as string;
+  let recipes;
+  if (ids) {
+    const idsArray = ids.split(",").map((id) => id.trim());
+    recipes = await RecipeModel.find({ _id: { $in: idsArray } });
+  } else {
+    recipes = await RecipeModel.find({});
+  }
   res.send(recipes);
 });
 app.get("/ingredients", async (_, res) => {

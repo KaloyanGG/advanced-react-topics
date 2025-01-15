@@ -17,9 +17,9 @@ Current -
 10. React 19 -> change useRef - done
 11. likes effect - done
 12. custom hooks - done
+13. make guards then navigate to the previous component (which we came from) - done
 
 --------------------------------------------
-- make guards then navigate to the previous component (which we came from)
 - make notifications cool disappear?
 - cache recipe details
 

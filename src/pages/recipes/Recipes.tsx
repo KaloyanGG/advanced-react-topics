@@ -17,7 +17,6 @@ const Landing = () => {
       });
   }, []);
 
-  const ref = useRef<HTMLInputElement>(null);
   return (
     <div className='recipes-container'>
       <h1>Recipes List</h1>

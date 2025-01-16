@@ -26,7 +26,7 @@ const recipesList = [
     instructions:
       "In a large skillet, melt butter over medium heat. Add chopped onions, garlic, and ginger, and sauté until aromatic. Add curry powder and stir to coat the mixture. Add a small amount of water or stock and let it simmer to thicken. Serve as a flavorful topping or mix into rice or vegetables.",
     image:
-      "https://th.bing.com/th/id/OIP.E6h1K_AfzDjWo8SA_T802wHaJQ?w=203&h=254&c=7&r=0&o=5&pid=1.7",
+      "https://www.foodandwine.com/thmb/8YAIANQTZnGpVWj2XgY0dYH1V4I=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spicy-chicken-curry-FT-RECIPE0321-58f84fdf7b484e7f86894203eb7834e7.jpg",
   },
   {
     id: 3,
@@ -76,7 +76,7 @@ const recipesList = [
     instructions:
       "Heat a large skillet or wok over high heat. Add a small amount of oil, followed by chopped garlic and ginger. Stir until fragrant, then add chopped vegetables. Cook while stirring frequently, then add soy sauce. Continue cooking until the vegetables are tender but still crisp. Serve immediately.",
     image:
-      "https://th.bing.com/th/id/OIP.VmnyfVuV9NLwp5OFlN1ZiAAAAA?w=203&h=372&c=7&r=0&o=5&pid=1.7",
+      "https://kristineskitchenblog.com/wp-content/uploads/2024/01/vegetable-stir-fry-22-3.jpg",
   },
   {
     id: 6,

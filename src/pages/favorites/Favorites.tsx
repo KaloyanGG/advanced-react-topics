@@ -12,6 +12,7 @@ const Favorites = () => {
 
   useEffect(() => {
     if (ids.length === 0) {
+      setRecipes([]);
       return;
     }
     axiosInstance
@@ -31,15 +32,14 @@ const Favorites = () => {
       <h1>Favorites</h1>
       {error ? (
         <p>Error loading the recipes from the server</p>
+      ) : recipes.length === 0 ? (
+        <p>List is empty.</p>
       ) : (
-        <>
-          <h3>Found: {recipes.length}</h3>
-          <div className='favorites-list'>
-            {recipes.map((recipe) => {
-              return <FavoritesRecipeCard key={recipe._id} recipe={recipe} />;
-            })}
-          </div>
-        </>
+        <div className='favorites-list'>
+          {recipes.map((recipe) => {
+            return <FavoritesRecipeCard key={recipe._id} recipe={recipe} />;
+          })}
+        </div>
       )}
     </div>
   );

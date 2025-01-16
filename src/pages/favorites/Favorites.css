@@ -1,12 +1,13 @@
 .favorites-container {
-  width: 80%;
+  width: 60%;
   .favorites-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    border-radius: 2rem;
+
     div.favorites-recipe-card {
-      border-radius: inherit;
+      border-radius: 2rem;
+      overflow: hidden;
       height: 20rem;
       position: relative;
       width: 100%;
@@ -40,6 +41,9 @@
           padding: 1rem;
           border-radius: 1rem;
           cursor: pointer;
+          &:hover {
+            background-color: var(--button);
+          }
         }
       }
     }

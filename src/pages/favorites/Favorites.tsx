@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RecipeCard, { RecipeType } from "../../components/recipeCard/RecipeCard";
+import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
 import "./Favorites.css";
 import { useAppSelector } from "../../hooks";

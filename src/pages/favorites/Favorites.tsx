@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
 import "./Favorites.css";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import FavoritesRecipeCard from "../../components/favoritesRecipeCard/FavoritesRecipeCard";
+import { clearAllLiked } from "../../features/likedRecipes/likedRecipesSlice";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   const [error, setError] = useState<any>(null);
   const { ids } = useAppSelector((state) => state.likedRecipes);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (ids.length === 0) {
       setRecipes([]);
@@ -29,7 +30,15 @@ const Favorites = () => {
 
   return (
     <div className='favorites-container'>
-      <h1>Favorites</h1>
+      <div className='row'>
+        <h1>Favorites</h1>
+        {recipes.length > 0 && (
+          <button className='clear' onClick={() => dispatch(clearAllLiked())}>
+            Clear all
+          </button>
+        )}
+      </div>
+
       {error ? (
         <p>Error loading the recipes from the server</p>
       ) : recipes.length === 0 ? (

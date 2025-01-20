@@ -42,6 +42,10 @@ const likedRecipesSlice = createSlice({
       }
       saveToLocalStorage("likedRecipesIds", state.ids);
     },
+    clearAllLiked: (state) => {
+      state.ids = [];
+      saveToLocalStorage("likedRecipesIds", state.ids);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,4 +66,4 @@ const likedRecipesSlice = createSlice({
 
 export default likedRecipesSlice.reducer;
 
-export const { toggleLike } = likedRecipesSlice.actions;
+export const { toggleLike, clearAllLiked } = likedRecipesSlice.actions;

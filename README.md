@@ -17,7 +17,7 @@
 
 - Custom Axios instance
 - Good folder structure
-- Debounce function
 - ESLint
 - Nested CSS
 - Implementing functionality of a library (react-hot-toast) from scratch and removing the library
+- Dialog modal

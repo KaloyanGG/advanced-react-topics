@@ -1,4 +1,4 @@
-export const validateImageURL = async (url: string) => {
+const validateImageURL = async (url: string) => {
   return new Promise<boolean>((resolve) => {
     const image = new Image();
     image.onload = () => resolve(true);
@@ -6,3 +6,5 @@ export const validateImageURL = async (url: string) => {
     image.src = url;
   });
 };
+
+export default validateImageURL;

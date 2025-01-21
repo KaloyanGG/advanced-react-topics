@@ -5,6 +5,7 @@ import "./Favorites.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import FavoritesRecipeCard from "../../components/favoritesRecipeCard/FavoritesRecipeCard";
 import { clearAllLiked } from "../../features/likedRecipes/likedRecipesSlice";
+import isClickOutside from "../../utils/isClickOutside";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
@@ -44,14 +45,8 @@ const Favorites = () => {
   const onDialogClick = (
     e: React.MouseEvent<HTMLDialogElement, MouseEvent>
   ) => {
-    const dialogDimensions = dialogRef.current!.getBoundingClientRect();
-    if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
-    ) {
-      dialogRef.current?.close();
+    if (dialogRef.current && isClickOutside(dialogRef.current, e)) {
+      dialogRef.current.close();
     }
   };
 

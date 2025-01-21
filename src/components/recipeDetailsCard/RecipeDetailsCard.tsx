@@ -3,6 +3,8 @@ import { RecipeType } from "../recipeCard/RecipeCard";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
 import { Ref, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getFromLocalStorage } from "../../utils/localStorage";
+import { useNavigate } from "react-router-dom";
 type RecipeDetailsCardProps = Omit<RecipeType, "ingredients"> & {
   ingredients: Ingredient[];
   focused: boolean;
@@ -23,7 +25,12 @@ const RecipeDetailsCard = ({
   const [animation, setAnimation] = useState<boolean>(false);
   const { ids } = useAppSelector((state) => state.likedRecipes);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const onLikeClick = () => {
+    if (!getFromLocalStorage("user")) {
+      navigate("/favorites");
+      return;
+    }
     setAnimation(true);
     setTimeout(() => {
       setAnimation(false);

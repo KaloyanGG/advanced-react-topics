@@ -1,6 +1,8 @@
-export default function arrayAIncludesFullyArrayB(
+const arrayAIncludesFullyArrayB = (
   arrayA: string[],
   arrayB: string[]
-): boolean {
+): boolean => {
   return arrayB.every((element) => arrayA.includes(element));
-}
+};
+
+export default arrayAIncludesFullyArrayB;

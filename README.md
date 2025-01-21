@@ -3,7 +3,7 @@
 ## React topics used:
 
 - useEffect/useState
-- React Router, useNavigate, loader
+- React Router, useNavigate, useLocation, loader
 - useCallback, memo
 - useReducer
 - useQuery
@@ -17,7 +17,7 @@
 
 - Custom Axios instance
 - Good folder structure
-- Debounce function
 - ESLint
 - Nested CSS
 - Implementing functionality of a library (react-hot-toast) from scratch and removing the library
+- Dialog modal

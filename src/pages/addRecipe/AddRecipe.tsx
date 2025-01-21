@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
 import { ChangeEvent, Fragment, memo, useEffect, useReducer } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
-import { validateImageURL } from "../../utils/imageValidator";
+import validateImageURL from "../../utils/imageValidator";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchIngredients,

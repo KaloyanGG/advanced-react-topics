@@ -4,6 +4,7 @@ import {
   saveToLocalStorage,
 } from "../../utils/localStorage";
 import { axiosInstance } from "../../config/config";
+import { logout } from "../auth/authSlice";
 
 type LikedRecipesState = {
   ids: string[];
@@ -41,6 +42,10 @@ const likedRecipesSlice = createSlice({
       }
       saveToLocalStorage("likedRecipesIds", state.ids);
     },
+    clearAllLiked: (state) => {
+      state.ids = [];
+      saveToLocalStorage("likedRecipesIds", state.ids);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,10 +56,14 @@ const likedRecipesSlice = createSlice({
       .addCase(validateLikedRecipes.rejected, (state, { payload }) => {
         saveToLocalStorage("likedRecipesIds", []);
         state.ids = [];
+      })
+      .addCase(logout, (state) => {
+        state.ids = []; // Clear the liked recipes
+        saveToLocalStorage("likedRecipesIds", []); // Clear localStorage
       });
   },
 });
 
 export default likedRecipesSlice.reducer;
 
-export const { toggleLike } = likedRecipesSlice.actions;
+export const { toggleLike, clearAllLiked } = likedRecipesSlice.actions;

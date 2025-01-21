@@ -3,6 +3,7 @@ import "./RecipeCard.css";
 import { toggleLike } from "../../features/likedRecipes/likedRecipesSlice";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
+import { getFromLocalStorage } from "../../utils/localStorage";
 export type RecipeType = {
   _id: string;
   name: string;
@@ -18,6 +19,10 @@ const RecipeCard = ({ recipe }: { recipe: RecipeType }) => {
   const dispatch = useAppDispatch();
 
   const onClick = () => {
+    if (!getFromLocalStorage("user")) {
+      navigate("/favorites");
+      return;
+    }
     setAnimation(true);
     setTimeout(() => {
       setAnimation(false);

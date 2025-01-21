@@ -1,10 +1,5 @@
 Todo list:
 
-Current - 
-* likes effect - done
-* invalidate favorites
-* Login in order to like
-
 1. Cache ingredients with useQuery - done
 2. Fetch image and put it near image url - done
 3. My own loader - done

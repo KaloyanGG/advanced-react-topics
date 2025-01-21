@@ -18,6 +18,7 @@ Current -
 11. likes effect - done
 12. custom hooks - done
 13. make guards then navigate to the previous component (which we came from) - done
+14. modal "are you sure" - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -26,7 +27,6 @@ Current -
 11. useTransition for slow loading (ex img)
 12. pagination
 13. useOptimistic for ??
-14. modal are you sure?
 
 X. Tailwind CSS
 Z. Responsive design

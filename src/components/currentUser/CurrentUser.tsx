@@ -5,7 +5,15 @@ const CurrentUser = () => {
 
   return (
     <p style={{ textAlign: "end", paddingRight: "1rem" }}>
-      Hi, {currentUser ? currentUser.email : "guest"}!
+      Hi,{" "}
+      <span
+        style={{
+          color: "var(--button)",
+        }}
+      >
+        {currentUser ? currentUser.email : "guest"}
+      </span>
+      !
     </p>
   );
 };

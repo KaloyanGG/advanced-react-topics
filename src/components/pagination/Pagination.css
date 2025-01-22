@@ -1,0 +1,17 @@
+div.pagination-container {
+  /* height: 3rem; */
+  /** remove: */
+  border: 1px solid red;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  div.page-item {
+    width: 3rem;
+    aspect-ratio: 1/1;
+    outline: 1px solid brown;
+    &.active {
+      background-color: red;
+    }
+  }
+}

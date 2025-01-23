@@ -47,6 +47,15 @@ app.get("/recipes", async (req, res) => {
   }
 });
 
+app.get("/recipesCount", async (req, res) => {
+  try {
+    const count = await RecipeModel.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching recipes count", error });
+  }
+});
+
 app.get("/ingredients", async (_, res) => {
   const ingredients = await IngredientModel.find({});
   res.send(ingredients);

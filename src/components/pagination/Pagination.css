@@ -1,7 +1,4 @@
 div.pagination-container {
-  /* height: 3rem; */
-  /** remove: */
-  border: 1px solid red;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -9,9 +6,19 @@ div.pagination-container {
   div.page-item {
     width: 3rem;
     aspect-ratio: 1/1;
-    outline: 1px solid brown;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &.active {
-      background-color: red;
+      background-color: var(--peach);
+    }
+    &.number {
+      border: 1px solid black;
+      border-radius: 0.25rem;
+    }
+    &.ellipsis {
+      color: rgba(0, 0, 0, 0.7);
     }
   }
 }

@@ -40,7 +40,7 @@ const Pagination = memo(
       renderedPagesWithEmptyArray.forEach((number, idx) => {
         if (number === 0) {
           divsArray.push(
-            <div key={`ellipsis-${idx}`} className='page-item'>
+            <div key={`ellipsis-${idx}`} className='page-item ellipsis'>
               ...
             </div>
           );
@@ -48,7 +48,9 @@ const Pagination = memo(
           divsArray.push(
             <div
               key={number}
-              className={`page-item ${number === activePage ? "active" : ""}`}
+              className={`page-item number${
+                number === activePage ? " active" : ""
+              }`}
               onClick={() => onPageChange(number)}
             >
               {number}

@@ -7,70 +7,57 @@ type PaginationProps = {
 };
 const Pagination = memo(
   ({ pages, activePage, onPageChange }: PaginationProps) => {
+    const calculateRenderedPages = () => {
+      const renderedPagesSet = new Set<number>();
+      renderedPagesSet.add(1);
+
+      for (let i = activePage - 1; i <= activePage + 1; i++) {
+        if (i >= 1 && i <= pages) {
+          renderedPagesSet.add(i);
+        }
+      }
+
+      renderedPagesSet.add(pages);
+      return Array.from(renderedPagesSet);
+    };
+
+    const addEmptyPages = (pages: number[]) => {
+      const result = [];
+      for (let i = 0; i < pages.length; i++) {
+        result.push(pages[i]);
+        if (pages[i + 1] && pages[i] + 1 !== pages[i + 1]) {
+          result.push(0);
+        }
+      }
+      return result;
+    };
+
     const renderPagination = () => {
-      const paginationItems: JSX.Element[] = [];
-      if (pages <= 5) {
-        for (let i = 1; i <= pages; i++) {
-          paginationItems.push(
+      const renderedPagesArray = calculateRenderedPages();
+      const renderedPagesWithEmptyArray = addEmptyPages(renderedPagesArray);
+
+      const divsArray: JSX.Element[] = [];
+      renderedPagesWithEmptyArray.forEach((number, idx) => {
+        if (number === 0) {
+          divsArray.push(
+            <div key={`ellipsis-${idx}`} className='page-item'>
+              ...
+            </div>
+          );
+        } else {
+          divsArray.push(
             <div
-              key={i}
-              className={`page-item ${i === activePage ? "active" : ""}`}
-              onClick={() => onPageChange(i)}
+              key={number}
+              className={`page-item ${number === activePage ? "active" : ""}`}
+              onClick={() => onPageChange(number)}
             >
-              {i}
+              {number}
             </div>
           );
         }
-      } else {
-        paginationItems.push(
-          <div
-            key={1}
-            className={`page-item ${1 === activePage ? "active" : ""}`}
-            onClick={() => onPageChange(1)}
-          >
-            {1}
-          </div>
-        );
+      });
 
-        for (let i = activePage - 1; i <= activePage + 1; i++) {
-          if (i !== 1 && i !== pages && i !== 0 && i !== pages + 1) {
-            paginationItems.push(
-              <div
-                key={i}
-                className={`page-item ${i === activePage ? "active" : ""}`}
-                onClick={() => onPageChange(i)}
-              >
-                {i}
-              </div>
-            );
-          }
-        }
-
-        paginationItems.push(
-          <div
-            key={pages}
-            className={`page-item ${pages === activePage ? "active" : ""}`}
-            onClick={() => onPageChange(pages)}
-          >
-            {pages}
-          </div>
-        );
-      }
-      for (let i = 0; i < paginationItems.length; i++) {
-        if (
-          i < paginationItems.length - 1 &&
-          Number(paginationItems[i].key) + 1 !==
-            Number(paginationItems[i + 1].key)
-        ) {
-          paginationItems.splice(
-            i + 1,
-            0,
-            <div className='page-item'>...</div>
-          );
-          i++;
-        }
-      }
-      return paginationItems;
+      return divsArray;
     };
     return <div className='pagination-container'>{renderPagination()}</div>;
   }

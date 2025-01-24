@@ -1,0 +1,24 @@
+div.pagination-container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  div.page-item {
+    width: 3rem;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.active {
+      background-color: var(--peach);
+    }
+    &.number {
+      border: 1px solid black;
+      border-radius: 0.25rem;
+    }
+    &.ellipsis {
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}

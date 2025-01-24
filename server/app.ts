@@ -23,15 +23,39 @@ app.get("/", (req, res, next) => {
 
 app.get("/recipes", async (req, res) => {
   const ids = req.query.ids as string;
-  let recipes;
+  const page = parseInt(req.query.page as string, 10) || null;
+  const limit = parseInt(req.query.limit as string, 10) || null;
+
+  let query = {};
   if (ids) {
     const idsArray = ids.split(",").map((id) => id.trim());
-    recipes = await RecipeModel.find({ _id: { $in: idsArray } });
-  } else {
-    recipes = await RecipeModel.find({});
+    query = { _id: { $in: idsArray } };
   }
-  res.send(recipes);
+
+  let recipesQuery = RecipeModel.find(query);
+
+  // Apply pagination if both page and limit are provided
+  if (page !== null && limit !== null) {
+    recipesQuery = recipesQuery.skip((page - 1) * limit).limit(limit);
+  }
+
+  try {
+    const recipes = await recipesQuery;
+    res.send(recipes);
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching recipes", error });
+  }
 });
+
+app.get("/recipesCount", async (req, res) => {
+  try {
+    const count = await RecipeModel.countDocuments();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching recipes count", error });
+  }
+});
+
 app.get("/ingredients", async (_, res) => {
   const ingredients = await IngredientModel.find({});
   res.send(ingredients);

@@ -26,6 +26,10 @@ Todo list:
 X. Tailwind CSS
 Z. Responsive design
 
+Y. fix details - like a recipe - login - not returning to the recipe details??
+@. fix logout notification not showing 
+
+
 // todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview
 // suspense https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36301200#overview
 // redux

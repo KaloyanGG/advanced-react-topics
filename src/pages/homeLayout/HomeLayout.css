@@ -55,7 +55,7 @@ body {
   background-color: var(--white);
 }
 main {
-  max-width: 150rem; /* 150rem */
+  max-width: 150rem;
   width: 90vw;
   min-height: 95vh;
   margin: 0 auto;

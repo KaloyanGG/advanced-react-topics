@@ -14,13 +14,13 @@ Todo list:
 12. custom hooks - done
 13. make guards then navigate to the previous component (which we came from) - done
 14. modal "are you sure" - done
+15. pagination - done
 
 --------------------------------------------
 - make notifications cool disappear?
 - cache recipe details
 
 11. useTransition for slow loading (ex img)
-12. pagination
 13. useOptimistic for ??
 
 X. Tailwind CSS
@@ -28,6 +28,7 @@ Z. Responsive design
 
 Y. fix details - like a recipe - login - not returning to the recipe details??
 @. fix logout notification not showing 
+&. fix recipes number
 
 
 // todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview

@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../features/auth/authSlice";
 import { Fragment } from "react/jsx-runtime";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { notify } from "../notifications/Notifications";
 
 const Navigation = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ const Navigation = () => {
     dispatch(logout());
     localStorage.removeItem("user");
     navigate("/login");
+    notify("Logout successful");
   };
 
   return (

@@ -15,6 +15,7 @@ Todo list:
 13. make guards then navigate to the previous component (which we came from) - done
 14. modal "are you sure" - done
 15. pagination - done
+16. fix logout notification not showing - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -27,7 +28,6 @@ X. Tailwind CSS
 Z. Responsive design
 
 Y. fix details - like a recipe - login - not returning to the recipe details??
-@. fix logout notification not showing 
 &. fix recipes number
 
 

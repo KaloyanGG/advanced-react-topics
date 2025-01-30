@@ -18,12 +18,11 @@ const PublicRoute = ({ children }: PropsWithChildren) => {
 // Private Route: Accessible only if the user is logged in
 const PrivateRoute = ({ children }: PropsWithChildren) => {
   const currentUser = getFromLocalStorage("user");
-  const location = useLocation();
   if (!currentUser) {
     setTimeout(() => {
       notify("You have to login first");
     }, 0);
-    return <Navigate to='/login' replace state={{ from: location.pathname }} />;
+    return <Navigate to='/login' replace />;
   }
   return children;
 };

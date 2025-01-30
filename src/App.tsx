@@ -45,7 +45,11 @@ const router = createBrowserRouter([
         path: "login",
       },
       {
-        element: <Authenticate type='register' />,
+        element: (
+          <PublicRoute>
+            <Authenticate type='register' />
+          </PublicRoute>
+        ),
         path: "register",
       },
       {

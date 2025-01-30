@@ -5,6 +5,7 @@ import { Ref, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { getFromLocalStorage } from "../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
+import { notify } from "../notifications/Notifications";
 type RecipeDetailsCardProps = Omit<RecipeType, "ingredients"> & {
   ingredients: Ingredient[];
   focused: boolean;
@@ -28,7 +29,12 @@ const RecipeDetailsCard = ({
   const navigate = useNavigate();
   const onLikeClick = () => {
     if (!getFromLocalStorage("user")) {
-      navigate("/favorites");
+      navigate("/login", {
+        state: {
+          from: `/recipes/${_id}`,
+        },
+      });
+      notify("You have to login first");
       return;
     }
     setAnimation(true);

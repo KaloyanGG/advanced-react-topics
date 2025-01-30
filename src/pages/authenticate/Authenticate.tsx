@@ -1,4 +1,4 @@
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import FormInput from "../../components/formInput/FormInput";
 import Form from "../../components/form/Form";
 import { axiosInstance } from "../../config/config";
@@ -15,6 +15,7 @@ const Authenticate = ({ type }: AuthenticateProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState("");
+
   useEffect(() => {
     setError("");
   }, [type]);

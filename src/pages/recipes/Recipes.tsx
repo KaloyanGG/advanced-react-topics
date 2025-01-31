@@ -11,6 +11,7 @@ const Landing = () => {
   const [error, setError] = useState<any>(null);
   const [activePage, setActivePage] = useState<number>(1);
   const [numberOfPages, setNumberOfPages] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
   useEffect(() => {
     axiosInstance
       .get<{ count: number }>("/recipesCount")
@@ -24,9 +25,12 @@ const Landing = () => {
 
   useEffect(() => {
     axiosInstance
-      .get<RecipeType[]>(`/recipes?page=${activePage}?&limit=${recipesPerPage}`)
+      .get<{ recipes: RecipeType[]; totalCount: number }>(
+        `/recipes?page=${activePage}?&limit=${recipesPerPage}`
+      )
       .then((r) => {
-        setRecipes(r.data);
+        setRecipes(r.data.recipes);
+        setTotal(r.data.totalCount);
       })
       .catch((error) => {
         setError(error);
@@ -44,7 +48,7 @@ const Landing = () => {
         <p>Error loading the recipes from the server</p>
       ) : (
         <>
-          <h3>Found: {recipes.length}</h3>
+          <h3>Found: {total}</h3>
           <Pagination
             pages={numberOfPages}
             activePage={activePage}

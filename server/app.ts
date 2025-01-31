@@ -40,8 +40,11 @@ app.get("/recipes", async (req, res) => {
   }
 
   try {
-    const recipes = await recipesQuery;
-    res.send(recipes);
+    const [recipes, totalCount] = await Promise.all([
+      recipesQuery,
+      RecipeModel.countDocuments(query),
+    ]);
+    res.send({ recipes, totalCount });
   } catch (error) {
     res.status(500).send({ message: "Error fetching recipes", error });
   }

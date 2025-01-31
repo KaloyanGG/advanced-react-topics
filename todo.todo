@@ -16,6 +16,8 @@ Todo list:
 14. modal "are you sure" - done
 15. pagination - done
 16. fix logout notification not showing - done
+17. fix details - like a recipe - login - not returning to the recipe details - done
+18. fix recipes number - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -26,10 +28,6 @@ Todo list:
 
 X. Tailwind CSS
 Z. Responsive design
-
-Y. fix details - like a recipe - login - not returning to the recipe details??
-&. fix recipes number
-
 
 // todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview
 // suspense https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36301200#overview

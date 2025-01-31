@@ -18,6 +18,7 @@ Todo list:
 16. fix logout notification not showing - done
 17. fix details - like a recipe - login - not returning to the recipe details - done
 18. fix recipes number - done
+19. Introduce the more practical pagination with a swap button between them - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -25,6 +26,7 @@ Todo list:
 
 11. useTransition for slow loading (ex img)
 13. useOptimistic for ??
+@. Fix likes - decide what to do
 
 X. Tailwind CSS
 Z. Responsive design

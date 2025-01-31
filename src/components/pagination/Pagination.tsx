@@ -1,10 +1,12 @@
 import { JSX, memo } from "react";
 import "./Pagination.css";
+
 type PaginationProps = {
   pages: number;
   activePage: number;
   onPageChange: (page: number) => void;
 };
+
 const Pagination = memo(
   ({ pages, activePage, onPageChange }: PaginationProps) => {
     const calculateRenderedPages = () => {
@@ -61,7 +63,7 @@ const Pagination = memo(
 
       return divsArray;
     };
-    return <div className='pagination-container'>{renderPagination()}</div>;
+    return <div className='complex-pagination'>{renderPagination()}</div>;
   }
 );
 

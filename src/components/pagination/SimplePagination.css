@@ -1,0 +1,56 @@
+div.simple-pagination {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 3rem;
+  --width: 2.5rem;
+  div.active-page {
+    background-color: var(--peach);
+    border-radius: 50%;
+    line-height: var(--width);
+    height: var(--width);
+    aspect-ratio: 1/1;
+    text-align: center;
+    user-select: none;
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    background-color: unset;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    transition: background-color 0.3s ease-out;
+    &:hover {
+      background-color: var(--peach);
+    }
+  }
+  button.left {
+    translate: calc(-1 * var(--width)) -50%;
+  }
+  button.right {
+    translate: var(--width) -50%;
+  }
+
+  /* div.page-item {
+    width: 3rem;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.active {
+      background-color: var(--peach);
+    }
+    &.number {
+      border: 1px solid black;
+      border-radius: 0.25rem;
+    }
+    &.ellipsis {
+      color: rgba(0, 0, 0, 0.7);
+    }
+  } */
+}

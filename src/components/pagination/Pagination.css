@@ -1,4 +1,4 @@
-div.pagination-container {
+div.complex-pagination {
   margin: auto;
   display: flex;
   justify-content: center;
@@ -16,6 +16,7 @@ div.pagination-container {
     &.number {
       border: 1px solid black;
       border-radius: 0.25rem;
+      cursor: pointer;
     }
     &.ellipsis {
       color: rgba(0, 0, 0, 0.7);

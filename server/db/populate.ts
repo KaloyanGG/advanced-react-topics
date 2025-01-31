@@ -173,7 +173,7 @@ const recipesList = [
   },
   {
     id: 13,
-    name: "mozarella Caprese Salad",
+    name: "Mozarella Caprese Salad",
     ingredients: [
       "fresh mozarella",
       "tomatoes",

@@ -19,14 +19,20 @@ Todo list:
 17. fix details - like a recipe - login - not returning to the recipe details - done
 18. fix recipes number - done
 19. Introduce the more practical pagination with a swap button between them - done
+20. Lazy loading - done
 
 --------------------------------------------
 - make notifications cool disappear?
 - cache recipe details
 
-11. useTransition for slow loading (ex img)
 13. useOptimistic for ??
 @. Fix likes - decide what to do
+
+
+- Error Boundaries (Handling unexpected errors gracefully)
+- Code Splitting & Lazy Loading (Optimize performance using React.lazy() and Suspense)
+- Optimistic UI Updates (Improving UX with immediate UI changes before the backend response)
+- React Testing Library & Jest (Unit and integration tests)
 
 X. Tailwind CSS
 Z. Responsive design

@@ -13,8 +13,6 @@ const SimplePagination = memo(
     onPreviousClick,
     onNextClick,
   }: SimplePaginationProps) => {
-    console.log(activePage);
-    console.log(pages);
     return (
       <div className='simple-pagination'>
         {activePage !== 1 && (

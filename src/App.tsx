@@ -1,18 +1,23 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {
-  HomeLayout,
-  AddRecipe,
-  Recipes,
-  DefaultError,
-  RecipeDetails,
-} from "./pages";
+import { lazy } from "react";
 import recipeLoader from "./loaders/recipeLoader";
-import Authenticate from "./pages/authenticate/Authenticate";
 import {
   PrivateRoute,
   PublicRoute,
 } from "./components/routeGuards/RouteGuards";
-import Favorites from "./pages/favorites/Favorites";
+import Recipes from "./pages/recipes/Recipes.tsx";
+
+const HomeLayout = lazy(() => import("./pages/homeLayout/HomeLayout.tsx"));
+const DefaultError = lazy(
+  () => import("./pages/defaultError/DefaultError.tsx")
+);
+const AddRecipe = lazy(() => import("./pages/addRecipe/AddRecipe.tsx"));
+const RecipeDetails = lazy(
+  () => import("./pages/recipeDetails/RecipeDetails.tsx")
+);
+const Authenticate = lazy(() => import("./pages/authenticate/Authenticate"));
+const Favorites = lazy(() => import("./pages/favorites/Favorites"));
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -63,7 +68,17 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+function wait() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 1500);
+  });
+}
+
 const App = () => {
   return <RouterProvider router={router} />;
 };
+
 export default App;

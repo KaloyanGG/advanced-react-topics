@@ -14,6 +14,7 @@ Please do not try the recipes... 😆
 - Generic Component (FormInput)
 - Redux Toolkit, selectors, actions, reducers, async thunk
 - Custom hooks
+- Lazy loading
 
 ## Non-react good practices:
 

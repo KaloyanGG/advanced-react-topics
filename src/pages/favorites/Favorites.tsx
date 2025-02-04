@@ -19,11 +19,11 @@ const Favorites = () => {
       return;
     }
     axiosInstance
-      .get<RecipeType[]>("/recipes", {
+      .get<{ recipes: RecipeType[] }>("/recipes", {
         params: { ids: ids.join(",") },
       })
       .then((r) => {
-        setRecipes(r.data);
+        setRecipes(r.data.recipes);
       })
       .catch((error) => {
         setError(error);

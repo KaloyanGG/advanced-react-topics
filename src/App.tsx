@@ -8,9 +8,7 @@ import {
 import Recipes from "./pages/recipes/Recipes.tsx";
 
 const HomeLayout = lazy(() => import("./pages/homeLayout/HomeLayout.tsx"));
-const DefaultError = lazy(
-  () => import("./pages/defaultError/DefaultError.tsx")
-);
+const NotFound = lazy(() => import("./pages/notFound/NotFound.tsx"));
 const AddRecipe = lazy(() => import("./pages/addRecipe/AddRecipe.tsx"));
 const RecipeDetails = lazy(
   () => import("./pages/recipeDetails/RecipeDetails.tsx")
@@ -22,8 +20,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <DefaultError />,
     children: [
+      {
+        path: "*",
+        element: <NotFound />,
+      },
       {
         index: true,
         element: <Recipes />,

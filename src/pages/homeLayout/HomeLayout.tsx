@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import CurrentUser from "../../components/currentUser/CurrentUser";
 import { useEffect } from "react";
 import { validateLikedRecipes } from "../../features/likedRecipes/likedRecipesSlice";
+import { ErrorBoundary } from "react-error-boundary";
+import AppFallback from "../../components/errors/appFallback/AppFallback";
 
 const queryClient = new QueryClient();
 const HomeLayout = () => {
@@ -31,7 +33,12 @@ const HomeLayout = () => {
             initialIsOpen={false}
             buttonPosition='bottom-left'
           />
-          <Outlet />
+          <ErrorBoundary
+            fallback={<AppFallback />}
+            onError={(e) => console.error(e)}
+          >
+            <Outlet />
+          </ErrorBoundary>
         </QueryClientProvider>
       </main>
     </>

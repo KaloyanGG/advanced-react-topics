@@ -34,8 +34,8 @@ const HomeLayout = () => {
             buttonPosition='bottom-left'
           />
           <ErrorBoundary
-            fallback={<AppFallback />}
-            onError={(e) => console.error(e)}
+            FallbackComponent={AppFallback}
+            onError={(e) => console.log(e)}
           >
             <Outlet />
           </ErrorBoundary>

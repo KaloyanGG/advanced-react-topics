@@ -29,6 +29,7 @@ Todo list:
 13. useOptimistic for ??
 @. Fix likes - decide what to do
 X. Fix smaller screen when 2/3 recipes
+Y. Fix this "shorter to taller" problem when content changes
 
 
 - Code Splitting & Lazy Loading (Optimize performance using React.lazy() and Suspense)

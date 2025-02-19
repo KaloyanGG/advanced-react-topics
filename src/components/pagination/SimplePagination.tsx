@@ -1,4 +1,4 @@
-import { act, memo, useEffect, useState } from "react";
+import { memo } from "react";
 import "./SimplePagination.css";
 type SimplePaginationProps = {
   pages: number;

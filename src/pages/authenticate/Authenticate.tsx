@@ -45,9 +45,11 @@ const Authenticate = ({ type }: AuthenticateProps) => {
           if (result.type === "auth/login/fulfilled") {
             saveToLocalStorage("user", result.payload);
             notify("Login successful");
-            location.state?.from
-              ? navigate(location.state.from)
-              : navigate("/");
+            if (location.state?.from) {
+              navigate(location.state.from);
+            } else {
+              navigate("/");
+            }
           } else if (result.type === "auth/login/rejected") {
             setError(result.payload as any);
           }

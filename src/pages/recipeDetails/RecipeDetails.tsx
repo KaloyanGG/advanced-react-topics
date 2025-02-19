@@ -86,7 +86,7 @@ const RecipeDetails = () => {
     window.history.pushState({}, "", `/recipes/${nodeToScrollTo.id}`);
     nodeToScrollTo.classList.remove("outside");
     itemsRef.current.get(itemsLength / 2 - 0.5)?.classList.add("outside");
-    containerRef.current!.onscrollend = async (ev: Event) => {
+    containerRef.current!.onscrollend = async () => {
       containerRef.current!.onscrollend = null;
       const recipes = (
         await recipeLoader({ params: { id: nodeToScrollTo?.id } } as any)

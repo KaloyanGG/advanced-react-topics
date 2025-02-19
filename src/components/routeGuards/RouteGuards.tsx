@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { notify } from "../notifications/Notifications";
 import { getFromLocalStorage } from "../../utils/localStorage";
 

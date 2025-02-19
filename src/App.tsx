@@ -70,13 +70,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-function wait() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1500);
-  });
-}
+// function wait() {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(true);
+//     }, 1500);
+//   });
+// }
 
 const App = () => {
   return <RouterProvider router={router} />;

@@ -35,12 +35,6 @@ export enum Payload {
   image = "image",
   generalError = "generalError",
 }
-const a: SetErrorAction = {
-  type: "set_error",
-  payload: {
-    ingredients: null,
-  },
-};
 interface ChangedImageAction {
   type: "changed_image";
   image: string | undefined;
@@ -108,7 +102,7 @@ export const recipeReducer = (state: State, action: Action): State => {
           error: { ...state.error, name: null },
         };
       } else {
-        let res = {
+        const res = {
           ...state,
           name: action.name,
           error: { ...state.error, name: "Name must contain only letters." },
@@ -120,8 +114,8 @@ export const recipeReducer = (state: State, action: Action): State => {
     case "changed_instructions":
       return { ...state, instructions: action.instructions };
     case "changed_ingredients":
-      let ingredients = state.ingredients;
-      let ingredient = action.ingredient;
+      const ingredients = state.ingredients;
+      const ingredient = action.ingredient;
       let newIngredients: string[] = [];
       if (ingredient.checked === false && ingredients.includes(ingredient.id)) {
         newIngredients = ingredients.filter((i) => i !== ingredient.id);
@@ -149,7 +143,7 @@ export const recipeReducer = (state: State, action: Action): State => {
       if (action.disable) {
         return { ...state, submitEnabled: false };
       }
-      let willSubmitBeEnabled =
+      const willSubmitBeEnabled =
         !!state.name &&
         !!state.image &&
         state.ingredients.length > 0 &&

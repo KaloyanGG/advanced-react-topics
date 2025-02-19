@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import Notification from "./Notification.tsx";
 import idGen from "../../utils/idGenerator.ts";
 import "./Notifications.css";
-import genId from "../../utils/idGenerator.ts";
 type NotificationsProps = {
   duration: number;
 };
@@ -53,9 +52,11 @@ const Notifications = ({ duration }: NotificationsProps) => {
   );
 };
 export const notify = (message: string, type?: NotificationEnum) => {
-  type
-    ? addNotification(message, type)
-    : addNotification(message, NotificationEnum.INFO);
+  if (type) {
+    addNotification(message, type);
+  } else {
+    addNotification(message, NotificationEnum.INFO);
+  }
 };
 
 export default Notifications;

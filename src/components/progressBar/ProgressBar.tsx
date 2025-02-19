@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type ProgressBarProps = {
   className: string;
-  deleteNotification: Function;
+  deleteNotification: () => void;
   duration: number;
   paused: boolean;
 };

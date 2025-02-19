@@ -7,7 +7,6 @@ import IngredientModel from "./models/ingredient.model";
 import RecipeModel from "./models/recipe.model";
 import { UserModel } from "./models/user.model";
 import jwt from "jsonwebtoken";
-import { Types } from "mongoose";
 (async () => {
   await connectDB();
   populateDB();
@@ -17,7 +16,7 @@ const app = express();
 
 app.use(cors(), express.json());
 
-app.get("/", (req, res, next) => {
+app.get("/", (req, res) => {
   res.send(200);
 });
 

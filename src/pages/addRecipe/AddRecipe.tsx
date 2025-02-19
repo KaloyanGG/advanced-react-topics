@@ -23,7 +23,6 @@ const AddRecipe = () => {
   const {
     data: ingredients = [],
     isError,
-    error,
     isFetching,
   } = useQuery({
     queryKey: ["ingredients"],

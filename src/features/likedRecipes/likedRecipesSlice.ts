@@ -50,8 +50,14 @@ const likedRecipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(validateLikedRecipes.fulfilled, (state, { payload }) => {
-        state.ids = state.ids.filter((id) => payload.includes(id));
-        saveToLocalStorage("likedRecipesIds", state.ids); // Sync with localStorage
+        const newIds = state.ids.filter((id) => payload.includes(id));
+        if (
+          newIds.length !== state.ids.length ||
+          !newIds.every((id, index) => id === state.ids[index])
+        ) {
+          state.ids = newIds;
+          saveToLocalStorage("likedRecipesIds", state.ids); // Sync with localStorage
+        }
       })
       .addCase(validateLikedRecipes.rejected, (state) => {
         saveToLocalStorage("likedRecipesIds", []);

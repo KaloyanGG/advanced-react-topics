@@ -4,17 +4,17 @@ import RecipeCard, { RecipeType } from "../../components/recipeCard/RecipeCard";
 import { axiosInstance } from "../../config/config";
 import Pagination from "../../components/pagination/Pagination";
 import SimplePagination from "../../components/pagination/SimplePagination";
+import { useErrorBoundary } from "react-error-boundary";
 
 const recipesPerPage = 3;
 
 const Landing = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
-  const [error, setError] = useState<any>(null);
   const [activePage, setActivePage] = useState<number>(1);
   const [numberOfPages, setNumberOfPages] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
   const [simplePagination, setSimplePagination] = useState<boolean>(true);
-
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     axiosInstance
       .get<{ count: number }>("/recipesCount")
@@ -22,7 +22,7 @@ const Landing = () => {
         setNumberOfPages(Math.ceil(r.data.count / recipesPerPage));
       })
       .catch((error) => {
-        setError(error);
+        showBoundary(error);
       });
   }, []);
 
@@ -36,7 +36,7 @@ const Landing = () => {
         setTotal(r.data.totalCount);
       })
       .catch((error) => {
-        setError(error);
+        showBoundary(error);
       });
   }, [activePage]);
 
@@ -63,39 +63,33 @@ const Landing = () => {
   return (
     <div className='recipes-container'>
       <h1>Recipes List</h1>
-      {error ? (
-        <p>Error loading the recipes from the server</p>
-      ) : (
-        <>
-          <h3>Found: {total}</h3>
-          <div className='pagination-container'>
-            {simplePagination ? (
-              <SimplePagination
-                pages={numberOfPages}
-                activePage={activePage}
-                onPreviousClick={onPreviousClick}
-                onNextClick={onNextClick}
-              />
-            ) : (
-              <Pagination
-                pages={numberOfPages}
-                activePage={activePage}
-                onPageChange={onPageChange}
-              />
-            )}
-            <button className='swap' onClick={onPaginationSwap}>
-              {simplePagination ? "complex " : "simple "}
-              <br />
-              pagination
-            </button>
-          </div>
-          <div className='recipes-list'>
-            {recipes.map((recipe) => {
-              return <RecipeCard key={recipe._id} recipe={recipe} />;
-            })}
-          </div>
-        </>
-      )}
+      <h3>Found: {total}</h3>
+      <div className='pagination-container'>
+        {simplePagination ? (
+          <SimplePagination
+            pages={numberOfPages}
+            activePage={activePage}
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+          />
+        ) : (
+          <Pagination
+            pages={numberOfPages}
+            activePage={activePage}
+            onPageChange={onPageChange}
+          />
+        )}
+        <button className='swap' onClick={onPaginationSwap}>
+          {simplePagination ? "complex " : "simple "}
+          <br />
+          pagination
+        </button>
+      </div>
+      <div className='recipes-list'>
+        {recipes.map((recipe) => {
+          return <RecipeCard key={recipe._id} recipe={recipe} />;
+        })}
+      </div>
     </div>
   );
 };

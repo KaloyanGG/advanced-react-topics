@@ -5,7 +5,7 @@ import { NotificationEnum, NotificationType } from "./Notifications";
 type NotificationProps = {
   key: string;
   notification: NotificationType;
-  deleteNotification: Function;
+  deleteNotification: (id: string) => void;
   duration: number;
 };
 const Notification = ({

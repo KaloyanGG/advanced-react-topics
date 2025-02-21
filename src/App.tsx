@@ -6,11 +6,10 @@ import {
   PublicRoute,
 } from "./components/routeGuards/RouteGuards";
 import Recipes from "./pages/recipes/Recipes.tsx";
+import RecipeNotFound from "./components/errors/recipeNotFound/RecipeNotFound.tsx";
 
 const HomeLayout = lazy(() => import("./pages/homeLayout/HomeLayout.tsx"));
-const DefaultError = lazy(
-  () => import("./pages/defaultError/DefaultError.tsx")
-);
+const NotFound = lazy(() => import("./pages/notFound/NotFound.tsx"));
 const AddRecipe = lazy(() => import("./pages/addRecipe/AddRecipe.tsx"));
 const RecipeDetails = lazy(
   () => import("./pages/recipeDetails/RecipeDetails.tsx")
@@ -22,8 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <DefaultError />,
     children: [
+      {
+        path: "*",
+        element: <NotFound />,
+      },
       {
         index: true,
         element: <Recipes />,
@@ -40,6 +42,7 @@ const router = createBrowserRouter([
         element: <RecipeDetails />,
         path: "recipes/:id",
         loader: recipeLoader,
+        errorElement: <RecipeNotFound />,
       },
       {
         element: (
@@ -69,13 +72,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-function wait() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, 1500);
-  });
-}
+// function wait() {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve(true);
+//     }, 1500);
+//   });
+// }
 
 const App = () => {
   return <RouterProvider router={router} />;

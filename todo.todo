@@ -20,6 +20,7 @@ Todo list:
 18. fix recipes number - done
 19. Introduce the more practical pagination with a swap button between them - done
 20. Lazy loading - done
+21. Error Boundaries (Handling unexpected errors gracefully) - W I P
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -27,9 +28,10 @@ Todo list:
 
 13. useOptimistic for ??
 @. Fix likes - decide what to do
+X. Fix smaller screen when 2/3 recipes
+Y. Fix this "shorter to taller" problem when content changes
 
 
-- Error Boundaries (Handling unexpected errors gracefully)
 - Code Splitting & Lazy Loading (Optimize performance using React.lazy() and Suspense)
 - Optimistic UI Updates (Improving UX with immediate UI changes before the backend response)
 - React Testing Library & Jest (Unit and integration tests)

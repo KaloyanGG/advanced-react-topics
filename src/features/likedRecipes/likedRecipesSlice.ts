@@ -53,7 +53,7 @@ const likedRecipesSlice = createSlice({
         state.ids = state.ids.filter((id) => payload.includes(id));
         saveToLocalStorage("likedRecipesIds", state.ids); // Sync with localStorage
       })
-      .addCase(validateLikedRecipes.rejected, (state, { payload }) => {
+      .addCase(validateLikedRecipes.rejected, (state) => {
         saveToLocalStorage("likedRecipesIds", []);
         state.ids = [];
       })

@@ -4,15 +4,19 @@ import { axiosInstance } from "../../config/config";
 import "./Favorites.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import FavoritesRecipeCard from "../../components/favoritesRecipeCard/FavoritesRecipeCard";
-import { clearAllLiked } from "../../features/likedRecipes/likedRecipesSlice";
+import {
+  clearAllLiked,
+  validateLikedRecipes,
+} from "../../features/likedRecipes/likedRecipesSlice";
 import isClickOutside from "../../utils/isClickOutside";
+import { useErrorBoundary } from "react-error-boundary";
 
 const Favorites = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
-  const [error, setError] = useState<any>(null);
   const { ids } = useAppSelector((state) => state.likedRecipes);
   const dispatch = useAppDispatch();
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     if (ids.length === 0) {
       setRecipes([]);
@@ -23,10 +27,11 @@ const Favorites = () => {
         params: { ids: ids.join(",") },
       })
       .then((r) => {
+        dispatch(validateLikedRecipes(ids));
         setRecipes(r.data.recipes);
       })
       .catch((error) => {
-        setError(error);
+        showBoundary(error);
       });
   }, [ids]);
 
@@ -72,9 +77,7 @@ const Favorites = () => {
         )}
       </div>
 
-      {error ? (
-        <p>Error loading the recipes from the server</p>
-      ) : recipes.length === 0 ? (
+      {recipes.length === 0 ? (
         <p>List is empty.</p>
       ) : (
         <div className='favorites-list'>

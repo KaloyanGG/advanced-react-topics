@@ -7,7 +7,7 @@ type FavoritesRecipeCardProps = {
 };
 
 const FavoritesRecipeCard = ({ recipe }: FavoritesRecipeCardProps) => {
-  const { _id, image, ingredients, instructions, likes, name } = recipe;
+  const { _id, image, name } = recipe;
   const dispatch = useAppDispatch();
   const onClick = () => {
     dispatch(toggleLike(_id));

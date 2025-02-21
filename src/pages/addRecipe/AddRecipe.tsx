@@ -15,27 +15,24 @@ import {
 import Form from "../../components/form/Form";
 import FormInput from "../../components/formInput/FormInput";
 import useDebounce from "../../hooks/useDebounce";
+import IngredientsError from "../../components/errors/ingredientsError/IngredientsError";
+import IngredientsLoader from "../../components/loaders/IngredientsLoader";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
   const {
     data: ingredients = [],
     isError,
-    error,
+    isFetching,
   } = useQuery({
     queryKey: ["ingredients"],
     queryFn: fetchIngredients,
     staleTime: Infinity,
     gcTime: 24 * 60 * 60 * 1000,
+    retry: 2,
   });
   const navigate = useNavigate();
   const debouncedImageURL = useDebounce(state.image, 500);
-
-  useEffect(() => {
-    if (isError && error instanceof Error) {
-      dispatch({ type: "set_error", payload: { ingredients: error.message } });
-    }
-  }, [isError, error]);
 
   useEffect(() => {
     if (debouncedImageURL) {
@@ -185,6 +182,8 @@ const AddRecipe = () => {
         size='unset'
       />
       <IngredientsContainer
+        isFetching={isFetching}
+        isError={isError}
         error={state.ingredientsError}
         ingredients={ingredients}
         onChange={onIngredientsChange}
@@ -196,33 +195,36 @@ const AddRecipe = () => {
 
 const IngredientsContainer = memo(
   ({
-    error,
+    isFetching,
+    isError,
     ingredients,
     onChange,
   }: {
+    isFetching: boolean;
+    isError: boolean;
     error: string;
     ingredients: Ingredient[];
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   }) => {
-    return (
+    return isFetching ? (
+      <IngredientsLoader />
+    ) : (
       <div className='ingredients-container'>
-        {!error ? (
-          ingredients.map((i, idx) => {
-            return (
-              <Fragment key={idx}>
-                <label htmlFor={i.name}>{i.name}</label>
-                <input
-                  onChange={onChange}
-                  id={i.name}
-                  type='checkbox'
-                  name='ingredients[]'
-                  value={i._id}
-                />
-              </Fragment>
-            );
-          })
+        {isError ? (
+          <IngredientsError />
         ) : (
-          <p className='error'>Failed fetching the ingredients</p>
+          ingredients.map((i, idx) => (
+            <Fragment key={idx}>
+              <label htmlFor={i.name}>{i.name}</label>
+              <input
+                onChange={onChange}
+                id={i.name}
+                type='checkbox'
+                name='ingredients[]'
+                value={i._id}
+              />
+            </Fragment>
+          ))
         )}
       </div>
     );

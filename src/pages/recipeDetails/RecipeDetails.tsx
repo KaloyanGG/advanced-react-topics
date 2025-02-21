@@ -103,7 +103,7 @@ const RecipeDetails = () => {
   };
   return (
     <div className='recipe-details-container' ref={containerRef}>
-      {recipes.map(({ _id, image, name, instructions, likes }, idx) => (
+      {recipes.map(({ _id, image, name, instructions }, idx) => (
         <RecipeDetailsCard
           _id={_id}
           key={_id}
@@ -118,7 +118,6 @@ const RecipeDetails = () => {
           name={name}
           image={image}
           ingredients={filteredIngredients[name] || []}
-          likes={likes}
           instructions={instructions}
           // works for odd numbers, for even - N/A
           onClick={

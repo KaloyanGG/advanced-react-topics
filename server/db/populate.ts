@@ -5,7 +5,6 @@ const recipesList = [
   {
     id: 1,
     name: "Spaghetti Carbonara",
-    likes: 3,
     ingredients: [
       "spaghetti",
       "eggs",
@@ -21,7 +20,6 @@ const recipesList = [
   {
     id: 2,
     name: "Chicken Curry",
-    likes: 5,
     ingredients: ["onions", "garlic", "ginger", "curry powder", "butter"],
     instructions:
       "In a large skillet, melt butter over medium heat. Add chopped onions, garlic, and ginger, and sauté until aromatic. Add curry powder and stir to coat the mixture. Add a small amount of water or stock and let it simmer to thicken. Serve as a flavorful topping or mix into rice or vegetables.",
@@ -31,7 +29,6 @@ const recipesList = [
   {
     id: 3,
     name: "Caesar Salad",
-    likes: 1003,
     ingredients: [
       "romaine lettuce",
       "croutons",
@@ -47,7 +44,6 @@ const recipesList = [
   {
     id: 4,
     name: "Beef Stroganoff",
-    likes: 953,
     ingredients: [
       "beef",
       "onions",
@@ -64,7 +60,6 @@ const recipesList = [
   {
     id: 5,
     name: "Vegetable Stir Fry",
-    likes: 12,
     ingredients: [
       "broccoli",
       "carrots",
@@ -81,7 +76,6 @@ const recipesList = [
   {
     id: 6,
     name: "Margherita Pizza",
-    likes: 800,
     ingredients: [
       "flour",
       "parmesan cheese",
@@ -97,7 +91,6 @@ const recipesList = [
   {
     id: 7,
     name: "Pancakes",
-    likes: 1234,
     ingredients: ["flour", "milk", "eggs", "butter", "sugar"],
     instructions:
       "In a bowl, whisk together flour, sugar, and a pinch of salt. In a separate bowl, mix eggs and milk. Gradually combine the wet ingredients with the dry, mixing until smooth. Heat a pan over medium heat and melt some butter. Pour a ladleful of batter into the pan and cook until bubbles form on the surface. Flip and cook the other side until golden brown. Serve with your choice of toppings.",
@@ -107,7 +100,6 @@ const recipesList = [
   {
     id: 8,
     name: "Grilled Salmon",
-    likes: 567,
     ingredients: ["butter", "garlic", "parsley", "black pepper", "onions"],
     instructions:
       "Preheat the grill to medium heat. In a small bowl, mix melted butter, minced garlic, chopped parsley, and black pepper. Brush the mixture over the salmon and grill for 4-5 minutes per side or until cooked through. Serve with grilled onions on the side.",

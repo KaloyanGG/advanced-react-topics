@@ -20,7 +20,7 @@ Todo list:
 18. fix recipes number - done
 19. Introduce the more practical pagination with a swap button between them - done
 20. Lazy loading - done
-21. Error Boundaries (Handling unexpected errors gracefully) - W I P
+21. Error Boundaries (Handling unexpected errors gracefully) - done
 
 --------------------------------------------
 - make notifications cool disappear?

@@ -21,13 +21,13 @@ Todo list:
 19. Introduce the more practical pagination with a swap button between them - done
 20. Lazy loading - done
 21. Error Boundaries (Handling unexpected errors gracefully) - done
+22. Fix likes - decide what to do - done
 
 --------------------------------------------
 - make notifications cool disappear?
 - cache recipe details
 
 13. useOptimistic for ??
-@. Fix likes - decide what to do
 X. Fix smaller screen when 2/3 recipes
 Y. Fix this "shorter to taller" problem when content changes
 

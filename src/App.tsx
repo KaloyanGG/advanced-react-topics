@@ -6,6 +6,7 @@ import {
   PublicRoute,
 } from "./components/routeGuards/RouteGuards";
 import Recipes from "./pages/recipes/Recipes.tsx";
+import RecipeNotFound from "./components/errors/recipeNotFound/RecipeNotFound.tsx";
 
 const HomeLayout = lazy(() => import("./pages/homeLayout/HomeLayout.tsx"));
 const NotFound = lazy(() => import("./pages/notFound/NotFound.tsx"));
@@ -41,6 +42,7 @@ const router = createBrowserRouter([
         element: <RecipeDetails />,
         path: "recipes/:id",
         loader: recipeLoader,
+        errorElement: <RecipeNotFound />,
       },
       {
         element: (

@@ -16,6 +16,7 @@ Please do not try the recipes... 😆
 - Custom hooks
 - Lazy loading
 - Error Boundary
+- Suspense
 
 ## Non-react good practices:
 

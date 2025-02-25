@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../config/config";
-import { ChangeEvent, Fragment, memo, useEffect, useReducer } from "react";
+import { memo, Suspense, useEffect, useReducer } from "react";
 import { initialState, recipeReducer } from "../../reducers/recipeReducer";
 import validateImageURL from "../../utils/imageValidator";
-import { useQuery } from "@tanstack/react-query";
-import {
-  fetchIngredients,
-  Ingredient,
-} from "../../services/ingredientsService";
 import {
   NotificationEnum,
   notify,
@@ -17,20 +12,11 @@ import FormInput from "../../components/formInput/FormInput";
 import useDebounce from "../../hooks/useDebounce";
 import IngredientsError from "../../components/errors/ingredientsError/IngredientsError";
 import IngredientsLoader from "../../components/loaders/IngredientsLoader";
+import { ErrorBoundary } from "react-error-boundary";
+import IngredientsContainer from "./IngredientsContainer/IngredientsContainer";
 
 const AddRecipe = () => {
   const [state, dispatch] = useReducer(recipeReducer, initialState);
-  const {
-    data: ingredients = [],
-    isError,
-    isFetching,
-  } = useQuery({
-    queryKey: ["ingredients"],
-    queryFn: fetchIngredients,
-    staleTime: Infinity,
-    gcTime: 24 * 60 * 60 * 1000,
-    retry: 2,
-  });
   const navigate = useNavigate();
   const debouncedImageURL = useDebounce(state.image, 500);
 
@@ -181,55 +167,15 @@ const AddRecipe = () => {
         textarea
         size='unset'
       />
-      <IngredientsContainer
-        isFetching={isFetching}
-        isError={isError}
-        error={state.ingredientsError}
-        ingredients={ingredients}
-        onChange={onIngredientsChange}
-      />
+      <ErrorBoundary FallbackComponent={IngredientsError}>
+        <Suspense fallback={<IngredientsLoader />}>
+          <IngredientsContainer onChange={onIngredientsChange} />
+        </Suspense>
+      </ErrorBoundary>
       <ButtonsContainer disabled={!state.submitEnabled} />
     </Form>
   );
 };
-
-const IngredientsContainer = memo(
-  ({
-    isFetching,
-    isError,
-    ingredients,
-    onChange,
-  }: {
-    isFetching: boolean;
-    isError: boolean;
-    error: string;
-    ingredients: Ingredient[];
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  }) => {
-    return isFetching ? (
-      <IngredientsLoader />
-    ) : (
-      <div className='ingredients-container'>
-        {isError ? (
-          <IngredientsError />
-        ) : (
-          ingredients.map((i, idx) => (
-            <Fragment key={idx}>
-              <label htmlFor={i.name}>{i.name}</label>
-              <input
-                onChange={onChange}
-                id={i.name}
-                type='checkbox'
-                name='ingredients[]'
-                value={i._id}
-              />
-            </Fragment>
-          ))
-        )}
-      </div>
-    );
-  }
-);
 
 const ButtonsContainer = memo(({ disabled }: { disabled: boolean }) => {
   return (

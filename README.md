@@ -15,6 +15,7 @@ Please do not try the recipes... 😆
 - Redux Toolkit, selectors, actions, reducers, async thunk
 - Custom hooks
 - Lazy loading
+- Error Boundary
 
 ## Non-react good practices:
 

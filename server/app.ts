@@ -60,7 +60,10 @@ app.get("/recipesCount", async (req, res) => {
 
 app.get("/ingredients", async (_, res) => {
   const ingredients = await IngredientModel.find({});
-  res.send(ingredients);
+  // Simulate long response so that the loader of the ingredients is visible.
+  setTimeout(() => {
+    res.send(ingredients);
+  }, 3000);
 });
 
 app.post("/recipes", async (req: Request, res: Response) => {

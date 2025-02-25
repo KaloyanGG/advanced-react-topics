@@ -22,6 +22,7 @@ Todo list:
 20. Lazy loading - done
 21. Error Boundaries (Handling unexpected errors gracefully) - done
 22. Fix likes - decide what to do - done
+23. Suspense - for react query - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -31,8 +32,6 @@ Todo list:
 X. Fix smaller screen when 2/3 recipes
 Y. Fix this "shorter to taller" problem when content changes
 
-
-- Code Splitting & Lazy Loading (Optimize performance using React.lazy() and Suspense)
 - Optimistic UI Updates (Improving UX with immediate UI changes before the backend response)
 - React Testing Library & Jest (Unit and integration tests)
 
@@ -40,4 +39,3 @@ X. Tailwind CSS
 Z. Responsive design
 
 // todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview
-// suspense https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36301200#overview

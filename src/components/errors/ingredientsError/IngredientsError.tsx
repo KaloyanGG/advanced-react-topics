@@ -1,5 +1,9 @@
 const IngredientsError = () => {
-  return <p style={{ color: "red" }}>Error fetching the ingredients...</p>;
+  return (
+    <div className='ingredients-container'>
+      <p style={{ color: "red" }}>Error fetching the ingredients...</p>
+    </div>
+  );
 };
 
 export default IngredientsError;

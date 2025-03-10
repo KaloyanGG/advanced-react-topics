@@ -26,16 +26,12 @@ Todo list:
 
 --------------------------------------------
 - make notifications cool disappear?
-- cache recipe details
+- cache recipe details?
 
 13. useOptimistic for ??
-X. Fix smaller screen when 2/3 recipes
-Y. Fix this "shorter to taller" problem when content changes
 
 - Optimistic UI Updates (Improving UX with immediate UI changes before the backend response)
 - React Testing Library & Jest (Unit and integration tests)
 
 X. Tailwind CSS
 Z. Responsive design
-
-// todo read useRef initial render https://www.udemy.com/course/react-tutorial-and-projects-course/learn/lecture/36179330#overview

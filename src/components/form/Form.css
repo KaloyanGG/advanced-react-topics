@@ -131,9 +131,7 @@ form {
     border: 1px solid lightgray;
     border-radius: 5px;
     font-size: 20px;
-    padding: 2rem 6rem;
-
-    /* width: 100%; */
+    padding: 2rem calc(3rem + 2vw);
 
     &::after {
       content: "Ingredients";
@@ -153,10 +151,20 @@ form {
     }
   }
 
+  /* todo fix loading elements on small screen */
   div.ingredients-container {
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 0.5rem 0;
+    grid-template-columns: 1fr auto 1fr auto;
+    gap: 1rem;
+
+    input {
+      aspect-ratio: 1/1;
+    }
+
+    @media (max-width: 600px) {
+      gap: 1rem;
+      grid-template-columns: 1fr auto;
+    }
 
     label {
       text-transform: capitalize;

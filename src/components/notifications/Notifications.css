@@ -4,6 +4,7 @@ div.notifications-container {
   right: 2vw;
 
   font-family: "Poppins", sans-serif;
+
   div.notification {
     --info: rgb(62, 151, 252);
     --error: rgb(249, 88, 89);
@@ -75,6 +76,15 @@ div.notifications-container {
     }
     &.success {
       background-color: var(--success);
+    }
+  }
+
+  @media (max-width: 600px) {
+    right: unset;
+    top: 0;
+    div.notification {
+      width: 100vw;
+      max-width: unset;
     }
   }
 }

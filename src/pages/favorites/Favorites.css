@@ -8,7 +8,7 @@
   dialog {
     margin: auto;
     padding: 1.5rem;
-    width: 25vw;
+    width: clamp(20rem, 25vw, 25rem);
     border-radius: 1rem;
     &::backdrop {
       background: rgba(0, 0, 0, 0.3);

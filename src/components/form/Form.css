@@ -151,23 +151,25 @@ form {
     }
   }
 
-  /* todo fix loading elements on small screen */
   div.ingredients-container {
     display: grid;
-    grid-template-columns: 1fr auto 1fr auto;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
 
-    input {
-      aspect-ratio: 1/1;
-    }
-
     @media (max-width: 600px) {
-      gap: 1rem;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr;
+      padding: 2rem 6rem;
     }
-
-    label {
-      text-transform: capitalize;
+    div.ingredient-and-checkbox {
+      display: flex;
+      justify-content: space-between;
+      label {
+        text-transform: capitalize;
+      }
+      input {
+        height: 1.5rem;
+        aspect-ratio: 1/1;
+      }
     }
   }
   div.buttons-container {
@@ -180,7 +182,8 @@ form {
       padding: 0.625rem 1rem;
       border-radius: 2rem;
       color: var(--white);
-      width: 280px;
+      width: 45%;
+      max-width: 16rem;
       margin: 0 auto;
 
       &:hover:not(:disabled) {

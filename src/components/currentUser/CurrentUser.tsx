@@ -4,7 +4,7 @@ const CurrentUser = () => {
   const { currentUser } = useAppSelector((state) => state.auth);
 
   return (
-    <p style={{ textAlign: "end", paddingRight: "1rem" }}>
+    <p className='current-user'>
       Hi,{" "}
       <span
         style={{

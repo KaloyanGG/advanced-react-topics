@@ -1,6 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ChangeEvent } from "react";
-import { Fragment } from "react/jsx-runtime";
 import { fetchIngredients } from "../../../services/ingredientsService";
 
 const IngredientsContainer = ({
@@ -19,7 +18,7 @@ const IngredientsContainer = ({
   return (
     <div className='ingredients-container'>
       {ingredients.map((i, idx) => (
-        <Fragment key={idx}>
+        <div className='ingredient-and-checkbox' key={idx}>
           <label htmlFor={i.name}>{i.name}</label>
           <input
             onChange={onChange}
@@ -28,7 +27,7 @@ const IngredientsContainer = ({
             name='ingredients[]'
             value={i._id}
           />
-        </Fragment>
+        </div>
       ))}
     </div>
   );

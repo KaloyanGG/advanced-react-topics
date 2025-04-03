@@ -10,6 +10,9 @@
   div.pagination-container {
     position: relative;
     button.swap {
+      @media (max-width: 600px) {
+        display: none;
+      }
       position: absolute;
       right: 0;
       top: 50%;

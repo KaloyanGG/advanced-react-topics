@@ -40,6 +40,7 @@ const RecipeDetails = () => {
       recipes.forEach((recipe) => {
         if (!arrayAIncludesFullyArrayB(allIngredientsIds, recipe.ingredients)) {
           queryClient.invalidateQueries({ queryKey: ["ingredients"] });
+          return;
         }
         filteredIngredientsMap = {
           ...filteredIngredientsMap,

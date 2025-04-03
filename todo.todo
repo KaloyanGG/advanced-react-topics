@@ -23,6 +23,7 @@ Todo list:
 21. Error Boundaries (Handling unexpected errors gracefully) - done
 22. Fix likes - decide what to do - done
 23. Suspense - for react query - done
+24. Responsive design - done
 
 --------------------------------------------
 - make notifications cool disappear?
@@ -34,4 +35,3 @@ Todo list:
 - React Testing Library & Jest (Unit and integration tests)
 
 X. Tailwind CSS
-Z. Responsive design

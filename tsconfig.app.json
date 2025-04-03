@@ -16,7 +16,8 @@
 
     /* Linting */
     "strict": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["cypress"]
   },
-  "include": ["src"]
+  "include": ["src", "cypress"]
 }

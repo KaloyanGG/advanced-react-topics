@@ -20,6 +20,7 @@ Please do not try the recipes... 😆
 
 ## Non-react good practices:
 
+- Responsive Design
 - Custom Axios instance
 - Good folder structure
 - ESLint

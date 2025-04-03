@@ -74,7 +74,6 @@ nav {
   }
 
   @media (max-width: 600px) {
-    /* display: none; */
     flex-direction: column;
     width: 50%;
     position: fixed;
@@ -107,7 +106,7 @@ svg.menu-button {
   }
   border-radius: 50%;
   @media (max-width: 600px) {
-    display: unset;
+    display: block;
   }
 }
 

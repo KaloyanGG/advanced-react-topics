@@ -14,6 +14,9 @@ const AddRecipe = lazy(() => import("./pages/addRecipe/AddRecipe.tsx"));
 const RecipeDetails = lazy(
   () => import("./pages/recipeDetails/RecipeDetails.tsx")
 );
+const MobileRecipeDetails = lazy(
+  () => import("./pages/mobileRecipeDetails/MobileRecipeDetails.tsx")
+);
 const Authenticate = lazy(() => import("./pages/authenticate/Authenticate"));
 const Favorites = lazy(() => import("./pages/favorites/Favorites"));
 
@@ -39,7 +42,8 @@ const router = createBrowserRouter([
         path: "addRecipe",
       },
       {
-        element: <RecipeDetails />,
+        element:
+          window.innerWidth > 768 ? <RecipeDetails /> : <MobileRecipeDetails />,
         path: "recipes/:id",
         loader: recipeLoader,
         errorElement: <RecipeNotFound />,

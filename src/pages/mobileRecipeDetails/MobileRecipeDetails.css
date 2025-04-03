@@ -1,0 +1,15 @@
+div.mobile-recipe-details {
+  width: 100%;
+  background-color: var(--peach);
+  overflow: hidden;
+  border-radius: 1rem;
+  img {
+    width: 100%;
+  }
+  div.content {
+    padding: 0.5rem;
+    & > *:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

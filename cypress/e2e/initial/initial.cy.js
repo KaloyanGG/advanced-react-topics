@@ -52,7 +52,7 @@ describe("Recipes website", () => {
     cy.get("button").contains("Refresh").click();
     cy.get("h2").contains("Spaghetti Carbonara");
   });
-  it("Likes the recipe and navigates to login", () => {
+  it("Likes the recipe and navigates to login, sees notification, closes it", () => {
     cy.visit("http://localhost:5173");
     // click button with class name "like"
     cy.get("button.like").first().click();
@@ -60,6 +60,10 @@ describe("Recipes website", () => {
     cy.url().should("include", "/login");
     // see a span with text "You have to login first"
     cy.get("span.notification").contains("You have to login first");
+    // close notification
+    cy.get("svg.close-notification").click();
+    // check if the notification is gone
+    cy.get("span.notification").should("not.exist");
   });
   it("Goes to register page, reset form button works, sees error for different passwords, then registers, then goes to login page", () => {
     cy.intercept(
@@ -130,7 +134,7 @@ describe("Recipes website", () => {
       expect(user).to.not.be.null; // Ensure user is not null
     });
   });
-  describe.only("Logged in activities", () => {
+  describe("Logged in activities", () => {
     // Login before each test
     beforeEach(() => {
       cy.visit("http://localhost:5173/login");

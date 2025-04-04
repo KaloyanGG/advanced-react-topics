@@ -134,8 +134,8 @@ describe("Logged out activities", () => {
       expect(user).to.not.be.null; // Ensure user is not null
     });
   });
-  describe.only("Pagination", () => {
-    it.only("Changes to second page, swaps pagination, checks classes, changes to first page", () => {
+  describe("Pagination", () => {
+    it("Changes to second page, swaps pagination, checks classes, changes to first page", () => {
       cy.visit("http://localhost:5173");
       // Click on the second page button
       cy.get("button.right").click();

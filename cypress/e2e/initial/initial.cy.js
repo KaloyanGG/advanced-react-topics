@@ -174,8 +174,22 @@ describe("Recipes website", () => {
       // Check if the <strong> contains "Loading"
       cy.get("strong").contains("Loading");
     });
-    it.only("", () => {
-      cy.visit("http://localhost:5173");
+    it.only("Logs out, backs to login page, sees notification, 'hi' message changes, localstorage is clean", () => {
+      // Click on the logout link
+      cy.get("a").contains("Logout").click();
+      // Check if the URL is the login page
+      cy.url().should("include", "/login");
+      // Check if the notification is visible
+      cy.get("span.notification").contains("Logout successful");
+      // Check if "Hi, guest!" is visible
+      cy.get("p.current-user").contains("Hi, guest!");
+      // Check if the user object is removed from localStorage
+      cy.window().then((window) => {
+        const user = window.localStorage.getItem("user");
+        expect(user).to.be.null; // Ensure user is null
+      });
+      // Check if the favorites badge has zero it it
+      cy.get("span.badge").contains("0");
     });
   });
 });

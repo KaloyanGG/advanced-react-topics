@@ -29,7 +29,7 @@ const Landing = () => {
   useEffect(() => {
     axiosInstance
       .get<{ recipes: RecipeType[]; totalCount: number }>(
-        `/recipes?page=${activePage}?&limit=${recipesPerPage}`
+        `/recipes?page=${activePage}&limit=${recipesPerPage}`
       )
       .then((r) => {
         setRecipes(r.data.recipes);

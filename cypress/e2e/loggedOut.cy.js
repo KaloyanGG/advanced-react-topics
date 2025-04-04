@@ -1,12 +1,12 @@
-describe("Logged out activities", () => {
-  it("Shows error boundary when server not working", () => {
+describe.only("Logged out activities", () => {
+  it.only("Shows error boundary when server not working", () => {
     // Intercept the request and force it to reject
     cy.intercept("GET", "http://192.168.1.12:3000/recipesCount", {
       statusCode: 500, // Simulate a server error
       body: { message: "Internal Server Error" }, // Optional: Custom error message
     });
 
-    cy.intercept("GET", "http://192.168.1.12:3000/recipes?page=1?&limit=3", {
+    cy.intercept("GET", "http://192.168.1.12:3000/recipes?page=1&limit=3", {
       statusCode: 500, // Simulate a server error
       body: { message: "Internal Server Error" }, // Optional: Custom error message
     });

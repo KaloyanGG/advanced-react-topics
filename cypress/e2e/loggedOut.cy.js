@@ -134,4 +134,27 @@ describe("Logged out activities", () => {
       expect(user).to.not.be.null; // Ensure user is not null
     });
   });
+  describe.only("Pagination", () => {
+    it.only("Changes to second page, swaps pagination, checks classes, changes to first page", () => {
+      cy.visit("http://localhost:5173");
+      // Click on the second page button
+      cy.get("button.right").click();
+      cy.get("div.active-page").contains("2");
+      // Swaps pagination
+      cy.get("button.swap").click();
+      cy.get("button.swap").contains("simple pagination");
+      // A div from the complex pagination exists
+      cy.get("div.page-item.number").should("exist");
+      // The first div.page-item doesn't have class active
+      cy.get("div.page-item").first().should("not.have.class", "active");
+      // The second div.page-item has class active
+      cy.get("div.page-item").eq(1).should("have.class", "active");
+      // Click on the first page
+      cy.get("div.page-item.number").first().click();
+      // The first div.page-item has class active
+      cy.get("div.page-item").first().should("have.class", "active");
+      // The second div.page-item doesn't have class active
+      cy.get("div.page-item").eq(1).should("not.have.class", "active");
+    });
+  });
 });

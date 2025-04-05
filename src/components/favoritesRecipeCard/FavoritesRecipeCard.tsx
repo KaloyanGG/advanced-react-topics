@@ -18,7 +18,7 @@ const FavoritesRecipeCard = ({ recipe }: FavoritesRecipeCardProps) => {
       <img src={image} alt={name} />
       <div className='overlay'>
         <h1>{name}</h1>
-        <button onClick={onClick}></button>
+        <button className='remove-favorite' onClick={onClick}></button>
       </div>
     </div>
   );

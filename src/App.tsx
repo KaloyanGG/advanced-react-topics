@@ -38,7 +38,11 @@ const router = createBrowserRouter([
         element: <Recipes />,
       },
       {
-        element: <AddRecipe />,
+        element: (
+          <PrivateRoute>
+            <AddRecipe />
+          </PrivateRoute>
+        ),
         path: "addRecipe",
       },
       {

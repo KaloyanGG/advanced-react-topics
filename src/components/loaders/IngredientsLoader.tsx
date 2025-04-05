@@ -18,6 +18,7 @@ const IngredientsLoader = ({
   return (
     <div className='ingredients-error'>
       <ContentLoader
+        className='ingredients-loader'
         speed={1.5}
         backgroundColor='white'
         foregroundColor='var(--peach)'

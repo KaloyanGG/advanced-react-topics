@@ -38,3 +38,4 @@ Please do not try the recipes... 😆
 5. Run `npm start` in the server folder
 6. Run `npm start` in the main folder
 7. Open the browser and go to `http://localhost:/5173`
+8. In case you want to run the tests - Make sure both the server and the client are running, then run 'npm run cy:open' command in the main folder, choose E2E Testing, choose the browser you prefer and from there you can run whichever test file you want

@@ -17,6 +17,7 @@ Please do not try the recipes... 😆
 - Lazy loading
 - Error Boundary
 - Suspense
+- E2E Tests
 
 ## Non-react good practices:
 

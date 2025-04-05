@@ -24,14 +24,9 @@ Todo list:
 22. Fix likes - decide what to do - done
 23. Suspense - for react query - done
 24. Responsive design - done
+25. Testing - done
 
---------------------------------------------
-- make notifications cool disappear?
-- cache recipe details?
 
-13. useOptimistic for ??
-
-- Optimistic UI Updates (Improving UX with immediate UI changes before the backend response)
-- React Testing Library & Jest (Unit and integration tests)
-
-X. Tailwind CSS
+Ideas:
+ - Tailwind CSS
+ - Notifications disappear effect

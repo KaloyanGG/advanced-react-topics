@@ -1,5 +1,5 @@
-describe.only("Logged out activities", () => {
-  it.only("Shows error boundary when server not working", () => {
+describe("Logged out activities", () => {
+  it("Shows error boundary when server not working", () => {
     // Intercept the request and force it to reject
     cy.intercept("GET", "http://192.168.1.12:3000/recipesCount", {
       statusCode: 500, // Simulate a server error

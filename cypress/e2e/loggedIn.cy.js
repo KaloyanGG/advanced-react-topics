@@ -133,4 +133,48 @@ describe("Logged in activities", () => {
       cy.get("h2").contains("Test Recipe");
     });
   });
+  describe("Favorites", () => {
+    it("Goes to favorites, sees list is empty, returns to recipes, favorites 2 recipes, goes to favorites page, remove one, clear all, cancel, clear all", () => {
+      cy.visit("http://localhost:5173/favorites");
+      cy.get("div.favorites-container>p").contains("List is empty.");
+      // Go to recipes page from the nav
+      cy.get("a").contains("Recipes").click();
+      // Like the first and the third recipes
+      cy.get("button.like").first().click();
+      cy.get("button.like").eq(2).click();
+      // Go to favorites page
+      cy.get("a").contains("Favorites").click();
+      // div.favorites-recipe-card is there 2 times
+      cy.get("div.favorites-recipe-card").should("have.length", 2);
+      // Click button with text of its ::before element "Remove"
+      cy.get("button.remove-favorite").first().click();
+      cy.get("div.favorites-recipe-card").should("have.length", 1);
+    });
+    it("Favorites 2 recipes, goes to favorites, clicks clear all, dialog appears, click cancel, recipes still there, clicks clear all, clicks yes in the dialog, no recipes", () => {
+      cy.visit("http://localhost:5173");
+      // Like the first and the third recipes
+      cy.get("button.like").first().click();
+      cy.get("button.like").eq(2).click();
+      // Go to favorites page
+      cy.get("a").contains("Favorites").click();
+      // div.favorites-recipe-card is there 2 times
+      cy.get("div.favorites-recipe-card").should("have.length", 2);
+      // Click 'Clear all' button
+      cy.get("button.clear").click();
+      // Check if the dialog appears
+      cy.get("dialog").should("be.visible");
+      // Click 'Cancel' button
+      cy.get("button.cancel").click();
+      // Check if the dialog disappears
+      cy.get("dialog").should("not.be.visible");
+      // Click 'Clear all' button again
+      cy.get("button.clear").click();
+      // Check if the dialog appears
+      cy.get("dialog").should("be.visible");
+      // Click 'yes'
+      cy.get("button.yes").click();
+      // div.favorites-recipe-card is not there
+      cy.get("div.favorites-recipe-card").should("not.exist");
+    });
+  });
 });

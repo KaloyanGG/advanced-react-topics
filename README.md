@@ -32,7 +32,7 @@ Please do not try the recipes... 😆
 ## How to run the project:
 
 1. Clone the repository
-2. Make sure you have mongoDB installed and running on port 27017, also also Node.js and TypeScript
+2. Make sure you have mongoDB installed and running on port 27017, also Node.js and TypeScript
 3. Run `npm install`
 4. Go into the server folder and run `npm install`
 5. Run `npm start` in the server folder

@@ -6,7 +6,7 @@ describe("Logged in activities", () => {
     cy.intercept(
       {
         method: "POST",
-        url: "http://192.168.1.12:3000/auth/login",
+        url: "/auth/login",
       },
       {
         statusCode: 200,

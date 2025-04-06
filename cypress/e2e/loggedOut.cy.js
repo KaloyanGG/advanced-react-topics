@@ -1,12 +1,12 @@
 describe("Logged out activities", () => {
   it("Shows error boundary when server not working", () => {
     // Intercept the request and force it to reject
-    cy.intercept("GET", "http://192.168.1.12:3000/recipesCount", {
+    cy.intercept("GET", "/recipesCount", {
       statusCode: 500, // Simulate a server error
       body: { message: "Internal Server Error" }, // Optional: Custom error message
     });
 
-    cy.intercept("GET", "http://192.168.1.12:3000/recipes?page=1&limit=3", {
+    cy.intercept("GET", "/recipes?page=1&limit=3", {
       statusCode: 500, // Simulate a server error
       body: { message: "Internal Server Error" }, // Optional: Custom error message
     });
@@ -26,7 +26,7 @@ describe("Logged out activities", () => {
     cy.intercept(
       {
         method: "GET",
-        url: "http://192.168.1.12:3000/recipesCount",
+        url: "/recipesCount",
         times: 1, // Intercept only once
       },
       {
@@ -38,7 +38,7 @@ describe("Logged out activities", () => {
     cy.intercept(
       {
         method: "GET",
-        url: "http://192.168.1.12:3000/recipes?page=1?&limit=3",
+        url: "/recipes?page=1?&limit=3",
         times: 1, // Intercept only once
       },
       {
@@ -69,7 +69,7 @@ describe("Logged out activities", () => {
     cy.intercept(
       {
         method: "POST",
-        url: "http://192.168.1.12:3000/auth/register",
+        url: "/auth/register",
       },
       {
         statusCode: 201,
@@ -111,7 +111,7 @@ describe("Logged out activities", () => {
     cy.intercept(
       {
         method: "POST",
-        url: "http://192.168.1.12:3000/auth/login",
+        url: "/auth/login",
       },
       {
         statusCode: 200,

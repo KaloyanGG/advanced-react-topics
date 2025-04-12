@@ -1,6 +1,6 @@
 # This is a React Application which utilizes the main React functionalities (simple and more complex).
 
-Please do not try the recipes... 😆
+You can try some recipe if you want... 😆
 
 ## React topics used:
 
